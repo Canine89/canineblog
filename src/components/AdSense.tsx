@@ -33,7 +33,7 @@ export function AdSense({ adSlot, adFormat = 'auto', style, className }: AdSense
       <ins
         className="adsbygoogle"
         style={{ display: 'block' }}
-        data-ad-client="ca-pub-XXXXXXXXXXXXXXXX" // AdSense 클라이언트 ID로 교체
+        data-ad-client="ca-pub-1531500505272848"
         data-ad-slot={adSlot}
         data-ad-format={adFormat}
         data-full-width-responsive="true"
