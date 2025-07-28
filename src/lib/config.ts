@@ -1,6 +1,6 @@
 export const siteConfig = {
   // 블로그 기본 정보
-  title: "IT 애호가 편집자P의 편집실",
+  title: "편집자P의 편집실",
   description: "공부하고, 쓰고, 익혀라",
 
   // 블로그 주인 정보

@@ -256,7 +256,7 @@ export default function BooksPage() {
       <div className="text-center space-y-4">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white">📚 편집한 도서</h1>
         <p className="text-xl text-gray-600 dark:text-gray-300">
-          {siteConfig.author.name}이 기획하고 편집한 도서들입니다
+          {siteConfig.author.name}가 기획하고 편집한 도서들입니다
         </p>
       </div>
 
