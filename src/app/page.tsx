@@ -57,7 +57,6 @@ export default function Home() {
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             {siteConfig.description}
           </p>
-          {/* Removed bio section based on user request */}
         </div>
 
         {/* Posts Grid */}
@@ -65,38 +64,36 @@ export default function Home() {
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">최근 포스트</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {posts.map((post, index) => (
-              <div key={post.id}>
-                <article className="group relative rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-all hover:shadow-md">
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-                      <time dateTime={post.date}>
-                        {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
-                      </time>
-                    </div>
-                    <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
-                      <a href={`/posts/${post.id}`} className="block">
-                        {post.title}
-                      </a>
-                    </h3>
-                    <p className="text-gray-600 dark:text-gray-300 line-clamp-3">{post.excerpt}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {post.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-200"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+              <article key={post.id} className="group relative rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-all hover:shadow-md">
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
+                    <time dateTime={post.date}>
+                      {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+                    </time>
                   </div>
-                </article>
-
-                {/* 포스트 사이 광고 (2번째 포스트 후) */}
-                {index === 1 && <InlineAd />}
-              </div>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                    <a href={`/posts/${post.id}`} className="block">
+                      {post.title}
+                    </a>
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3">{post.excerpt}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="inline-flex items-center rounded-full bg-gray-100 dark:bg-gray-700 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:text-gray-200"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </article>
             ))}
           </div>
+          
+          {/* 포스트 사이 광고 (2번째 포스트 후) */}
+          {posts.length >= 2 && <InlineAd />}
         </div>
 
         {/* Stats */}
