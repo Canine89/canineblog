@@ -1,0 +1,161 @@
+import { getPostData, getAllPostIds } from '@/lib/markdown'
+import { format } from 'date-fns'
+import { ko } from 'date-fns/locale'
+import { Metadata } from 'next'
+import { siteConfig } from '@/lib/config'
+import Link from 'next/link'
+
+interface PostPageProps {
+  params: Promise<{
+    id: string
+  }>
+}
+
+export async function generateStaticParams() {
+  const paths = getAllPostIds()
+  return paths
+}
+
+export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
+  const resolvedParams = await params
+  const post = await getPostData(resolvedParams.id)
+  
+  const url = `${siteConfig.site.url}/posts/${resolvedParams.id}`
+  
+  return {
+    title: post.title,
+    description: post.excerpt,
+    keywords: post.tags,
+    authors: [{ name: siteConfig.author.name }],
+    creator: siteConfig.author.name,
+    publisher: siteConfig.author.name,
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: 'article',
+      url: url,
+      siteName: siteConfig.title,
+      locale: 'ko_KR',
+      publishedTime: post.date,
+      authors: [siteConfig.author.name],
+      tags: post.tags,
+      images: [
+        {
+          url: `${siteConfig.site.url}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description: post.excerpt,
+      images: [`${siteConfig.site.url}/og-image.jpg`],
+      creator: '@limedaddy_8924',
+    },
+    alternates: {
+      canonical: url,
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        'max-video-preview': -1,
+        'max-image-preview': 'large',
+        'max-snippet': -1,
+      },
+    },
+  }
+}
+
+export default async function PostPage({ params }: PostPageProps) {
+  const resolvedParams = await params
+  const post = await getPostData(resolvedParams.id)
+
+  // 구조화된 데이터 (JSON-LD)
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": post.title,
+    "description": post.excerpt,
+    "author": {
+      "@type": "Person",
+      "name": siteConfig.author.name,
+      "url": siteConfig.author.social.github
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": siteConfig.title,
+      "url": siteConfig.site.url
+    },
+    "datePublished": post.date,
+    "dateModified": post.date,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `${siteConfig.site.url}/posts/${resolvedParams.id}`
+    },
+    "keywords": post.tags.join(", "),
+    "articleSection": "Blog",
+    "inLanguage": "ko-KR"
+  }
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <article className="prose prose-lg max-w-none">
+        {/* Header */}
+        <header className="mb-8">
+          <div className="mb-4">
+            <time 
+              dateTime={post.date}
+              className="text-sm text-gray-500"
+            >
+              {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+            </time>
+          </div>
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+            {post.title}
+          </h1>
+          <p className="text-xl text-gray-600 mb-6">
+            {post.excerpt}
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </header>
+
+        {/* Content */}
+        <div 
+          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-code:text-gray-800 prose-pre:bg-gray-50 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50"
+          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
+
+        {/* Navigation */}
+        <nav className="mt-12 pt-8 border-t border-gray-200">
+          <div className="flex justify-between items-center">
+            <Link
+              href="/"
+              className="inline-flex items-center text-blue-600 hover:text-blue-800"
+            >
+              ← 홈으로 돌아가기
+            </Link>
+          </div>
+        </nav>
+      </article>
+    </>
+  )
+} 
