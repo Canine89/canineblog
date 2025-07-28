@@ -44,10 +44,10 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      
+
       {/* 헤더 광고 */}
       <HeaderAd />
-      
+
       <div className="space-y-8">
         {/* Hero Section */}
         <div className="text-center space-y-4">
@@ -57,6 +57,7 @@ export default function Home() {
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
             {siteConfig.description}
           </p>
+          {/* Removed bio section based on user request */}
         </div>
 
         {/* Posts Grid */}
@@ -90,7 +91,7 @@ export default function Home() {
                     </div>
                   </div>
                 </article>
-                
+
                 {/* 포스트 사이 광고 (2번째 포스트 후) */}
                 {index === 1 && <InlineAd />}
               </div>
@@ -113,14 +114,14 @@ export default function Home() {
             </div>
             <div>
               <div className="text-2xl font-bold text-gray-900 dark:text-white">
-                {format(new Date(posts[0]?.date || Date.now()), 'yyyy년', { locale: ko })}
+                2025년
               </div>
               <div className="text-sm text-gray-600 dark:text-gray-400">시작 연도</div>
             </div>
           </div>
         </div>
       </div>
-      
+
       {/* 푸터 광고 */}
       <FooterAd />
     </>

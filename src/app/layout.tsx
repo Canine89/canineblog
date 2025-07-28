@@ -150,7 +150,7 @@ export default function RootLayout({
               <div className="flex flex-col items-center space-y-4">
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-gray-600 dark:text-gray-400">
-                    © 2024 {siteConfig.author.name}. Next.js로 제작되었습니다.
+                    © 2025 {siteConfig.author.name}. Next.js로 제작되었습니다.
                   </span>
                 </div>
                 <div className="flex space-x-4">
