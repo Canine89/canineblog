@@ -88,8 +88,7 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#000000" />
         <meta name="color-scheme" content="light dark" />
-        {/* Google AdSense 검증 메타 태그 (구글에서 제공하는 코드로 교체) */}
-        {/* <meta name="google-site-verification" content="your-verification-code" /> */}
+        <meta name="google-adsense-account" content="ca-pub-1531500505272848" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
