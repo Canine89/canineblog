@@ -47,7 +47,7 @@ export function HeaderAd() {
   return (
     <div className="my-4">
       <AdSense 
-        adSlot="header-ad-slot" 
+        adSlot="6031330884" 
         className="text-center"
         style={{ minHeight: '90px' }}
       />
@@ -59,7 +59,7 @@ export function SidebarAd() {
   return (
     <div className="my-4">
       <AdSense 
-        adSlot="sidebar-ad-slot" 
+        adSlot="6031330884" 
         adFormat="vertical"
         className="text-center"
         style={{ minHeight: '600px' }}
@@ -72,7 +72,7 @@ export function InlineAd() {
   return (
     <div className="my-8">
       <AdSense 
-        adSlot="inline-ad-slot" 
+        adSlot="6031330884" 
         adFormat="rectangle"
         className="text-center"
         style={{ minHeight: '250px' }}
@@ -85,7 +85,7 @@ export function FooterAd() {
   return (
     <div className="my-4">
       <AdSense 
-        adSlot="footer-ad-slot" 
+        adSlot="6031330884" 
         className="text-center"
         style={{ minHeight: '90px' }}
       />
