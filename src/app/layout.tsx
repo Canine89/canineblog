@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/config'
 import { ThemeToggle } from '@/components/ThemeToggle'
 import Script from 'next/script'
 import Link from 'next/link'
+import { MobileNav } from '@/components/MobileNav'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -121,24 +122,38 @@ export default function RootLayout({
           <header className="sticky top-0 z-50 border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
               <div className="flex h-16 items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
+                {/* Logo and Title */}
+                <div className="flex items-center space-x-2 sm:space-x-3">
+                  <Link href="/" className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">
                     📝 {siteConfig.title}
                   </Link>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">by {siteConfig.author.name}</span>
+                  <span className="hidden sm:inline text-sm text-gray-500 dark:text-gray-400">
+                    by {siteConfig.author.name}
+                  </span>
                 </div>
-                <nav className="flex items-center space-x-8">
+                
+                {/* Desktop Navigation */}
+                <nav className="hidden md:flex items-center space-x-8">
                   <Link href="/" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                     홈
                   </Link>
                   <Link href="/tags" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                     태그
                   </Link>
+                  <Link href="/books" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
+                    편집한 도서
+                  </Link>
                   <Link href="/about" className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">
                     소개
                   </Link>
                   <ThemeToggle />
                 </nav>
+                
+                {/* Mobile Navigation */}
+                <div className="flex items-center space-x-4 md:hidden">
+                  <ThemeToggle />
+                  <MobileNav />
+                </div>
               </div>
             </div>
           </header>

@@ -51,32 +51,32 @@ export default function Home() {
       <div className="space-y-8">
         {/* Hero Section */}
         <div className="text-center space-y-4">
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white sm:text-5xl">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">
             {siteConfig.title}
           </h1>
-          <p className="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto px-4">
             {siteConfig.description}
           </p>
         </div>
 
         {/* Posts Grid */}
-        <div className="space-y-8">
-          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">최근 포스트</h2>
-          <div className="grid gap-6 md:grid-cols-2">
+        <div className="space-y-6 sm:space-y-8">
+          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900 dark:text-white">최근 포스트</h2>
+          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
             {posts.map((post, index) => (
-              <article key={post.id} className="group relative rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm transition-all hover:shadow-md">
+              <article key={post.id} className="group relative rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-4 sm:p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="space-y-3">
                   <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
                     <time dateTime={post.date}>
                       {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
                     </time>
                   </div>
-                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
+                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400">
                     <a href={`/posts/${post.id}`} className="block">
                       {post.title}
                     </a>
                   </h3>
-                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3">{post.excerpt}</p>
+                  <p className="text-gray-600 dark:text-gray-300 line-clamp-3 text-sm sm:text-base">{post.excerpt}</p>
                   <div className="flex flex-wrap gap-2">
                     {post.tags.map((tag) => (
                       <span
@@ -97,23 +97,23 @@ export default function Home() {
         </div>
 
         {/* Stats */}
-        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+        <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-4 sm:p-6">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">{posts.length}</div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">총 포스트</div>
+              <div className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">{posts.length}</div>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">총 포스트</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 {Array.from(new Set(posts.flatMap((post) => post.tags))).length}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">태그 수</div>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">태그 수</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+              <div className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                 2025년
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">시작 연도</div>
+              <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">시작 연도</div>
             </div>
           </div>
         </div>
