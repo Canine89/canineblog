@@ -8,17 +8,20 @@ const categories = [
   {
     name: '개발',
     path: '/category/dev',
-    description: '개발 관련 포스트'
+    description: '개발 관련 포스트',
+    icon: '💻'
   },
   {
     name: '팁',
     path: '/category/tip',
-    description: '유용한 개발 팁'
+    description: '유용한 개발 팁',
+    icon: '💡'
   },
   {
     name: '책',
     path: '/category/book',
-    description: '책 리뷰 및 추천'
+    description: '책 리뷰 및 추천',
+    icon: '📚'
   }
 ]
 
@@ -39,7 +42,7 @@ export default function Navigation() {
           </div>
 
           {/* 데스크톱 메뉴 */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6">
             <Link href="/" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-lg text-sm font-medium transition-colors">
               홈
             </Link>
@@ -52,7 +55,7 @@ export default function Navigation() {
                 className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center space-x-1"
               >
                 <span>카테고리</span>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
@@ -61,7 +64,7 @@ export default function Navigation() {
                 <div
                   onMouseEnter={() => setActiveDropdown('categories')}
                   onMouseLeave={() => setActiveDropdown(null)}
-                  className="absolute right-0 mt-2 w-48 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 border border-gray-200 dark:border-gray-700"
+                  className="absolute right-0 mt-2 w-64 rounded-xl shadow-lg bg-white dark:bg-gray-800 ring-1 ring-black ring-opacity-5 z-50 border border-gray-200 dark:border-gray-700"
                 >
                   <div className="py-2">
                     {categories.map((category) => (
@@ -70,14 +73,23 @@ export default function Navigation() {
                         href={category.path}
                         className="block px-4 py-3 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       >
-                        <div className="font-medium">{category.name}</div>
-                        <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{category.description}</div>
+                        <div className="flex items-center space-x-3">
+                          <span className="text-lg">{category.icon}</span>
+                          <div>
+                            <div className="font-medium">{category.name}</div>
+                            <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{category.description}</div>
+                          </div>
+                        </div>
                       </Link>
                     ))}
                   </div>
                 </div>
               )}
             </div>
+
+            <Link href="/about" className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 px-3 py-2 rounded-lg text-sm font-medium transition-colors">
+              소개
+            </Link>
 
             {/* 테마 토글 */}
             <ThemeToggle />
@@ -123,11 +135,24 @@ export default function Navigation() {
                   className="block px-3 py-2 text-sm text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
-                  <div className="font-medium">{category.name}</div>
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{category.description}</div>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-lg">{category.icon}</span>
+                    <div>
+                      <div className="font-medium">{category.name}</div>
+                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">{category.description}</div>
+                    </div>
+                  </div>
                 </Link>
               ))}
             </div>
+
+            <Link
+              href="/about"
+              className="text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 block px-3 py-3 rounded-lg text-base font-medium transition-colors"
+              onClick={() => setIsOpen(false)}
+            >
+              소개
+            </Link>
           </div>
         </div>
       )}
