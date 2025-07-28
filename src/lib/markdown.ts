@@ -4,6 +4,9 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import html from 'remark-html'
 import remarkGfm from 'remark-gfm'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeHighlight from 'rehype-highlight'
 
 const postsDirectory = path.join(process.cwd(), 'content')
 
@@ -62,10 +65,18 @@ export async function getPostData(id: string): Promise<PostData> {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const matterResult = matter(fileContents)
 
-  // Use remark to convert markdown into HTML string
+  // Use remark to convert markdown into HTML string with enhanced processing
   const processedContent = await remark()
     .use(remarkGfm)
-    .use(html)
+    .use(html, { sanitize: false })
+    .use(rehypeSlug)
+    .use(rehypeAutolinkHeadings, {
+      behavior: 'append',
+      properties: {
+        className: ['anchor'],
+      },
+    })
+    .use(rehypeHighlight)
     .process(matterResult.content)
 
   const contentHtml = processedContent.toString()

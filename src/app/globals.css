@@ -6,7 +6,7 @@
   html {
     scroll-behavior: smooth;
   }
-  
+
   body {
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
@@ -16,85 +16,121 @@
   .prose {
     @apply text-gray-900 dark:text-gray-100;
   }
-  
+
   .prose h1 {
     @apply text-3xl font-bold mb-6 mt-8 text-gray-900 dark:text-white;
   }
-  
+
   .prose h2 {
     @apply text-2xl font-semibold mb-4 mt-6 text-gray-900 dark:text-white;
   }
-  
+
   .prose h3 {
     @apply text-xl font-semibold mb-3 mt-5 text-gray-900 dark:text-white;
   }
-  
+
   .prose h4 {
     @apply text-lg font-medium mb-2 mt-4 text-gray-900 dark:text-white;
   }
-  
+
   .prose p {
     @apply mb-4 leading-relaxed text-gray-700 dark:text-gray-300;
   }
-  
+
   .prose ul {
     @apply mb-4 list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300;
   }
-  
+
   .prose ol {
     @apply mb-4 list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300;
   }
-  
+
   .prose li {
     @apply mb-1;
   }
-  
+
+  .prose li > ul,
+  .prose li > ol {
+    @apply mt-2 ml-4;
+  }
+
   .prose blockquote {
     @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic bg-gray-50 dark:bg-gray-800 py-2 rounded-r;
   }
-  
+
   .prose code {
     @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono text-gray-800 dark:text-gray-200;
   }
-  
+
   .prose pre {
     @apply bg-gray-900 dark:bg-gray-800 text-gray-100 dark:text-gray-200 p-4 rounded-lg overflow-x-auto;
   }
-  
+
   .prose pre code {
     @apply bg-transparent p-0 text-inherit;
   }
-  
+
   .prose a {
     @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline;
   }
-  
+
   .prose strong {
     @apply font-semibold text-gray-900 dark:text-white;
   }
-  
+
   .prose em {
     @apply italic;
   }
-  
+
   .prose hr {
     @apply border-gray-300 dark:border-gray-600 my-8;
   }
-  
+
   .prose table {
     @apply w-full border-collapse border border-gray-300 dark:border-gray-600;
   }
-  
+
   .prose th {
     @apply border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 px-4 py-2 text-left font-semibold text-gray-900 dark:text-white;
   }
-  
+
   .prose td {
     @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300;
   }
-  
+
   .prose img {
     @apply rounded-lg shadow-sm;
+  }
+
+  /* 마크다운 목록 개선 */
+  .prose ul ul,
+  .prose ol ol,
+  .prose ul ol,
+  .prose ol ul {
+    @apply mt-2 mb-2;
+  }
+
+  .prose ul li::marker {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
+  .prose ol li::marker {
+    @apply text-gray-500 dark:text-gray-400;
+  }
+
+  /* 빈 목록 항목 처리 */
+  .prose li:empty {
+    @apply hidden;
+  }
+
+  /* 목록 간격 조정 */
+  .prose ul,
+  .prose ol {
+    @apply my-4;
+  }
+
+  .prose li {
+    @apply my-1;
   }
 }
 
@@ -105,7 +141,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
-  
+
   .line-clamp-3 {
     display: -webkit-box;
     -webkit-line-clamp: 3;
