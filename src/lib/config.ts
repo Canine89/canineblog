@@ -1,6 +1,6 @@
 export const siteConfig = {
   // 블로그 기본 정보
-  title: "IT 애호가의 편집실",
+  title: "IT 애호가 편집자P의 편집실",
   description: "공부하고, 쓰고, 익혀라",
 
   // 블로그 주인 정보
@@ -24,7 +24,7 @@ export const siteConfig = {
 
   // 사이트 설정
   site: {
-    url: "https://blog-googlead.vercel.app", // Vercel 배포 후 실제 도메인으로 변경
+    url: "https://canineblog.vercel.app/", // Vercel 배포 후 실제 도메인으로 변경
     language: "ko",
     theme: "light", // light, dark, auto
   }
