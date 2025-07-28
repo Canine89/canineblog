@@ -3,7 +3,7 @@ import { getAllPosts } from '@/lib/markdown'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { siteConfig } from '@/lib/config'
-import { HeaderAd, InlineAd, FooterAd } from '@/components/AdSense'
+import { InlineAd, FooterAd } from '@/components/AdSense'
 import Link from 'next/link'
 
 export default function Home() {
@@ -46,9 +46,6 @@ export default function Home() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-
-      {/* 헤더 광고 */}
-      <HeaderAd />
 
       <div className="max-w-7xl mx-auto">
         {/* Hero Section - Notion 스타일 */}
