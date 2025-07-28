@@ -1,3 +1,4 @@
+import React from 'react'
 import { getPostData, getAllPostIds } from '@/lib/markdown'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
@@ -7,20 +8,23 @@ import Link from 'next/link'
 
 interface PostPageProps {
   params: Promise<{
-    id: string
+    slug: string[]
   }>
 }
 
 export async function generateStaticParams() {
   const paths = getAllPostIds()
-  return paths
+  return paths.map(path => ({
+    slug: path.params.id.split('/')
+  }))
 }
 
 export async function generateMetadata({ params }: PostPageProps): Promise<Metadata> {
   const resolvedParams = await params
-  const post = await getPostData(resolvedParams.id)
+  const id = resolvedParams.slug.join('/')
+  const post = await getPostData(id)
   
-  const url = `${siteConfig.site.url}/posts/${resolvedParams.id}`
+  const url = `${siteConfig.site.url}/posts/${id}`
   
   return {
     title: post.title,
@@ -74,7 +78,8 @@ export async function generateMetadata({ params }: PostPageProps): Promise<Metad
 
 export default async function PostPage({ params }: PostPageProps) {
   const resolvedParams = await params
-  const post = await getPostData(resolvedParams.id)
+  const id = resolvedParams.slug.join('/')
+  const post = await getPostData(id)
 
   // 구조화된 데이터 (JSON-LD)
   const structuredData = {
@@ -96,7 +101,7 @@ export default async function PostPage({ params }: PostPageProps) {
     "dateModified": post.date,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `${siteConfig.site.url}/posts/${resolvedParams.id}`
+      "@id": `${siteConfig.site.url}/posts/${id}`
     },
     "keywords": post.tags.join(", "),
     "articleSection": "Blog",
