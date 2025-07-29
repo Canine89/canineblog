@@ -108,30 +108,27 @@ export default function RootLayout({
               strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
-                  // AdSense 스크립트 동적 로드 및 초기화
+                  // AdSense 스크립트 동적 로드 - 자동 광고 비활성화
                   (function() {
                     // 이미 초기화되었다면 리턴
                     if (window.adsenseInitialized) return;
                     
-                    // AdSense 스크립트 로드
+                    // adsbygoogle 배열 미리 생성하여 자동 실행 방지
+                    window.adsbygoogle = window.adsbygoogle || [];
+                    
+                    // AdSense 스크립트 로드 (자동 광고 없이)
                     const script = document.createElement('script');
                     script.async = true;
                     script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848';
                     script.crossOrigin = 'anonymous';
                     
+                    // 자동 광고 완전 비활성화 - enable_page_level_ads 사용하지 않음
                     script.onload = function() {
-                      try {
-                        // 한 번만 실행되도록 보장
-                        if (!window.adsenseAutoAdsInitialized) {
-                          (adsbygoogle = window.adsbygoogle || []).push({
-                            google_ad_client: "ca-pub-1531500505272848",
-                            enable_page_level_ads: true
-                          });
-                          window.adsenseAutoAdsInitialized = true;
-                        }
-                      } catch (e) {
-                        console.warn('AdSense initialization failed:', e);
-                      }
+                      console.log('AdSense script loaded successfully - Auto ads disabled');
+                    };
+                    
+                    script.onerror = function() {
+                      console.warn('AdSense script failed to load');
                     };
                     
                     document.head.appendChild(script);
