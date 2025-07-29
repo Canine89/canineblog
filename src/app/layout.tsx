@@ -10,6 +10,14 @@ import { CategoryDropdown } from '@/components/CategoryDropdown'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// AdSense 타입 선언
+declare global {
+  interface Window {
+    adsbygoogle: unknown[]
+    adsenseAutoAdsInitialized?: boolean
+  }
+}
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.title,
@@ -107,10 +115,14 @@ export default function RootLayout({
               dangerouslySetInnerHTML={{
                 __html: `
                   try {
-                    (adsbygoogle = window.adsbygoogle || []).push({
-                      google_ad_client: "ca-pub-1531500505272848",
-                      enable_page_level_ads: true
-                    });
+                    // 중복 실행 방지를 위한 체크
+                    if (!window.adsenseAutoAdsInitialized) {
+                      (adsbygoogle = window.adsbygoogle || []).push({
+                        google_ad_client: "ca-pub-1531500505272848",
+                        enable_page_level_ads: true
+                      });
+                      window.adsenseAutoAdsInitialized = true;
+                    }
                   } catch (e) {
                     console.warn('AdSense auto ads initialization failed:', e);
                   }
