@@ -3,6 +3,7 @@ import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { siteConfig } from '@/lib/config'
 import { InlineAd, FooterAd } from '@/components/AdSense'
+import { SocialShare } from '@/components/SocialShare'
 
 export default function Home() {
   const posts = getAllPosts()
@@ -47,9 +48,9 @@ export default function Home() {
 
       <div className="space-y-8">
         {/* Hero Section */}
-        <div className="text-center space-y-4">
+        <div className="text-center space-y-6">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
-            {siteConfig.title}
+            편집자P의 편집실
           </h1>
           <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
             {siteConfig.description}
@@ -91,6 +92,15 @@ export default function Home() {
           
           {/* 포스트 사이 광고 (2번째 포스트 후) */}
           {posts.length >= 2 && <InlineAd />}
+          
+          {/* Social Share for Homepage */}
+          <div className="mt-6 pt-6 border-t border-gray-200">
+            <SocialShare 
+              title={siteConfig.title}
+              url={siteConfig.site.url}
+              excerpt={siteConfig.description}
+            />
+          </div>
         </div>
 
         {/* Stats */}

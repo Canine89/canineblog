@@ -19,7 +19,8 @@ export const metadata: Metadata = {
   authors: [{ name: siteConfig.author.name }],
   creator: siteConfig.author.name,
   publisher: siteConfig.author.name,
-  keywords: ['블로그', '개발', 'IT', '마크다운', 'Next.js'],
+  keywords: ['편집자P', 'IT 도서', '개발', '파이썬', '자바스크립트', '자동화', '골든래빗', '책 리뷰', '개발 팁', '생산성'],
+  viewport: 'width=device-width, initial-scale=1',
   robots: {
     index: true,
     follow: true,
@@ -87,15 +88,7 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#000000" />
-        <meta name="color-scheme" content="light dark" />
         <meta name="google-adsense-account" content="ca-pub-1531500505272848" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
         {/* Google AdSense 스크립트 - 프로덕션에서만 로드 */}

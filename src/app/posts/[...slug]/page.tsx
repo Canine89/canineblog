@@ -5,6 +5,7 @@ import { ko } from 'date-fns/locale'
 import { Metadata } from 'next'
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
+import { SocialShare } from '@/components/SocialShare'
 
 interface PostPageProps {
   params: Promise<{
@@ -80,6 +81,7 @@ export default async function PostPage({ params }: PostPageProps) {
   const resolvedParams = await params
   const id = resolvedParams.slug.join('/')
   const post = await getPostData(id)
+  const postUrl = `${siteConfig.site.url}/posts/${id}`
 
   // 구조화된 데이터 (JSON-LD)
   const structuredData = {
@@ -131,7 +133,7 @@ export default async function PostPage({ params }: PostPageProps) {
           <p className="text-xl text-gray-600 mb-6">
             {post.excerpt}
           </p>
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mb-6">
             {post.tags.map((tag) => (
               <span
                 key={tag}
@@ -141,6 +143,15 @@ export default async function PostPage({ params }: PostPageProps) {
               </span>
             ))}
           </div>
+          
+          {/* Social Share */}
+          <div className="border-t border-gray-200 pt-4">
+            <SocialShare 
+              title={post.title}
+              url={postUrl}
+              excerpt={post.excerpt}
+            />
+          </div>
         </header>
 
         {/* Content */}
@@ -149,8 +160,17 @@ export default async function PostPage({ params }: PostPageProps) {
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
 
+        {/* Social Share - Bottom */}
+        <div className="mt-8 pt-6 border-t border-gray-200">
+          <SocialShare 
+            title={post.title}
+            url={postUrl}
+            excerpt={post.excerpt}
+          />
+        </div>
+
         {/* Navigation */}
-        <nav className="mt-12 pt-8 border-t border-gray-200">
+        <nav className="mt-8 pt-6 border-t border-gray-200">
           <div className="flex justify-between items-center">
             <Link
               href="/"
