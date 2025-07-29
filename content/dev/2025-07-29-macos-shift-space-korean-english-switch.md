@@ -5,12 +5,6 @@ tags: ['macOS', '한영변환', '키보드', '팝업제거', '시스템설정']
 category: 'dev'
 ---
 
-# macOS에서 shift+space로 한/영 변환 시 팝업 계속 떠서 열 받을 때
-
-**환경**: macOS Sonoma 14.1  
-**문제**: shift+space를 적용하고 싶은데 그놈의 popup이 계속 나와서 열 받는다.  
-**해결**: 했음
-
 ## shift+space로 한/영 변환
 
 기본적으로는 [이 사이트](https://seorenn.tistory.com/547)를 보면 되는데… 여기서 하나 놓친게 있어서 포스팅 남김. plist를 수정하면 되는데 60번이 아니라 61번을 수정해야 함. 왜냐하면 61번이 '입력 메뉴에서 다음 메뉴 선택'이라는 아주 짜증나는 옵션과 관련되어 있는데 이게 'language switch popup'을 띄우기 때문임.

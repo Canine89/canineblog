@@ -2,8 +2,8 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
-import html from 'remark-html'
 import remarkGfm from 'remark-gfm'
+import remarkHtml from 'remark-html'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeHighlight from 'rehype-highlight'
@@ -135,21 +135,24 @@ export async function getPostData(id: string): Promise<PostData> {
   // frontmatter에 date가 없으면 파일명의 날짜를 사용
   const postDate = matterResult.data.date || fileNameDate || '1970-01-01'
 
-  // Use remark to convert markdown into HTML string with enhanced processing
+  // Use remark to convert markdown into HTML string with basic settings
   const processedContent = await remark()
     .use(remarkGfm)
-    .use(html, { sanitize: false })
-    .use(rehypeSlug)
-    .use(rehypeAutolinkHeadings, {
-      behavior: 'append',
-      properties: {
-        className: ['anchor'],
-      },
+    .use(remarkHtml, {
+      sanitize: false
     })
-    .use(rehypeHighlight)
     .process(matterResult.content)
 
   const contentHtml = processedContent.toString()
+
+  // 디버깅: 특정 포스트의 변환 결과 확인
+  if (id.includes('figma') || id.includes('test-simple')) {
+    console.log('=== MARKDOWN DEBUG ===')
+    console.log('Post ID:', id)
+    console.log('Original markdown:', matterResult.content.substring(0, 200) + '...')
+    console.log('Converted HTML:', contentHtml.substring(0, 400) + '...')
+    console.log('======================')
+  }
 
   return {
     id,
@@ -179,6 +182,44 @@ export function getAllCategories(): string[] {
   const posts = getAllPosts()
   const categories = posts.map((post) => post.category).filter(Boolean)
   return [...new Set(categories)] as string[]
+}
+
+// 폴더 구조 기반으로 카테고리 정보를 가져오는 함수
+export function getCategoriesFromFolders(): Array<{name: string, path: string, description: string, icon: string, count: number}> {
+  const posts = getAllPosts()
+  
+  // 폴더별 포스트 개수 계산
+  const folderCounts: {[key: string]: number} = {}
+  posts.forEach(post => {
+    const folder = post.id.includes('/') ? post.id.split('/')[0] : 'root'
+    folderCounts[folder] = (folderCounts[folder] || 0) + 1
+  })
+  
+  const categories = [
+    {
+      name: '개발',
+      path: '/category/dev',
+      description: '개발 관련 포스트',
+      icon: '💻',
+      count: folderCounts['dev'] || 0
+    },
+    {
+      name: '팁',
+      path: '/category/tip',
+      description: '유용한 개발 팁',
+      icon: '💡',
+      count: folderCounts['tip'] || 0
+    },
+    {
+      name: '책',
+      path: '/category/book',
+      description: '책 리뷰 및 추천',
+      icon: '📚',
+      count: folderCounts['book'] || 0
+    }
+  ]
+  
+  return categories.filter(cat => cat.count > 0) // 포스트가 있는 카테고리만 반환
 }
 
 export function getPostsByCategory(category: string): PostData[] {

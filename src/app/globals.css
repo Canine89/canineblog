@@ -1,7 +1,5 @@
 @import "tailwindcss";
 
-@custom-variant dark (&:where(.dark, .dark *));
-
 @layer base {
   html {
     scroll-behavior: smooth;
@@ -14,35 +12,35 @@
 
 @layer components {
   .prose {
-    @apply text-gray-900 dark:text-gray-100;
+    @apply text-gray-900;
   }
 
   .prose h1 {
-    @apply text-3xl font-bold mb-6 mt-8 text-gray-900 dark:text-white;
+    @apply text-3xl font-bold mb-6 mt-8 text-gray-900;
   }
 
   .prose h2 {
-    @apply text-2xl font-semibold mb-4 mt-6 text-gray-900 dark:text-white;
+    @apply text-2xl font-semibold mb-4 mt-6 text-gray-900;
   }
 
   .prose h3 {
-    @apply text-xl font-semibold mb-3 mt-5 text-gray-900 dark:text-white;
+    @apply text-xl font-semibold mb-3 mt-5 text-gray-900;
   }
 
   .prose h4 {
-    @apply text-lg font-medium mb-2 mt-4 text-gray-900 dark:text-white;
+    @apply text-lg font-medium mb-2 mt-4 text-gray-900;
   }
 
   .prose p {
-    @apply mb-4 leading-relaxed text-gray-700 dark:text-gray-300;
+    @apply mb-4 leading-relaxed text-gray-700;
   }
 
   .prose ul {
-    @apply mb-4 list-disc list-inside space-y-1 text-gray-700 dark:text-gray-300;
+    @apply mb-4 list-disc list-inside space-y-1 text-gray-700;
   }
 
   .prose ol {
-    @apply mb-4 list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300;
+    @apply mb-4 list-decimal list-inside space-y-1 text-gray-700;
   }
 
   .prose li {
@@ -55,15 +53,15 @@
   }
 
   .prose blockquote {
-    @apply border-l-4 border-gray-300 dark:border-gray-600 pl-4 italic bg-gray-50 dark:bg-gray-800 py-2 rounded-r;
+    @apply border-l-2 border-gray-300 pl-4 italic text-gray-600;
   }
 
   .prose code {
-    @apply bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-sm font-mono text-gray-800 dark:text-gray-200;
+    @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800;
   }
 
   .prose pre {
-    @apply bg-gray-900 dark:bg-gray-800 text-gray-100 dark:text-gray-200 p-4 rounded-lg overflow-x-auto;
+    @apply bg-gray-50 text-gray-800 p-4 rounded-md overflow-x-auto border border-gray-200;
   }
 
   .prose pre code {
@@ -71,11 +69,11 @@
   }
 
   .prose a {
-    @apply text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline;
+    @apply text-gray-800 hover:text-gray-600 underline underline-offset-2;
   }
 
   .prose strong {
-    @apply font-semibold text-gray-900 dark:text-white;
+    @apply font-semibold text-gray-900;
   }
 
   .prose em {
@@ -83,19 +81,19 @@
   }
 
   .prose hr {
-    @apply border-gray-300 dark:border-gray-600 my-8;
+    @apply border-gray-200 my-8;
   }
 
   .prose table {
-    @apply w-full border-collapse border border-gray-300 dark:border-gray-600;
+    @apply w-full border-collapse border border-gray-200;
   }
 
   .prose th {
-    @apply border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800 px-4 py-2 text-left font-semibold text-gray-900 dark:text-white;
+    @apply border border-gray-200 bg-gray-50 px-4 py-2 text-left font-medium text-gray-900;
   }
 
   .prose td {
-    @apply border border-gray-300 dark:border-gray-600 px-4 py-2 text-gray-700 dark:text-gray-300;
+    @apply border border-gray-200 px-4 py-2 text-gray-700;
   }
 
   .prose img {
@@ -111,11 +109,11 @@
   }
 
   .prose ul li::marker {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-gray-500;
   }
 
   .prose ol li::marker {
-    @apply text-gray-500 dark:text-gray-400;
+    @apply text-gray-500;
   }
 
   /* 빈 목록 항목 처리 */

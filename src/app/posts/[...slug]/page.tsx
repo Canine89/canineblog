@@ -114,7 +114,7 @@ export default async function PostPage({ params }: PostPageProps) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <article className="prose prose-lg max-w-none">
+      <article className="max-w-none">
         {/* Header */}
         <header className="mb-8">
           <div className="mb-4">
@@ -145,7 +145,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
         {/* Content */}
         <div 
-          className="prose prose-lg max-w-none prose-headings:text-gray-900 prose-p:text-gray-700 prose-a:text-blue-600 prose-strong:text-gray-900 prose-code:text-gray-800 prose-pre:bg-gray-50 prose-blockquote:border-l-blue-500 prose-blockquote:bg-blue-50"
+          className="prose max-w-none"
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
 

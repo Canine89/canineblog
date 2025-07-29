@@ -18,32 +18,30 @@ declare global {
 
 export function AdSense({ adSlot, adFormat = 'auto', style, className }: AdSenseProps) {
   useEffect(() => {
-    // 개발 환경에서는 AdSense를 비활성화
+    // 개발 환경에서는 AdSense를 완전히 비활성화
     if (process.env.NODE_ENV === 'development') {
-      console.log('AdSense disabled in development mode')
       return
     }
 
-    // AdSense 스크립트가 로드되었는지 확인하고 약간의 지연 후 실행
+    // 프로덕션 환경에서만 AdSense 로드
     const loadAd = () => {
       if (typeof window !== 'undefined' && window.adsbygoogle) {
         try {
-          window.adsbygoogle.push({})
+          const adElement = document.querySelector(`ins[data-ad-slot="${adSlot}"]`)
+          if (adElement && !adElement.getAttribute('data-adsbygoogle-status')) {
+            window.adsbygoogle.push({})
+          }
         } catch (error) {
-          console.error('AdSense error:', error)
+          // 프로덕션에서도 조용히 실패 처리
+          return
         }
-      } else {
-        // AdSense 스크립트가 아직 로드되지 않은 경우 재시도
-        setTimeout(loadAd, 100)
       }
     }
 
-    // 즉시 실행하고 1초 후에도 다시 시도
-    loadAd()
-    const timer = setTimeout(loadAd, 1000)
-
+    // 프로덕션에서만 타이머 설정
+    const timer = setTimeout(loadAd, 1500)
     return () => clearTimeout(timer)
-  }, [])
+  }, [adSlot])
 
   // 개발 환경에서는 광고 대신 플레이스홀더 표시
   if (process.env.NODE_ENV === 'development') {
@@ -80,18 +78,18 @@ export function AdSense({ adSlot, adFormat = 'auto', style, className }: AdSense
   )
 }
 
-// 광고 위치별 컴포넌트들
-export function HeaderAd() {
-  return (
-    <div className="my-4">
-      <AdSense 
-        adSlot="6031330884" 
-        className="text-center"
-        style={{ minHeight: '90px' }}
-      />
-    </div>
-  )
-}
+// 광고 위치별 컴포넌트들 - 상단 광고 제거
+// export function HeaderAd() {
+//   return (
+//     <div className="my-4">
+//       <AdSense 
+//         adSlot="6031330884" 
+//         className="text-center"
+//         style={{ minHeight: '90px' }}
+//       />
+//     </div>
+//   )
+// }
 
 export function SidebarAd() {
   return (

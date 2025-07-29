@@ -36,3 +36,20 @@ yarn-error.log*
 next-env.d.ts
 
 .vercel
+
+# Cursor AI 관련 파일들
+.cursor/
+*.cursor-*
+
+# 디자인 임시 파일들
+*.sketch~
+*.fig~
+*.psd~
+design-backup/
+temp-designs/
+
+# 개발 중 임시 파일들
+temp/
+tmp/
+*.temp
+*.tmp

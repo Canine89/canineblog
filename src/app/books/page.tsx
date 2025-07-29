@@ -254,24 +254,24 @@ export default function BooksPage() {
     <div className="space-y-8">
       {/* Header */}
       <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-gray-900 dark:text-white">📚 편집한 도서</h1>
-        <p className="text-xl text-gray-600 dark:text-gray-300">
+        <h1 className="text-4xl font-bold text-gray-900">📚 편집한 도서</h1>
+        <p className="text-xl text-gray-600">
           {siteConfig.author.name}가 기획하고 편집한 도서들입니다
         </p>
       </div>
 
       {/* Golden Rabbit Books */}
       <div className="space-y-6">
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
             🏢 골든래빗 (~현재)
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {books.goldenrabbit.map((book, index) => (
-              <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+              <div key={index} className="bg-gray-50 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                 {/* Book Cover */}
                 <div className="mb-3">
-                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-600 rounded overflow-hidden">
+                  <div className="w-full h-48 bg-gray-200 rounded overflow-hidden">
                     <Image 
                       src={book.image}
                       alt={book.title}
@@ -285,21 +285,21 @@ export default function BooksPage() {
                 {/* Book Info */}
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">
+                    <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-1 rounded">
                       {index + 1}
                     </span>
-                    <span className="text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900 px-2 py-1 rounded">
+                    <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded">
                       {book.role}
                     </span>
                   </div>
-                  <h3 className="text-gray-900 dark:text-white font-medium text-sm leading-tight line-clamp-3">
+                  <h3 className="text-gray-900 font-medium text-sm leading-tight line-clamp-3">
                     {book.title}
                   </h3>
                   <a
                     href={book.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block w-full text-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium py-2 px-3 bg-blue-50 dark:bg-blue-900/20 rounded hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                    className="inline-block w-full text-center text-blue-600 hover:text-blue-800 text-sm font-medium py-2 px-3 bg-blue-50 rounded hover:bg-blue-100 transition-colors"
                   >
                     살펴보기 →
                   </a>
@@ -310,16 +310,16 @@ export default function BooksPage() {
         </div>
 
         {/* EasySPub Books */}
-        <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
+          <h2 className="text-2xl font-bold text-gray-900 mb-6">
             📖 이지스퍼블리싱 (2017~2023)
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
             {books.easyspub.map((book, index) => (
-              <div key={index} className="bg-gray-50 dark:bg-gray-700 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+              <div key={index} className="bg-gray-50 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
                 {/* Book Cover */}
                 <div className="mb-3">
-                  <div className="w-full h-48 bg-gray-200 dark:bg-gray-600 rounded overflow-hidden">
+                  <div className="w-full h-48 bg-gray-200 rounded overflow-hidden">
                     <Image 
                       src={book.image}
                       alt={book.title}
@@ -333,26 +333,26 @@ export default function BooksPage() {
                 {/* Book Info */}
                 <div className="space-y-2">
                   <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">
+                    <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-1 rounded">
                       {index + 1}
                     </span>
-                    <span className="text-xs font-medium text-green-600 dark:text-green-400 bg-green-100 dark:bg-green-900 px-2 py-1 rounded">
+                    <span className="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded">
                       {book.role}
                     </span>
                     {book.note && (
-                      <span className="text-xs text-gray-500 dark:text-gray-400 bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded">
+                      <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded">
                         {book.note}
                       </span>
                     )}
                   </div>
-                  <h3 className="text-gray-900 dark:text-white font-medium text-sm leading-tight line-clamp-3">
+                  <h3 className="text-gray-900 font-medium text-sm leading-tight line-clamp-3">
                     {book.title}
                   </h3>
                   <a
                     href={book.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-block w-full text-center text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-medium py-2 px-3 bg-blue-50 dark:bg-blue-900/20 rounded hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors"
+                    className="inline-block w-full text-center text-blue-600 hover:text-blue-800 text-sm font-medium py-2 px-3 bg-blue-50 rounded hover:bg-blue-100 transition-colors"
                   >
                     살펴보기 →
                   </a>
@@ -364,25 +364,25 @@ export default function BooksPage() {
       </div>
 
       {/* Stats */}
-      <div className="rounded-lg border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 p-6">
+      <div className="rounded-lg border border-gray-200 bg-gray-50 p-6">
         <div className="grid grid-cols-3 gap-4 text-center">
           <div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {books.goldenrabbit.length + books.easyspub.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">총 도서 수</div>
+            <div className="text-sm text-gray-600">총 도서 수</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {books.goldenrabbit.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">골든래빗</div>
+            <div className="text-sm text-gray-600">골든래빗</div>
           </div>
           <div>
-            <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <div className="text-2xl font-bold text-gray-900">
               {books.easyspub.length}
             </div>
-            <div className="text-sm text-gray-600 dark:text-gray-400">이지스퍼블리싱</div>
+            <div className="text-sm text-gray-600">이지스퍼블리싱</div>
           </div>
         </div>
       </div>

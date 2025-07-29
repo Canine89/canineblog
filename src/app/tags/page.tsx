@@ -8,8 +8,8 @@ export default function TagsPage() {
   return (
     <div className="space-y-8">
       <div className="text-center space-y-4">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">태그</h1>
-        <p className="text-gray-600 dark:text-gray-300">
+        <h1 className="text-3xl font-bold text-gray-900">태그</h1>
+        <p className="text-gray-600">
           모든 태그를 확인하고 관련 포스트를 찾아보세요.
         </p>
       </div>
@@ -20,14 +20,14 @@ export default function TagsPage() {
           return (
             <div
               key={tag}
-              className="rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 p-6 shadow-sm"
+              className="rounded-lg border border-gray-200 bg-white p-6 shadow-sm"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
+                  <h3 className="text-lg font-semibold text-gray-900">
                     #{tag}
                   </h3>
-                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                  <span className="text-sm text-gray-500">
                     {posts.length}개 포스트
                   </span>
                 </div>
@@ -39,12 +39,12 @@ export default function TagsPage() {
                         href={`/posts/${post.id}`}
                         className="block space-y-1"
                       >
-                        <h4 className="text-sm font-medium text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-2">
+                        <h4 className="text-sm font-medium text-gray-900 group-hover:text-blue-600 line-clamp-2">
                           {post.title}
                         </h4>
                         <time
                           dateTime={post.date}
-                          className="text-xs text-gray-500 dark:text-gray-400"
+                          className="text-xs text-gray-500"
                         >
                           {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
                         </time>
@@ -53,7 +53,7 @@ export default function TagsPage() {
                   ))}
                   
                   {posts.length > 3 && (
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                    <p className="text-sm text-gray-500">
                       +{posts.length - 3}개 더 보기
                     </p>
                   )}
