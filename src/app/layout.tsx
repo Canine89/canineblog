@@ -15,6 +15,7 @@ declare global {
   interface Window {
     adsbygoogle: unknown[]
     adsenseAutoAdsInitialized?: boolean
+    adsenseInitialized?: boolean
   }
 }
 
@@ -96,36 +97,46 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        <meta name="google-adsense-account" content="ca-pub-1531500505272848" />
+        {/* AdSense 메타 태그 제거 - 자동 초기화 방지 */}
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
         {/* Google AdSense 스크립트 - 프로덕션에서만 로드 */}
         {process.env.NODE_ENV === 'production' && (
           <>
             <Script
-              async
-              src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
-              crossOrigin="anonymous"
-              strategy="afterInteractive"
-            />
-            
-            <Script
-              id="adsense-auto-ads"
+              id="adsense-init"
               strategy="afterInteractive"
               dangerouslySetInnerHTML={{
                 __html: `
-                  try {
-                    // 중복 실행 방지를 위한 체크
-                    if (!window.adsenseAutoAdsInitialized) {
-                      (adsbygoogle = window.adsbygoogle || []).push({
-                        google_ad_client: "ca-pub-1531500505272848",
-                        enable_page_level_ads: true
-                      });
-                      window.adsenseAutoAdsInitialized = true;
-                    }
-                  } catch (e) {
-                    console.warn('AdSense auto ads initialization failed:', e);
-                  }
+                  // AdSense 스크립트 동적 로드 및 초기화
+                  (function() {
+                    // 이미 초기화되었다면 리턴
+                    if (window.adsenseInitialized) return;
+                    
+                    // AdSense 스크립트 로드
+                    const script = document.createElement('script');
+                    script.async = true;
+                    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848';
+                    script.crossOrigin = 'anonymous';
+                    
+                    script.onload = function() {
+                      try {
+                        // 한 번만 실행되도록 보장
+                        if (!window.adsenseAutoAdsInitialized) {
+                          (adsbygoogle = window.adsbygoogle || []).push({
+                            google_ad_client: "ca-pub-1531500505272848",
+                            enable_page_level_ads: true
+                          });
+                          window.adsenseAutoAdsInitialized = true;
+                        }
+                      } catch (e) {
+                        console.warn('AdSense initialization failed:', e);
+                      }
+                    };
+                    
+                    document.head.appendChild(script);
+                    window.adsenseInitialized = true;
+                  })();
                 `
               }}
             />
