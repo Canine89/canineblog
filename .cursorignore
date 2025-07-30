@@ -1,0 +1,75 @@
+# =====================================================
+# 🚨 절대 수정 금지 파일들 🚨
+# =====================================================
+
+# 🏗️ 핵심 레이아웃 파일 - 절대 건드리지 마세요
+src/app/layout.tsx
+src/app/page.tsx
+src/app/about/page.tsx
+src/app/posts/[...slug]/page.tsx
+src/app/category/[category]/page.tsx
+src/app/tags/page.tsx
+src/app/books/page.tsx
+
+# 🧩 UI 컴포넌트 - 절대 건드리지 마세요
+src/components/CategoryDropdown.tsx
+src/components/MobileNav.tsx
+src/components/Navigation.tsx
+
+# 🎨 스타일링 시스템 - 절대 건드리지 마세요
+src/app/globals.css
+tailwind.config.js
+postcss.config.mjs
+
+# ⚙️ 중요 설정 파일 - 절대 건드리지 마세요
+
+# 설정 파일들
+next.config.ts
+tsconfig.json
+package.json
+package-lock.json
+
+# 환경 및 빌드 파일
+.env*
+.next/
+out/
+build/
+node_modules/
+
+# Git 관련
+.git/
+.gitignore
+
+# 민감한 파일들
+public/ads.txt
+public/google-verification.html
+public/robots.txt
+
+# 디자인 에셋 (원본 파일들)
+*.sketch
+*.fig
+*.psd
+*.ai
+design/
+assets/originals/
+
+# 인증서 및 키 파일
+*.pem
+*.key
+*.cert
+
+# 로그 파일
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# 임시 파일
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# IDE 설정 (일부)
+.vscode/settings.json
+.idea/

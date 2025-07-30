@@ -97,48 +97,10 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        {/* AdSense 메타 태그 제거 - 자동 초기화 방지 */}
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
+     crossorigin="anonymous"></script>
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
-        {/* Google AdSense 스크립트 - 프로덕션에서만 로드 */}
-        {process.env.NODE_ENV === 'production' && (
-          <>
-            <Script
-              id="adsense-init"
-              strategy="afterInteractive"
-              dangerouslySetInnerHTML={{
-                __html: `
-                  // AdSense 스크립트 동적 로드 - 자동 광고 비활성화
-                  (function() {
-                    // 이미 초기화되었다면 리턴
-                    if (window.adsenseInitialized) return;
-                    
-                    // adsbygoogle 배열 미리 생성하여 자동 실행 방지
-                    window.adsbygoogle = window.adsbygoogle || [];
-                    
-                    // AdSense 스크립트 로드 (자동 광고 없이)
-                    const script = document.createElement('script');
-                    script.async = true;
-                    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848';
-                    script.crossOrigin = 'anonymous';
-                    
-                    // 자동 광고 완전 비활성화 - enable_page_level_ads 사용하지 않음
-                    script.onload = function() {
-                      console.log('AdSense script loaded successfully - Auto ads disabled');
-                    };
-                    
-                    script.onerror = function() {
-                      console.warn('AdSense script failed to load');
-                    };
-                    
-                    document.head.appendChild(script);
-                    window.adsenseInitialized = true;
-                  })();
-                `
-              }}
-            />
-          </>
-        )}
         
         <div className="min-h-screen">
           <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
