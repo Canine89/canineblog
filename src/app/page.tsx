@@ -1,133 +1,107 @@
+import Link from 'next/link'
 import { getAllPosts } from '@/lib/markdown'
-import { format } from 'date-fns'
-import { ko } from 'date-fns/locale'
 import { siteConfig } from '@/lib/config'
-import { InlineAd, FooterAd } from '@/components/AdSense'
-import { SocialShare } from '@/components/SocialShare'
 
-export default function Home() {
+export default function HomePage() {
   const posts = getAllPosts()
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, siteConfig.blog.postsPerPage)
 
-  // 구조화된 데이터 (JSON-LD)
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "Blog",
-    "name": siteConfig.title,
-    "description": siteConfig.description,
-    "url": siteConfig.site.url,
-    "author": {
-      "@type": "Person",
-      "name": siteConfig.author.name,
-      "url": siteConfig.author.social.github
-    },
-    "publisher": {
-      "@type": "Organization",
-      "name": siteConfig.title,
-      "url": siteConfig.site.url
-    },
-    "blogPost": posts.map(post => ({
-      "@type": "BlogPosting",
-      "headline": post.title,
-      "description": post.excerpt,
-      "datePublished": post.date,
-      "url": `${siteConfig.site.url}/posts/${post.id}`,
-      "author": {
-        "@type": "Person",
-        "name": siteConfig.author.name
-      }
-    })),
-    "inLanguage": "ko-KR"
+  const getCategoryDisplayName = (category: string) => {
+    const categoryMap: { [key: string]: string } = {
+      'dev': 'dev',
+      'book': 'book',
+      'eng-dev': 'eng-dev',
+      'think': 'think'
+    }
+    return categoryMap[category] || category
+  }
+
+  const getCategoryColor = (category: string) => {
+    const colorMap: { [key: string]: string } = {
+      'dev': 'bg-blue-100 text-blue-800',
+      'book': 'bg-green-100 text-green-800',
+      'eng-dev': 'bg-purple-100 text-purple-800',
+      'think': 'bg-orange-100 text-orange-800'
+    }
+    return colorMap[category] || 'bg-gray-100 text-gray-800'
   }
 
   return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-      />
+    <div className="space-y-8">
+      {/* Welcome Section */}
+      <div className="text-center space-y-4">
+        <h1 className="text-3xl font-bold text-gray-900">
+          안녕하세요! {siteConfig.author.name}입니다 👋
+        </h1>
+        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          {siteConfig.description}
+        </p>
+      </div>
 
-      <div className="space-y-8">
-        {/* Hero Section */}
-        <div className="text-center space-y-6">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900">
-            편집자P의 편집실
-          </h1>
-          <p className="text-lg sm:text-xl text-gray-600 max-w-2xl mx-auto px-4">
-            {siteConfig.description}
-          </p>
-        </div>
-
-        {/* Posts Grid */}
-        <div className="space-y-6 sm:space-y-8">
-          <h2 className="text-xl sm:text-2xl font-semibold text-gray-900">최근 포스트</h2>
-          <div className="grid gap-4 sm:gap-6 md:grid-cols-2">
-            {posts.map((post, index) => (
-              <article key={post.id} className="group relative rounded-lg border border-gray-200 bg-white p-4 sm:p-6 shadow-sm transition-all hover:shadow-md">
-                <div className="space-y-3">
-                  <div className="flex items-center space-x-2 text-sm text-gray-500">
-                    <time dateTime={post.date}>
-                      {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
+      {/* Posts Grid */}
+      <div className="space-y-6">
+        <h2 className="text-2xl font-semibold text-gray-900">최근 포스트</h2>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {posts.map((post) => (
+            <article key={post.id} className="group relative">
+              <Link href={`/posts/${post.id}`} className="block">
+                <div className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 h-full">
+                  {/* Category Badge */}
+                  <div className="flex justify-between items-start mb-4">
+                    <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${getCategoryColor(post.category || '')}`}>
+                      {getCategoryDisplayName(post.category || '')}
+                    </span>
+                    <time className="text-xs text-gray-500">
+                      {new Date(post.date).toLocaleDateString('ko-KR', {
+                        year: 'numeric',
+                        month: 'long',
+                        day: 'numeric'
+                      })}
                     </time>
                   </div>
-                  <h3 className="text-lg sm:text-xl font-semibold text-gray-900 group-hover:text-blue-600">
-                    <a href={`/posts/${post.id}`} className="block">
+                  
+                  {/* Post Content */}
+                  <div className="space-y-3">
+                    <h3 className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors duration-200 line-clamp-2">
                       {post.title}
-                    </a>
-                  </h3>
-                  <p className="text-gray-600 line-clamp-3 text-sm sm:text-base">{post.excerpt}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {post.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="inline-flex items-center rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800"
-                      >
-                        {tag}
-                      </span>
-                    ))}
+                    </h3>
+                    <p className="text-gray-600 text-sm line-clamp-3">
+                      {post.excerpt}
+                    </p>
                   </div>
+                  
+                  {/* Tags */}
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-1">
+                      {post.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="inline-flex items-center px-2 py-1 rounded text-xs bg-gray-100 text-gray-600"
+                        >
+                          #{tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
-              </article>
-            ))}
-          </div>
-          
-          {/* 포스트 사이 광고 (2번째 포스트 후) */}
-          {posts.length >= 2 && <InlineAd />}
-          
-          {/* Social Share for Homepage */}
-          <div className="mt-6 pt-6 border-t border-gray-200">
-            <SocialShare 
-              title={siteConfig.title}
-              url={siteConfig.site.url}
-              excerpt={siteConfig.description}
-            />
-          </div>
-        </div>
-
-        {/* Stats */}
-        <div className="rounded-lg border border-gray-200 bg-gray-50 p-4 sm:p-6">
-          <div className="grid grid-cols-3 gap-4 text-center">
-            <div>
-              <div className="text-xl sm:text-2xl font-bold text-gray-900">{posts.length}</div>
-              <div className="text-xs sm:text-sm text-gray-600">총 포스트</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-bold text-gray-900">
-                {Array.from(new Set(posts.flatMap((post) => post.tags))).length}
-              </div>
-              <div className="text-xs sm:text-sm text-gray-600">태그 수</div>
-            </div>
-            <div>
-              <div className="text-xl sm:text-2xl font-bold text-gray-900">
-                2025년
-              </div>
-              <div className="text-xs sm:text-sm text-gray-600">시작 연도</div>
-            </div>
-          </div>
+              </Link>
+            </article>
+          ))}
         </div>
       </div>
 
-      {/* 푸터 광고 */}
-      <FooterAd />
-    </>
+      {/* View All Posts Link */}
+      {posts.length >= siteConfig.blog.postsPerPage && (
+        <div className="text-center pt-8">
+          <Link
+            href="/posts"
+            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+          >
+            모든 포스트 보기
+          </Link>
+        </div>
+      )}
+    </div>
   )
 }

@@ -4,7 +4,7 @@
 
 # 🏗️ 핵심 레이아웃 파일 - 절대 건드리지 마세요
 # src/app/layout.tsx  # AdSense 코드 수정을 위해 임시 제거
-src/app/page.tsx
+# src/app/page.tsx  # 카테고리 뱃지 추가를 위해 임시 제거
 src/app/about/page.tsx
 src/app/posts/[...slug]/page.tsx
 src/app/category/[category]/page.tsx
