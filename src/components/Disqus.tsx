@@ -11,7 +11,9 @@ interface DisqusProps {
 
 declare global {
   interface Window {
-    DISQUS?: any
+    DISQUS?: {
+      reset: (options: { reload: boolean; config: () => void }) => void
+    }
     disqus_config?: () => void
   }
 }
