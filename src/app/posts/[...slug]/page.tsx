@@ -6,7 +6,6 @@ import { Metadata } from 'next'
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
 import { SocialShare } from '@/components/SocialShare'
-import { Disqus } from '@/components/Disqus'
 
 interface PostPageProps {
   params: Promise<{
@@ -181,13 +180,6 @@ export default async function PostPage({ params }: PostPageProps) {
             </Link>
           </div>
         </nav>
-
-        {/* Disqus Comments */}
-        <Disqus 
-          identifier={id}
-          title={post.title}
-          url={postUrl}
-        />
       </article>
     </>
   )

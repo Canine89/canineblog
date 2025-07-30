@@ -27,10 +27,5 @@ export const siteConfig = {
     url: "https://canineblog.vercel.app/", // Vercel 배포 후 실제 도메인으로 변경
     language: "ko",
     theme: "light", // light, dark, auto
-  },
-
-  // Disqus 설정
-  disqus: {
-    shortname: "canineblog", // Disqus 사이트 shortname
   }
 } 
