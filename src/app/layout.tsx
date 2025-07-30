@@ -10,15 +10,6 @@ import { CategoryDropdown } from '@/components/CategoryDropdown'
 
 const inter = Inter({ subsets: ['latin'] })
 
-// AdSense 타입 선언
-declare global {
-  interface Window {
-    adsbygoogle: unknown[]
-    adsenseAutoAdsInitialized?: boolean
-    adsenseInitialized?: boolean
-  }
-}
-
 export const metadata: Metadata = {
   title: {
     default: siteConfig.title,
@@ -70,8 +61,6 @@ export const metadata: Metadata = {
   other: {
     'theme-color': '#000000',
     'color-scheme': 'light dark',
-    // Google AdSense 검증을 위한 메타 태그 (구글에서 제공하는 코드로 교체)
-    // 'google-site-verification': 'your-verification-code',
   },
   icons: {
     icon: [
@@ -97,11 +86,14 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
-     crossOrigin="anonymous"></script>
+        {/* Google AdSense 코드 - Google 문서에 따라 정확한 구현 */}
+        <script 
+          async 
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
+          crossOrigin="anonymous"
+        />
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
-        
         <div className="min-h-screen">
           <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
