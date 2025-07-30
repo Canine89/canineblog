@@ -1,73 +1,73 @@
 ---
-title: "Cursor 1.3 Series Late July Updates - Real Performance Improvements and Disappointing Aspects from Actual Use"
+title: "Cursor 1.3 시리즈 7월 말 업데이트 - 실제 사용해본 성능 개선과 아쉬운 점들"
 date: "2025-07-30"
-excerpt: "An honest review of the performance gains, new features, and issues I encountered during the Cursor updates through version 1.3.4 in late July."
+excerpt: "Cursor 1.3.4까지 이어진 7월 말 업데이트에서 실제로 체감한 성능 향상과 새로운 기능들, 그리고 겪은 문제점까지 솔직하게 정리해봤습니다."
 tags: ["cursor", "ai-coding", "development-tools", "productivity", "performance"]
 category: "dev"
 ---
 
-# Cursor 1.3 Series Late July Updates - Real Performance Improvements and Disappointing Aspects from Actual Use
+# Cursor 1.3 시리즈 7월 말 업데이트 - 실제 사용해본 성능 개선과 아쉬운 점들
 
-Last week Cursor dropped update after update, all the way up to version 1.3.4. I'm someone who gets excited about AI coding tools and always applies updates immediately, and this round was pretty impressive. Here's my honest take after actually using it for a week in real projects.
+지난주 Cursor에서 연이어 업데이트를 쏟아내더니, 1.3.4까지 나왔네요. 개인적으로 AI 코딩 도구에 관심이 많아서 매번 업데이트할 때마다 바로 적용해보는 편인데, 이번 업데이트는 꽤 인상적이었습니다. 일주일 동안 실제로 사용해본 경험을 바탕으로 솔직한 후기를 정리해봤습니다.
 
-## A Week of Update Storms
+## 업데이트 폭풍이었던 일주일
 
-From July 23rd to 29th, it was truly a breathless series of updates. With new versions coming out every other day, I initially thought "Is there some major problem?" But it turned out to be major feature additions followed by rapid bug fixes.
+7월 23일부터 29일까지 정말 숨가쁘게 업데이트가 이어졌어요. 하루걸러 하루씩 새 버전이 나오니까 처음엔 '뭔가 큰 문제가 있나?' 싶었는데, 알고보니 메이저 기능 추가와 그에 따른 빠른 버그픽스였더라고요.
 
-- **Version 1.3.0** (July 23rd) - Major update
-- **Version 1.3.1** (July 24th) - Emergency patch
-- **Version 1.3.2** (July 25th) - Performance tuning
-- **Version 1.3.3** (July 26th) - Stabilization work
-- **Version 1.3.4** (July 29th) - Final patch
+- **Version 1.3.0** (7월 23일) - 대형 업데이트
+- **Version 1.3.1** (7월 24일) - 긴급 패치  
+- **Version 1.3.2** (7월 25일) - 성능 튜닝
+- **Version 1.3.3** (7월 26일) - 안정화 작업
+- **Version 1.3.4** (7월 29일) - 마무리 패치
 
-## Noticeable Speed Improvements - Is It Really Faster?
+## 체감되는 속도 개선, 정말 빨라졌나?
 
-### Tab Completion Definitely Got Faster
+### Tab Completion이 확실히 빨라졌어요
 
-Officially they claim **100ms reduction**, and I can genuinely feel the difference in real use. Especially when writing React components, the speed at which autocomplete suggestions appear has noticeably improved. Previously, there were moments where I'd think "Huh? Is it not working?" and wait briefly, but now it feels almost instantaneous.
+공식적으로는 **100ms 단축**이라고 하는데, 실제로 사용해보니 확실히 차이가 느껴집니다. 특히 React 컴포넌트 작성할 때 자동완성 제안이 나타나는 속도가 눈에 띄게 개선됐어요. 이전에는 가끔 '어? 안 나오나?' 하고 잠깐 기다리는 경우가 있었는데, 이제는 거의 즉시 뜨는 느낌입니다.
 
-### Real Effects of 30% TTFT Reduction
+### TTFT 30% 단축의 실제 효과
 
-They say memory management improvements led to **30% faster time to first token**, and this really shows when requesting more complex code. For example, when I ask "refactor this function to TypeScript," I used to wait a second or two, but now it starts almost immediately.
+메모리 관리 개선으로 **첫 토큰 생성 시간이 30% 빨라졌다**고 하는데, 이건 좀 더 복잡한 코드를 요청했을 때 차이가 확연해요. 예를 들어 "이 함수를 TypeScript로 리팩토링해줘"라고 요청하면, 이전에는 한두 초 정도 기다려야 했는데 지금은 거의 바로 시작합니다.
 
-## New Features - Merge Conflict Resolution Was Impressive
+## 새로운 기능들, 특히 Merge Conflict 해결이 인상적
 
-### Automatic Git Merge Conflict Resolution Attempts
+### Git 병합 충돌 자동 해결 시도
 
-This was genuinely surprising. During a team project when conflicts arose, the **Agent asked "Would you like me to resolve the conflicts?"** It's not perfect, but it handles simple conflicts quite well. Complex logic conflicts still need human review though.
+이게 정말 신기했어요. 팀 프로젝트에서 충돌이 생겼는데, **Agent가 "충돌을 해결해드릴까요?"**라고 물어보더라고요. 완벽하지는 않지만 간단한 충돌은 꽤 잘 해결해줍니다. 다만 복잡한 로직이 얽힌 충돌은 여전히 사람이 직접 봐야 할 것 같아요.
 
-### Slack Integration Seems Useful for Teams
+### Slack 통합은 팀에서 유용할 듯
 
-Being able to **run the Agent with `@Cursor` mentions** looks promising for team environments. We haven't fully tested it on our team yet, but it seems like it would be useful for code reviews and quick Q&A sessions.
+**`@Cursor` 멘션으로 Agent를 실행**할 수 있게 된 건 팀 환경에서 괜찮을 것 같습니다. 아직 저희 팀에서는 본격적으로 써보지 않았지만, 코드 리뷰나 빠른 질의응답에는 유용할 것 같아요.
 
-## Disappointing Aspects - Stability Issues in Particular
+## 아쉬운 점들, 특히 안정성 이슈
 
-### Problems After the 1.3.2 Update
+### 1.3.2 업데이트 후 겪은 문제들
 
-After updating to 1.3.2 on July 25th, I was really frustrated. While working on a large project, Cursor suddenly froze several times. Looking at community forums, I wasn't the only one experiencing this. Fortunately it improved a lot in 1.3.3, but having your tool freeze during important work is really stressful.
+7월 25일 1.3.2로 업데이트하고 나서 정말 답답했어요. 큰 프로젝트에서 작업하다가 갑자기 Cursor가 멈추는 현상이 몇 번 있었거든요. 커뮤니티 포럼 보니까 저만 겪은 문제가 아니더라고요. 다행히 1.3.3에서 많이 개선되긴 했지만, 중요한 작업 중에 툴이 멈추면 정말 스트레스받죠.
 
-### Limitations with Large Projects
+### 대용량 프로젝트에서의 한계
 
-The projects I mainly work on are pretty substantial, and I notice response times degrading as file counts increase. I'm using `.cursorignore` files to exclude unnecessary files, but fundamental improvements seem needed.
+제가 주로 작업하는 프로젝트가 꽤 큰 편인데, 파일이 많아질수록 반응속도가 떨어지는 게 느껴져요. `.cursorignore` 파일로 불필요한 파일들을 제외하고는 있지만, 근본적인 개선이 필요할 것 같습니다.
 
-## Impressions from Real Work Usage
+## 실제 업무에서 써본 소감
 
-After applying it to actual projects for a week, I was generally satisfied. The faster autocomplete speed for routine coding tasks is genuinely noticeable. However, I think there's still room for improvement on the stability front.
+한 주 동안 실제 프로젝트에 적용해본 결과, 전반적으로는 만족스러웠어요. 특히 일상적인 코딩 작업에서 자동완성 속도가 빨라진 건 정말 체감됩니다. 다만 안정성 부분에서는 아직 개선의 여지가 있다고 생각해요.
 
-### Recommended Usage Patterns
+### 추천하는 사용법
 
-From experience, here's what works best:
+경험상 이렇게 쓰는 게 좋더라고요:
 
-1. **Backup Essential**: Always Git commit before important work
-2. **Optimization Settings**: `.cursorignore` optimization is crucial for large projects
-3. **Quick Response**: If things get weirdly slow, restart immediately (this is still the most reliable fix)
+1. **백업 필수**: 중요한 작업 전에는 반드시 Git 커밋부터
+2. **최적화 설정**: 대용량 프로젝트에서는 `.cursorignore`로 최적화 필수  
+3. **빠른 대응**: 이상하게 느려지면 바로 재시작 (아직은 이게 가장 확실함)
 
-## Future Expectations
+## 앞으로의 기대
 
-Seeing how rapidly the Cursor team is making improvements shows they're really serious about the AI coding tools space. If they can just solve the stability issues, this could become a truly powerful tool.
+Cursor 팀이 이렇게 빠른 속도로 개선하는 걸 보면, AI 코딩 도구 분야에서 정말 진심인 것 같아요. 앞으로 안정성 문제만 해결되면 정말 강력한 도구가 될 것 같습니다.
 
-Personally, I'm hoping the next update brings multi-file editing capabilities or smarter context management features. It's already plenty useful, but adding features that let you see the bigger picture would be a real game changer.
+개인적으로는 다음 업데이트에서 멀티 파일 편집 기능이나 더 스마트한 컨텍스트 관리 기능이 나오길 기대하고 있어요. 지금도 충분히 유용하지만, 더 큰 그림을 그릴 수 있는 기능들이 추가되면 정말 게임체인저가 될 것 같거든요.
 
 ---
 
-**Note**: This article was written as of July 30, 2025. Cursor updates so quickly that there might be new features by the time you're reading this! Check the [official Cursor website](https://cursor.sh) for the latest information.
+**참고**: 이 글은 2025년 7월 30일 기준으로 작성했습니다. Cursor는 업데이트가 빨라서 읽으시는 시점에는 또 새로운 기능이 나와있을 수도 있어요! 최신 정보는 [Cursor 공식 웹사이트](https://cursor.sh)에서 확인하시기 바랍니다.
