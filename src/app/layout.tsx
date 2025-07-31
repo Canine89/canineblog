@@ -10,6 +10,14 @@ import { CategoryDropdown } from '@/components/CategoryDropdown'
 
 const inter = Inter({ subsets: ['latin'] })
 
+// AdSense 타입 선언
+declare global {
+  interface Window {
+    adsbygoogle: unknown[]
+    adsenseAutoAdsInitialized?: boolean
+  }
+}
+
 export const metadata: Metadata = {
   title: {
     default: siteConfig.title,
@@ -86,7 +94,8 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        {/* Google AdSense 코드 - Google 문서에 따라 정확한 구현 */}
+        {/* Google AdSense - 전체 코드 구현 */}
+        <meta name="google-adsense-account" content="ca-pub-1531500505272848" />
         <script 
           async 
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
@@ -94,6 +103,45 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
+        {/* Google AdSense 자동 광고 초기화 - 프로덕션에서만 */}
+        {process.env.NODE_ENV === 'production' && (
+          <Script
+            id="adsense-auto-ads"
+            strategy="afterInteractive"
+            dangerouslySetInnerHTML={{
+              __html: `
+                // AdSense 자동 광고 초기화 - 중복 실행 방지
+                (function() {
+                  // 이미 초기화되었다면 리턴
+                  if (window.adsenseAutoAdsInitialized) {
+                    console.log('AdSense auto ads already initialized');
+                    return;
+                  }
+                  
+                  // AdSense가 로드될 때까지 대기
+                  function initAdsense() {
+                    if (typeof window.adsbygoogle !== 'undefined') {
+                      try {
+                        // 자동 광고는 사용하지 않음 - TagError 방지
+                        // 개별 광고 슬롯만 사용
+                        window.adsenseAutoAdsInitialized = true;
+                        console.log('AdSense initialized successfully');
+                      } catch (e) {
+                        console.warn('AdSense initialization error:', e);
+                      }
+                    } else {
+                      // AdSense 스크립트가 아직 로드되지 않았다면 재시도
+                      setTimeout(initAdsense, 500);
+                    }
+                  }
+                  
+                  // 초기화 시작
+                  initAdsense();
+                })();
+              `
+            }}
+          />
+        )}
         <div className="min-h-screen">
           <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
