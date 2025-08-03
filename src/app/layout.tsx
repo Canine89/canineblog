@@ -93,16 +93,15 @@ export default function RootLayout({
   const categories = getCategoriesFromFolders()
   return (
     <html lang={siteConfig.site.language}>
-      <head>
-        {/* Google AdSense - 전체 코드 구현 */}
-        <meta name="google-adsense-account" content="ca-pub-1531500505272848" />
-        <script 
-          async 
+      <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
+        {/* Google AdSense 메인 스크립트 - 모든 페이지에 로드 */}
+        <Script
+          async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
           crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
-      </head>
-      <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
+        
         {/* Google AdSense 자동 광고 초기화 - 프로덕션에서만 */}
         {process.env.NODE_ENV === 'production' && (
           <Script

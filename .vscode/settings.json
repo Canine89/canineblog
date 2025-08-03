@@ -1,0 +1,89 @@
+{
+  "cursor.ai.codeGeneration.enabled": true,
+  "cursor.ai.completion.enabled": true,
+  "cursor.ai.chat.enabled": true,
+  
+  // 디자인 관련 파일들을 Cursor AI에서 제외
+  "files.exclude": {
+    // 스타일 파일들 (탐색기에서 숨김)
+    "src/app/globals.css": false,
+    "tailwind.config.js": false,
+    "postcss.config.mjs": false,
+    
+    // 백업 파일들
+    "**/*.backup": true,
+    "design-backup/": true,
+    "temp-designs/": true
+  },
+  
+  // Cursor AI가 특정 파일 패턴을 무시하도록 설정
+  "cursor.ai.ignorePatterns": [
+    // 디자인 관련 파일들
+    "src/app/globals.css",
+    "src/app/layout.tsx",
+    "src/components/CategoryDropdown.tsx",
+    "src/components/MobileNav.tsx",
+    "src/components/Navigation.tsx",
+    "tailwind.config.js",
+    "postcss.config.mjs",
+    
+    // 페이지 레이아웃 파일들
+    "src/app/page.tsx",
+    "src/app/about/page.tsx",
+    "src/app/books/page.tsx",
+    "src/app/posts/[...slug]/page.tsx",
+    "src/app/category/[category]/page.tsx",
+    "src/app/tags/page.tsx",
+    
+    // 정적 파일들
+    "public/*.png",
+    "public/*.jpg",
+    "public/*.svg",
+    "public/*.ico",
+    "public/manifest.json",
+    "public/site.webmanifest",
+    
+    // 백업 및 임시 파일들
+    "**/*.backup",
+    "design-backup/**",
+    "temp-designs/**"
+  ],
+  
+  // 파일 연관성 설정
+  "files.associations": {
+    "*.md": "markdown",
+    ".claudeignore": "gitignore",
+    "CLAUDE.md": "markdown"
+  },
+  
+  // 편집기 설정
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  
+  // TypeScript 설정
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.suggest.autoImports": true,
+  
+  // 탐색기에서 중요하지 않은 파일들 숨김
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.tsx": "${capture}.js",
+    "package.json": "package-lock.json,yarn.lock,pnpm-lock.yaml"
+  },
+  
+  // Git 관련 설정
+  "git.ignoreLimitWarning": true,
+  
+  // 검색에서 제외할 파일들
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/out": true,
+    "**/.vercel": true,
+    "design-backup/": true,
+    "temp-designs/": true
+  }
+}

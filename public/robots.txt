@@ -1,8 +1,28 @@
+# All crawlers
 User-agent: *
+Allow: /
+
+# Google AdSense
+User-agent: Mediapartners-Google
+Allow: /
+
+# Google AdBot
+User-agent: AdsBot-Google
+Allow: /
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
+# Googlebot (including mobile)
+User-agent: Googlebot
+Allow: /
+User-agent: Googlebot-Mobile
+Allow: /
+User-agent: Googlebot-Image
 Allow: /
 
 # Sitemap
 Sitemap: https://blog-googlead.vercel.app/sitemap.xml
 
-# Crawl-delay
+# Crawl-delay (not for Google)
+User-agent: *
 Crawl-delay: 1 
