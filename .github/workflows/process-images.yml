@@ -1,0 +1,165 @@
+name: Process Images
+
+# 워크플로우 실행 조건
+on:
+  # Pull Request 생성 시
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'content/**/*.md'
+  
+  # 수동 실행 가능
+  workflow_dispatch:
+    inputs:
+      commit_message:
+        description: 'Custom commit message'
+        required: false
+        default: 'feat: 이미지 자동 처리 및 경로 업데이트'
+
+# 권한 설정
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  process-images:
+    runs-on: ubuntu-latest
+    
+    steps:
+    # 1. 저장소 체크아웃
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        # 전체 히스토리 가져오기 (커밋을 위해 필요)
+        fetch-depth: 0
+        # 토큰 설정으로 커밋 권한 확보
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    # 2. Node.js 환경 설정
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    # 3. 의존성 설치 (필요한 경우)
+    - name: Install dependencies
+      run: |
+        # 스크립트가 추가 의존성이 필요한 경우에만
+        # npm install
+
+    # 4. public/images/posts 디렉토리 생성
+    - name: Create images directory
+      run: |
+        mkdir -p public/images/posts
+
+    # 5. 이미지 처리 스크립트 실행
+    - name: Process images
+      id: process
+      run: |
+        # 스크립트 실행 권한 부여
+        chmod +x scripts/upload-images.js
+        
+        # 스크립트 실행 및 결과 캡처
+        echo "SCRIPT_OUTPUT<<EOF" >> $GITHUB_OUTPUT
+        node scripts/upload-images.js 2>&1 | tee process_output.log
+        echo "EOF" >> $GITHUB_OUTPUT
+        
+        # 변경사항이 있는지 확인
+        if git diff --quiet && git diff --cached --quiet; then
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+        fi
+
+    # 6. 변경사항 확인 및 커밋
+    - name: Commit changes
+      if: steps.process.outputs.has_changes == 'true'
+      run: |
+        # Git 사용자 정보 설정
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        # 변경사항 추가
+        git add .
+        
+        # 커밋 메시지 생성
+        COMMIT_MSG="${{ github.event.inputs.commit_message }}"
+        if [ -z "$COMMIT_MSG" ]; then
+          COMMIT_MSG="feat: 이미지 자동 처리 및 경로 업데이트
+
+🤖 Generated with GitHub Actions
+
+Co-Authored-By: GitHub Actions <action@github.com>"
+        fi
+        
+        # 커밋 실행
+        git commit -m "$COMMIT_MSG"
+
+    # 7. Pull Request인 경우 변경사항을 PR 브랜치에 푸시
+    - name: Push changes to PR branch
+      if: steps.process.outputs.has_changes == 'true' && github.event_name == 'pull_request'
+      run: |
+        git push origin HEAD:${{ github.head_ref }}
+
+    # 8. 수동 실행인 경우 main 브랜치에 푸시
+    - name: Push changes to main
+      if: steps.process.outputs.has_changes == 'true' && github.event_name == 'workflow_dispatch'
+      run: |
+        git push origin main
+
+    # 9. 처리 결과 요약 생성
+    - name: Create summary
+      if: always()
+      run: |
+        echo "## 🖼️ 이미지 처리 결과" >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        
+        if [ "${{ steps.process.outputs.has_changes }}" == "true" ]; then
+          echo "✅ **이미지 처리가 완료되었습니다!**" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 변경사항:" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          git diff --name-only HEAD~1 HEAD | head -20 >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+        else
+          echo "ℹ️ **처리할 이미지가 없습니다.**" >> $GITHUB_STEP_SUMMARY
+        fi
+        
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo "### 스크립트 출력 로그:" >> $GITHUB_STEP_SUMMARY
+        echo '<details><summary>로그 보기</summary>' >> $GITHUB_STEP_SUMMARY
+        echo "" >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        cat process_output.log >> $GITHUB_STEP_SUMMARY
+        echo '```' >> $GITHUB_STEP_SUMMARY
+        echo '</details>' >> $GITHUB_STEP_SUMMARY
+
+    # 10. PR에 코멘트 추가 (Pull Request인 경우)
+    - name: Comment on PR
+      if: steps.process.outputs.has_changes == 'true' && github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const output = `## 🖼️ 이미지 자동 처리 완료!
+          
+          이 PR의 마크다운 파일에서 로컬 이미지 참조를 감지하여 자동으로 처리했습니다.
+          
+          ### 변경사항:
+          - 로컬 이미지를 \`public/images/posts/\` 디렉토리로 이동
+          - 마크다운 파일의 이미지 경로를 업데이트
+          - 이미지 파일명을 안전한 형식으로 변경
+          
+          ### 처리된 파일:
+          \`\`\`
+          ${{ steps.process.outputs.SCRIPT_OUTPUT }}
+          \`\`\`
+          
+          🤖 *이 작업은 GitHub Actions에 의해 자동으로 수행되었습니다.*`;
+          
+          github.rest.issues.createComment({
+            issue_number: context.issue.number,
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            body: output
+          });
