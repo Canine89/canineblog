@@ -94,12 +94,20 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
-        {/* Google AdSense 메인 스크립트 - 모든 페이지에 로드 */}
+        {/* Google AdSense - 크롤러가 모든 페이지에서 감지하도록 두 가지 전략 사용 */}
         <Script
+          id="adsense-script-before"
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
           crossOrigin="anonymous"
           strategy="beforeInteractive"
+        />
+        <Script
+          id="adsense-script-after"
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
         />
         
         {/* Google AdSense 자동 광고 초기화 - 프로덕션에서만 */}
