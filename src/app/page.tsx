@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/markdown'
 import { siteConfig } from '@/lib/config'
+import { InlineAd, FooterAd } from '@/components/AdSense'
 
 export default function HomePage() {
   const posts = getAllPosts()
@@ -91,6 +92,9 @@ export default function HomePage() {
         </div>
       </div>
 
+      {/* Inline Advertisement */}
+      <InlineAd />
+
       {/* View All Posts Link */}
       {posts.length >= siteConfig.blog.postsPerPage && (
         <div className="text-center pt-8">
@@ -102,6 +106,9 @@ export default function HomePage() {
           </Link>
         </div>
       )}
+
+      {/* Footer Advertisement */}
+      <FooterAd />
     </div>
   )
 }

@@ -23,19 +23,13 @@ export function AdSense({ adSlot, adFormat = 'auto', style, className }: AdSense
       return
     }
 
-    // AdSense 스크립트가 누락된 경우 안전하게 주입
-    const ensureAdSenseScriptPresent = () => {
-      if (typeof window === 'undefined') return
+    // AdSense 스크립트 존재 확인 (layout.tsx에서 이미 로드됨)
+    const checkAdSenseScriptPresent = () => {
+      if (typeof window === 'undefined') return false
       const existing = document.querySelector(
         'script[src^="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
       ) as HTMLScriptElement | null
-      if (!existing) {
-        const script = document.createElement('script')
-        script.async = true
-        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848'
-        script.crossOrigin = 'anonymous'
-        document.head.appendChild(script)
-      }
+      return !!existing
     }
 
     // 프로덕션 환경에서만 AdSense 로드 (재시도 포함)
@@ -62,10 +56,19 @@ export function AdSense({ adSlot, adFormat = 'auto', style, className }: AdSense
       tryLoad()
     }
 
-    // 스크립트 보장 후 광고 로드 시도
-    ensureAdSenseScriptPresent()
-    const timer = setTimeout(loadAdWithRetry, 500)
-    return () => clearTimeout(timer)
+    // 스크립트가 있는지 확인한 후 광고 로드 시도
+    if (checkAdSenseScriptPresent()) {
+      const timer = setTimeout(loadAdWithRetry, 100)
+      return () => clearTimeout(timer)
+    } else {
+      // 스크립트가 없다면 좀 더 기다려서 시도
+      const timer = setTimeout(() => {
+        if (checkAdSenseScriptPresent()) {
+          loadAdWithRetry()
+        }
+      }, 1000)
+      return () => clearTimeout(timer)
+    }
   }, [adSlot])
 
   // 개발 환경에서는 광고 대신 플레이스홀더 표시

@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
 import { SocialShare } from '@/components/SocialShare'
+import { InlineAd, FooterAd } from '@/components/AdSense'
 
 interface PostPageProps {
   params: Promise<{
@@ -154,6 +155,9 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
         </header>
 
+        {/* Inline Advertisement */}
+        <InlineAd />
+
         {/* Content */}
         <div 
           className="prose max-w-none"
@@ -180,6 +184,9 @@ export default async function PostPage({ params }: PostPageProps) {
             </Link>
           </div>
         </nav>
+
+        {/* Footer Advertisement */}
+        <FooterAd />
       </article>
     </>
   )
