@@ -23,23 +23,48 @@ export function AdSense({ adSlot, adFormat = 'auto', style, className }: AdSense
       return
     }
 
-    // 프로덕션 환경에서만 AdSense 로드
-    const loadAd = () => {
-      if (typeof window !== 'undefined' && window.adsbygoogle) {
-        try {
-          const adElement = document.querySelector(`ins[data-ad-slot="${adSlot}"]`)
-          if (adElement && !adElement.getAttribute('data-adsbygoogle-status')) {
-            window.adsbygoogle.push({})
-          }
-        } catch (error) {
-          // 프로덕션에서도 조용히 실패 처리
-          return
-        }
+    // AdSense 스크립트가 누락된 경우 안전하게 주입
+    const ensureAdSenseScriptPresent = () => {
+      if (typeof window === 'undefined') return
+      const existing = document.querySelector(
+        'script[src^="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"]'
+      ) as HTMLScriptElement | null
+      if (!existing) {
+        const script = document.createElement('script')
+        script.async = true
+        script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848'
+        script.crossOrigin = 'anonymous'
+        document.head.appendChild(script)
       }
     }
 
-    // 프로덕션에서만 타이머 설정
-    const timer = setTimeout(loadAd, 1500)
+    // 프로덕션 환경에서만 AdSense 로드 (재시도 포함)
+    const loadAdWithRetry = () => {
+      let attempts = 0
+      const maxAttempts = 20
+      const tryLoad = () => {
+        attempts += 1
+        if (typeof window !== 'undefined' && window.adsbygoogle) {
+          try {
+            const adElement = document.querySelector(`ins[data-ad-slot="${adSlot}"]`)
+            if (adElement && !adElement.getAttribute('data-adsbygoogle-status')) {
+              window.adsbygoogle.push({})
+            }
+            return // 성공 또는 이미 로드됨
+          } catch (error) {
+            // 조용히 실패 후 재시도
+          }
+        }
+        if (attempts < maxAttempts) {
+          setTimeout(tryLoad, 500)
+        }
+      }
+      tryLoad()
+    }
+
+    // 스크립트 보장 후 광고 로드 시도
+    ensureAdSenseScriptPresent()
+    const timer = setTimeout(loadAdWithRetry, 500)
     return () => clearTimeout(timer)
   }, [adSlot])
 
