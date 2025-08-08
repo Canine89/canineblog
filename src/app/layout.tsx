@@ -105,12 +105,13 @@ export default function RootLayout({
           - 페이지당 단 하나의 AdSense 스크립트만 사용
           - Google AI가 최적 위치에 광고 자동 배치
           - 코드 수정 금지 원칙 준수
+          - data-nscript 속성 오류 해결 (beforeInteractive 사용)
         */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
           crossOrigin="anonymous"
-          strategy="afterInteractive"
+          strategy="beforeInteractive"
         />
         <div className="min-h-screen">
           <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
