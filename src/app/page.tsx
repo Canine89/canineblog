@@ -93,15 +93,26 @@ export default function HomePage() {
 
       {/* 자동광고가 이 위치에 광고를 배치할 수 있습니다 */}
 
-      {/* View All Posts Link */}
+      {/* View All Posts Link - 카테고리별로 안내 */}
       {posts.length >= siteConfig.blog.postsPerPage && (
         <div className="text-center pt-8">
-          <Link
-            href="/posts"
-            className="inline-flex items-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            모든 포스트 보기
-          </Link>
+          <div className="space-y-3">
+            <p className="text-sm text-gray-600">더 많은 포스트를 보려면 카테고리를 선택해주세요</p>
+            <div className="flex flex-wrap gap-2 justify-center">
+              <Link
+                href="/category/dev"
+                className="inline-flex items-center px-3 py-1.5 border border-blue-300 rounded-md text-sm font-medium text-blue-700 bg-blue-50 hover:bg-blue-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+              >
+                개발 포스트
+              </Link>
+              <Link
+                href="/category/book"
+                className="inline-flex items-center px-3 py-1.5 border border-green-300 rounded-md text-sm font-medium text-green-700 bg-green-50 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+              >
+                도서 포스트
+              </Link>
+            </div>
+          </div>
         </div>
       )}
 
