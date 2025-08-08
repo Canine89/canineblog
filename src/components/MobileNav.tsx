@@ -61,11 +61,16 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+        <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50" 
+             style={{
+               backgroundColor: '#ffffff',
+               color: '#4B5563'
+             }}>
           <Link
             href="/"
             onClick={closeMenu}
             className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            style={{ color: '#4B5563' }}
           >
             홈
           </Link>
@@ -73,20 +78,22 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
           {categories.length > 0 && (
             <>
               <div className="px-4 py-2">
-                <div className="text-xs font-medium text-gray-500 mb-2">카테고리</div>
+                <div className="text-xs font-medium text-gray-500 mb-2" style={{ color: '#6B7280' }}>카테고리</div>
                 {categories.map((category) => (
                   <Link
                     key={category.path}
                     href={category.path}
                     onClick={closeMenu}
                     className="block px-2 py-1 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded transition-colors"
+                    style={{ color: '#4B5563' }}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <span className="text-base">{category.icon}</span>
                         <span>{category.name}</span>
                       </div>
-                      <span className="text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-500">
+                      <span className="text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-500" 
+                            style={{ backgroundColor: '#F3F4F6', color: '#6B7280' }}>
                         {category.count}
                       </span>
                     </div>
@@ -102,6 +109,7 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
             href="/tags"
             onClick={closeMenu}
             className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            style={{ color: '#4B5563' }}
           >
             태그
           </Link>
@@ -109,6 +117,7 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
             href="/books"
             onClick={closeMenu}
             className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            style={{ color: '#4B5563' }}
           >
             편집한 도서
           </Link>
@@ -116,6 +125,7 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
             href="/about"
             onClick={closeMenu}
             className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            style={{ color: '#4B5563' }}
           >
             소개
           </Link>
