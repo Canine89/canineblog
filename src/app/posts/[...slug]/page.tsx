@@ -6,7 +6,6 @@ import { Metadata } from 'next'
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
 import { SocialShare } from '@/components/SocialShare'
-import { InlineAd, FooterAd } from '@/components/AdSense'
 
 interface PostPageProps {
   params: Promise<{
@@ -155,8 +154,7 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
         </header>
 
-        {/* Inline Advertisement */}
-        <InlineAd />
+        {/* 자동광고가 이 위치에 광고를 배치할 수 있습니다 */}
 
         {/* Content */}
         <div 
@@ -185,8 +183,7 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
         </nav>
 
-        {/* Footer Advertisement */}
-        <FooterAd />
+        {/* 자동광고가 하단에 광고를 배치할 수 있습니다 */}
       </article>
     </>
   )

@@ -3,7 +3,6 @@ import { getAllPosts, getCategoriesFromFolders } from '@/lib/markdown'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import Link from 'next/link'
-import { InlineAd, FooterAd } from '@/components/AdSense'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
@@ -108,7 +107,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                 {/* 3번째 포스트마다 인라인 광고 삽입 */}
                 {(index + 1) % 3 === 0 && (
                   <div className="my-8">
-                    <InlineAd />
+                    {/* 자동광고가 이 위치에 광고를 배치할 수 있습니다 */}
                   </div>
                 )}
               </div>
@@ -131,7 +130,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       )}
 
       {/* 푸터 광고 */}
-      <FooterAd />
+      {/* 자동광고가 하단에 광고를 배치할 수 있습니다 */}
     </div>
   )
 }

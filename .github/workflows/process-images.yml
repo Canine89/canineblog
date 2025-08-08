@@ -57,9 +57,6 @@ jobs:
     - name: Process images
       id: process
       run: |
-        # 스크립트 실행 권한 부여
-        chmod +x scripts/upload-images.js
-        
         # 스크립트 실행 및 결과 캡처
         echo "SCRIPT_OUTPUT<<EOF" >> $GITHUB_OUTPUT
         node scripts/upload-images.js 2>&1 | tee process_output.log
@@ -86,11 +83,14 @@ jobs:
         # 커밋 메시지 생성
         COMMIT_MSG="${{ github.event.inputs.commit_message }}"
         if [ -z "$COMMIT_MSG" ]; then
-          COMMIT_MSG="feat: 이미지 자동 처리 및 경로 업데이트
+          COMMIT_MSG=$(cat <<EOF
+        feat: 이미지 자동 처리 및 경로 업데이트
 
-🤖 Generated with GitHub Actions
+        🤖 Generated with GitHub Actions
 
-Co-Authored-By: GitHub Actions <action@github.com>"
+        Co-Authored-By: GitHub Actions <action@github.com>
+        EOF
+        )
         fi
         
         # 커밋 실행

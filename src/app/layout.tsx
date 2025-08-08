@@ -10,11 +10,10 @@ import { CategoryDropdown } from '@/components/CategoryDropdown'
 
 const inter = Inter({ subsets: ['latin'] })
 
-// AdSense 타입 선언
+// AdSense 타입 선언 - 2025 정책 준수 (간소화)
 declare global {
   interface Window {
     adsbygoogle: unknown[]
-    adsenseAutoAdsInitialized?: boolean
   }
 }
 
@@ -94,54 +93,25 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        {/* Google AdSense - 정적 스크립트로 모든 페이지에서 감지 보장 */}
-        <script 
-          async 
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
-          crossOrigin="anonymous"
-        />
+        {/* Google site-tag (gtag.js) - Google Analytics */}
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
         
-        {/* Google AdSense 자동 광고 초기화 - 프로덕션에서만 */}
-        {process.env.NODE_ENV === 'production' && (
-          <Script
-            id="adsense-auto-ads"
-            strategy="afterInteractive"
-            dangerouslySetInnerHTML={{
-              __html: `
-                // AdSense 자동 광고 초기화 - 중복 실행 방지
-                (function() {
-                  // 이미 초기화되었다면 리턴
-                  if (window.adsenseAutoAdsInitialized) {
-                    console.log('AdSense auto ads already initialized');
-                    return;
-                  }
-                  
-                  // AdSense가 로드될 때까지 대기
-                  function initAdsense() {
-                    if (typeof window.adsbygoogle !== 'undefined') {
-                      try {
-                        // 자동 광고는 사용하지 않음 - TagError 방지
-                        // 개별 광고 슬롯만 사용
-                        window.adsenseAutoAdsInitialized = true;
-                        console.log('AdSense initialized successfully');
-                      } catch (e) {
-                        console.warn('AdSense initialization error:', e);
-                      }
-                    } else {
-                      // AdSense 스크립트가 아직 로드되지 않았다면 재시도
-                      setTimeout(initAdsense, 500);
-                    }
-                  }
-                  
-                  // 초기화 시작
-                  initAdsense();
-                })();
-              `
-            }}
-          />
-        )}
+        {/* 
+          Google AdSense 자동광고 - 2025 정책 준수 구현
+          
+          ✅ 정책 준수 사항:
+          - 단일 스크립트로 자동광고 활성화 (enable_page_level_ads 불필요)
+          - 페이지당 단 하나의 AdSense 스크립트만 사용
+          - Google AI가 최적 위치에 광고 자동 배치
+          - 코드 수정 금지 원칙 준수
+        */}
+        <Script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
+          crossOrigin="anonymous"
+          strategy="afterInteractive"
+        />
         <div className="min-h-screen">
           <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">

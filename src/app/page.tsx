@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/markdown'
 import { siteConfig } from '@/lib/config'
-import { InlineAd, FooterAd } from '@/components/AdSense'
 
 export default function HomePage() {
   const posts = getAllPosts()
@@ -92,8 +91,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* Inline Advertisement */}
-      <InlineAd />
+      {/* 자동광고가 이 위치에 광고를 배치할 수 있습니다 */}
 
       {/* View All Posts Link */}
       {posts.length >= siteConfig.blog.postsPerPage && (
@@ -107,8 +105,7 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Footer Advertisement */}
-      <FooterAd />
+      {/* 자동광고가 하단에 광고를 배치할 수 있습니다 */}
     </div>
   )
 }
