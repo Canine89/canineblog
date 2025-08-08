@@ -1,11 +1,9 @@
 import Link from 'next/link'
 import { getAllPosts } from '@/lib/markdown'
-import { siteConfig } from '@/lib/config'
 
-export default function HomePage() {
-  const posts = getAllPosts()
+export default function AllPostsPage() {
+  const allPosts = getAllPosts()
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, siteConfig.blog.postsPerPage)
 
   const getCategoryDisplayName = (category: string) => {
     const categoryMap: { [key: string]: string } = {
@@ -29,21 +27,20 @@ export default function HomePage() {
 
   return (
     <div className="space-y-8">
-      {/* Welcome Section */}
+      {/* Header */}
       <div className="text-center space-y-4">
         <h1 className="text-3xl font-bold text-gray-900">
-          안녕하세요! {siteConfig.author.name}입니다 👋
+          모든 포스트 ({allPosts.length}개)
         </h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-          {siteConfig.description}
+          지금까지 작성된 모든 포스트를 최신순으로 보여드립니다.
         </p>
       </div>
 
       {/* Posts Grid */}
       <div className="space-y-6">
-        <h2 className="text-2xl font-semibold text-gray-900">최근 포스트</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {allPosts.map((post) => (
             <article key={post.id} className="group relative">
               <Link href={`/posts/${post.id}`} className="block">
                 <div className="bg-white border border-gray-200 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 p-6 h-full">
@@ -90,20 +87,6 @@ export default function HomePage() {
           ))}
         </div>
       </div>
-
-      {/* 자동광고가 이 위치에 광고를 배치할 수 있습니다 */}
-
-      {/* View All Posts Link */}
-      {posts.length >= siteConfig.blog.postsPerPage && (
-        <div className="text-center pt-8">
-          <Link
-            href="/posts"
-            className="inline-flex items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-          >
-            모든 포스트 보기
-          </Link>
-        </div>
-      )}
 
       {/* 자동광고가 하단에 광고를 배치할 수 있습니다 */}
     </div>
