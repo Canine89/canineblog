@@ -1,6 +1,6 @@
 ---
 title: "클로드 코드로 골든래빗 사이트 클론 프로젝트 - 바이브 코딩이 가져다주는 진짜 가치"
-date: "2025-07-30"
+date: "2025-07-16"
 excerpt: "골든래빗 대표님의 허락으로 클로드 코드 100$를 투자해 일주일간 진행한 사이트 클론 프로젝트. 바이브 코딩이 개발자에게 주는 진짜 가치는 무엇일까?"
 tags: ["claude-code", "vibe-coding", "ai-development", "productivity", "goldenrabbit", "개발-회고", "ai-도구"]
 category: "think"

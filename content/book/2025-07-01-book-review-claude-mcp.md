@@ -1,6 +1,6 @@
 ---
 title: "이게 되네? 클로드 MCP 미친 활용법 27제 - 출간 후기"
-date: "2025-07-28"
+date: "2025-07-01"
 excerpt: "클로드 MCP 도서 출간을 마치고 느낀 점들과 독자분들께 전하고 싶은 이야기. 27가지 실전 활용법과 책 쓰면서 겪은 이야기까지 솔직하게 정리해봤습니다."
 tags: ["claude", "mcp", "ai-tools", "book-review", "model-context-protocol"]
 category: "book"

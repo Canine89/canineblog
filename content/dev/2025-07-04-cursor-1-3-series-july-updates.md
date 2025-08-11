@@ -1,6 +1,6 @@
 ---
 title: "Cursor 1.3 시리즈 7월 말 업데이트 - 실제 사용해본 성능 개선과 아쉬운 점들"
-date: "2025-07-30"
+date: "2025-07-04"
 excerpt: "Cursor 1.3.4까지 이어진 7월 말 업데이트에서 실제로 체감한 성능 향상과 새로운 기능들, 그리고 겪은 문제점까지 솔직하게 정리해봤습니다."
 tags: ["cursor", "ai-coding", "development-tools", "productivity", "performance"]
 category: "dev"

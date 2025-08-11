@@ -1,6 +1,6 @@
 ---
 title: "콘텐츠 디자인은 피그마 with AI - 마케터와 셀러를 위한 올인원 디자인 가이드"
-date: "2025-07-29"
+date: "2025-07-07"
 excerpt: "김선영 저자의 '콘텐츠 디자인은 피그마 with AI' 책을 소개합니다. 마케터와 셀러를 위한 실전 디자인 가이드로, 피그마 기초부터 AI 기능까지 총정리!"
 tags: ["figma", "ai-design", "marketing", "content-design", "book-introduction"]
 category: "book"

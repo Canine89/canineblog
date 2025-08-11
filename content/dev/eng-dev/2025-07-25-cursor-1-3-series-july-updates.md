@@ -1,6 +1,6 @@
 ---
 title: "Cursor 1.3 Series Late July Updates - Real Performance Improvements and Disappointing Aspects from Actual Use"
-date: "2025-07-30"
+date: "2025-07-25"
 excerpt: "An honest review of the performance gains, new features, and issues I encountered during the Cursor updates through version 1.3.4 in late July."
 tags: ["cursor", "ai-coding", "development-tools", "productivity", "performance"]
 category: "dev"

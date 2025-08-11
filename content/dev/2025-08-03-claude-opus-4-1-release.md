@@ -1,6 +1,6 @@
 ---
 title: "Claude Opus 4.1 출시 - 코딩 성능 74.5% 달성, 다중 파일 리팩토링 강화"
-date: "2025-08-06"
+date: "2025-08-03"
 excerpt: "Anthropic이 Claude Opus 4.1을 출시했습니다. SWE-bench Verified에서 74.5% 성능 달성, 다중 파일 코드 리팩토링 능력 향상, 그리고 실제 기업들의 사용 후기를 정리해봤습니다."
 tags: ["claude", "anthropic", "ai-coding", "opus-4-1", "ai-models"]
 category: "dev"

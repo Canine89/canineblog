@@ -1,6 +1,6 @@
 ---
 title: "OpenAI, 이번 주 목요일 GPT-5 출시 이벤트 예고"
-date: "2025-08-07"
+date: "2025-08-06"
 description: "OpenAI가 목요일 큰 발표를 예고했으며, 미묘한 단서를 통해 오랫동안 기다려온 GPT-5 AI 모델의 공개가 예상됩니다."
 tags: ["AI", "OpenAI", "GPT-5", "챗GPT"]
 category: "dev"

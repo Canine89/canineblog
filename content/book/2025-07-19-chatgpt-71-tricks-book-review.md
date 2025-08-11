@@ -1,6 +1,6 @@
 ---
 title: "📚 이게 되네? 챗GPT 미친 활용법 71제 - 실무에서 진짜 써본 솔직 후기"
-date: "2025-07-30"
+date: "2025-07-19"
 excerpt: "25주 연속 베스트셀러가 전면개정2판으로 돌아왔다. o1, 소라, 캔버스까지 추가된 챗GPT 활용서, 과연 실무에 얼마나 도움될까?"
 tags: ["chatgpt", "ai-tools", "productivity", "automation", "work-efficiency"]
 category: "tech"

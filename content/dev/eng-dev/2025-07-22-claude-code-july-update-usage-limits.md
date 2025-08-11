@@ -1,6 +1,6 @@
 ---
 title: "Claude Code Late July Update - Usage Limits and Official Launch, What's the Real Impact?"
-date: "2025-07-30"
+date: "2025-07-22"
 excerpt: "With Claude Code's official launch in late July, usage limits have been tightened. Here's an honest analysis of how this affects developers and what new features we're getting."
 tags: ["claude", "ai-coding", "anthropic", "development-tools", "usage-limits"]
 category: "dev"

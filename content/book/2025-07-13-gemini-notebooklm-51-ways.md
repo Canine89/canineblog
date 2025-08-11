@@ -1,6 +1,6 @@
 ---
 title: "이게 되네? 제미나이 노트북LM 미친 활용법 51제 - 진짜 실무에서 쓰는 인공지능 활용법!"
-date: "2025-07-29"
+date: "2025-07-13"
 excerpt: "평점 9.9점 베스트셀러 '제미나이 노트북LM 미친 활용법 51제'를 실제로 읽어보고 솔직하게 리뷰해봤습니다. 구글 생태계 연동과 노트북LM의 실무 활용법까지 총정리!"
 tags: ["gemini", "notebooklm", "ai-tools", "google-workspace", "book-review"]
 category: "book"

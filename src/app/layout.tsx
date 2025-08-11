@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { MobileNav } from '@/components/MobileNav'
 import { getCategoriesFromFolders } from '@/lib/markdown'
 import { CategoryDropdown } from '@/components/CategoryDropdown'
+import { CookieConsent } from '@/components/CookieConsent'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -142,6 +143,9 @@ export default function RootLayout({
                   <Link href="/about" className="text-gray-600 hover:text-gray-900">
                     소개
                   </Link>
+                  <Link href="/contact" className="text-gray-600 hover:text-gray-900">
+                    연락처
+                  </Link>
                 </nav>
                 
                 {/* Mobile Navigation */}
@@ -157,11 +161,28 @@ export default function RootLayout({
           <footer className="border-t border-gray-200 bg-gray-50">
             <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
               <div className="flex flex-col items-center space-y-4">
+                {/* 법적 페이지 링크 */}
+                <div className="flex flex-wrap justify-center gap-4 text-sm">
+                  <Link href="/privacy" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    개인정보 처리방침
+                  </Link>
+                  <Link href="/terms" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    이용약관
+                  </Link>
+                  <Link href="/disclaimer" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    면책조항
+                  </Link>
+                  <Link href="/contact" className="text-gray-500 hover:text-gray-700 transition-colors">
+                    연락처
+                  </Link>
+                </div>
+                
                 <div className="flex items-center space-x-4">
                   <span className="text-sm text-gray-600">
                     © 2025 {siteConfig.author.name}. Next.js로 제작되었습니다.
                   </span>
                 </div>
+                
                 <div className="flex space-x-4">
                   {Object.entries(siteConfig.author.social).map(([platform, url]) => (
                     <a
@@ -169,7 +190,7 @@ export default function RootLayout({
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-gray-600"
+                      className="text-gray-400 hover:text-gray-600 transition-colors"
                     >
                       {platform}
                     </a>
@@ -179,6 +200,9 @@ export default function RootLayout({
             </div>
           </footer>
         </div>
+        
+        {/* 쿠키 동의 배너 */}
+        <CookieConsent />
       </body>
     </html>
   )

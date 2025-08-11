@@ -1,6 +1,6 @@
 ---
 title: "Claude Code 7월 말 업데이트 - 사용량 제한과 정식 출시, 실제 영향은?"
-date: "2025-07-30"
+date: "2025-07-10"
 excerpt: "Claude Code가 7월 말에 정식 출시되면서 사용량 제한이 강화되었습니다. 실제 개발자들에게 미치는 영향과 새로운 기능들을 솔직하게 분석해봤습니다."
 tags: ["claude", "ai-coding", "anthropic", "development-tools", "usage-limits"]
 category: "dev"

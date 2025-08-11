@@ -131,6 +131,14 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
           >
             소개
           </Link>
+          <Link
+            href="/contact"
+            onClick={closeMenu}
+            className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+            style={{ color: '#4B5563 !important', textDecoration: 'none' }}
+          >
+            연락처
+          </Link>
         </div>
       )}
 

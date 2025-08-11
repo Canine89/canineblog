@@ -1,6 +1,6 @@
 ---
 title: "GPT-5 vs Claude Opus 4.1 실전 비교 - 통계보다 중요한 실제 체험"
-date: "2025-08-08"
+date: "2025-08-12"
 excerpt: "GPT-5가 출시됐다고 해서 바로 Claude보다 좋을까? 똑같은 프롬프트로 직접 테스트해본 솔직한 후기"
 tags: ["gpt-5", "claude-opus", "ai-coding", "개발도구", "비교리뷰"]
 category: "dev"
