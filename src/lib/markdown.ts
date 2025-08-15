@@ -7,8 +7,16 @@ import remarkHtml from 'remark-html'
 import rehypeSlug from 'rehype-slug'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 import rehypeHighlight from 'rehype-highlight'
+import { memoize, measurePerformance } from './performance'
 
 const postsDirectory = path.join(process.cwd(), 'content')
+
+// Remark 프로세서를 미리 설정하여 재사용
+const remarkProcessor = remark()
+  .use(remarkGfm)
+  .use(remarkHtml, {
+    sanitize: false
+  })
 
 export interface PostData {
   id: string
@@ -75,7 +83,10 @@ export function getAllPostIds() {
   })
 }
 
-export function getAllPosts(): PostData[] {
+// getAllPosts를 메모이제이션으로 최적화
+const _getAllPostsCore = (): PostData[] => {
+  const endMeasure = measurePerformance('getAllPosts')
+  
   const markdownFiles = getAllMarkdownFiles(postsDirectory)
   const allPostsData = markdownFiles.map((filePath) => {
     const id = getPostIdFromFileName(filePath)
@@ -101,14 +112,27 @@ export function getAllPosts(): PostData[] {
   })
 
   // Sort posts by date (frontmatter date 우선, 없으면 파일명 날짜 사용)
-  return allPostsData.sort((a, b) => {
+  const sortedPosts = allPostsData.sort((a, b) => {
     if (a.date < b.date) {
       return 1
     } else {
       return -1
     }
   })
+  
+  endMeasure()
+  return sortedPosts
 }
+
+// 메모이제이션 적용 - 파일 시스템 변경을 감지하기 위해 디렉토리 수정 시간을 키로 사용
+export const getAllPosts = memoize(_getAllPostsCore, () => {
+  try {
+    const stat = fs.statSync(postsDirectory)
+    return `posts-${stat.mtime.getTime()}`
+  } catch {
+    return `posts-${Date.now()}`
+  }
+})
 
 export async function getPostData(id: string): Promise<PostData> {
   // 모든 마크다운 파일을 검색하여 해당 ID와 일치하는 파일을 찾습니다
@@ -136,12 +160,9 @@ export async function getPostData(id: string): Promise<PostData> {
   const postDate = matterResult.data.date || fileNameDate || '1970-01-01'
 
   // Use remark to convert markdown into HTML string with basic settings
-  const processedContent = await remark()
-    .use(remarkGfm)
-    .use(remarkHtml, {
-      sanitize: false
-    })
-    .process(matterResult.content)
+  const endMarkdownMeasure = measurePerformance(`markdown-processing-${id}`)
+  const processedContent = await remarkProcessor.process(matterResult.content)
+  endMarkdownMeasure()
 
   const contentHtml = processedContent.toString()
 

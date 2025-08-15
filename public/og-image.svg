@@ -1,0 +1,54 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e293b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0f172a;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  
+  <!-- Grid pattern -->
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#334155" stroke-width="0.5" opacity="0.3"/>
+    </pattern>
+  </defs>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  
+  <!-- Main content -->
+  <g transform="translate(100, 150)">
+    <!-- Blog title -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="64" font-weight="bold" fill="#f8fafc">
+      편집자P 블로그
+    </text>
+    
+    <!-- Subtitle -->
+    <text x="0" y="80" font-family="Arial, sans-serif" font-size="32" fill="#94a3b8">
+      개발자를 위한 실무 노하우와 도서 리뷰
+    </text>
+    
+    <!-- Tags -->
+    <g transform="translate(0, 140)">
+      <rect x="0" y="0" width="120" height="40" rx="20" fill="#3b82f6"/>
+      <text x="60" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">개발</text>
+      
+      <rect x="140" y="0" width="120" height="40" rx="20" fill="#10b981"/>
+      <text x="200" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">도서리뷰</text>
+      
+      <rect x="280" y="0" width="120" height="40" rx="20" fill="#8b5cf6"/>
+      <text x="340" y="25" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="white" text-anchor="middle">생산성</text>
+    </g>
+    
+    <!-- Bottom text -->
+    <text x="0" y="250" font-family="Arial, sans-serif" font-size="20" fill="#64748b">
+      blog-googlead.vercel.app
+    </text>
+  </g>
+  
+  <!-- Decorative elements -->
+  <circle cx="1000" cy="150" r="100" fill="#3b82f6" opacity="0.1"/>
+  <circle cx="1100" cy="400" r="60" fill="#10b981" opacity="0.1"/>
+  <circle cx="900" cy="500" r="80" fill="#8b5cf6" opacity="0.1"/>
+</svg>
