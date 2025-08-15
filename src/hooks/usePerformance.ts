@@ -20,11 +20,11 @@ export function useDebounce<T>(value: T, delay: number): T {
 /**
  * 스로틀된 함수를 반환하는 훅
  */
-export function useThrottle<T extends (...args: any[]) => any>(
+export function useThrottle<T extends (...args: unknown[]) => unknown>(
   callback: T,
   limit: number
 ): T {
-  const throttledFn = useRef<T>()
+  const throttledFn = useRef<T | undefined>(undefined)
   
   if (!throttledFn.current) {
     throttledFn.current = throttle(callback, limit) as T
@@ -36,11 +36,11 @@ export function useThrottle<T extends (...args: any[]) => any>(
 /**
  * 디바운스된 함수를 반환하는 훅
  */
-export function useDebounceCallback<T extends (...args: any[]) => any>(
+export function useDebounceCallback<T extends (...args: unknown[]) => unknown>(
   callback: T,
   delay: number
 ): T {
-  const debouncedFn = useRef<T>()
+  const debouncedFn = useRef<T | undefined>(undefined)
   
   if (!debouncedFn.current) {
     debouncedFn.current = debounce(callback, delay) as T
@@ -120,7 +120,7 @@ export function useIntersectionObserver(
  * 이전 값을 추적하는 훅
  */
 export function usePrevious<T>(value: T): T | undefined {
-  const ref = useRef<T>()
+  const ref = useRef<T | undefined>(undefined)
   
   useEffect(() => {
     ref.current = value

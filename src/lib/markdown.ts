@@ -4,9 +4,9 @@ import matter from 'gray-matter'
 import { remark } from 'remark'
 import remarkGfm from 'remark-gfm'
 import remarkHtml from 'remark-html'
-import rehypeSlug from 'rehype-slug'
-import rehypeAutolinkHeadings from 'rehype-autolink-headings'
-import rehypeHighlight from 'rehype-highlight'
+// import rehypeSlug from 'rehype-slug'
+// import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+// import rehypeHighlight from 'rehype-highlight'
 import { memoize, measurePerformance } from './performance'
 
 const postsDirectory = path.join(process.cwd(), 'content')

@@ -22,7 +22,7 @@ export default function DisclaimerPage() {
             </div>
             <div className="ml-3">
               <p className="text-sm text-yellow-800">
-                <strong>중요 고지:</strong> 이 면책조항은 편집자P의 편집실('https://canineblog.vercel.app')을 
+                <strong>중요 고지:</strong> 이 면책조항은 편집자P의 편집실(&apos;https://canineblog.vercel.app&apos;)을 
                 이용하기 전에 반드시 읽어보시기 바랍니다. 본 사이트를 이용함으로써 이 면책조항에 동의하는 것으로 간주됩니다.
               </p>
             </div>
@@ -32,7 +32,7 @@ export default function DisclaimerPage() {
         <section>
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. 일반 면책사항</h2>
           <p className="mb-4">
-            편집자P의 편집실(이하 '본 사이트')에서 제공하는 모든 콘텐츠는 정보 제공 및 교육 목적으로만 
+            편집자P의 편집실(이하 &apos;본 사이트&apos;)에서 제공하는 모든 콘텐츠는 정보 제공 및 교육 목적으로만 
             제공됩니다. 본 사이트는 다음과 같은 사항에 대해 어떠한 법적 책임도 지지 않습니다:
           </p>
           <ul className="list-disc pl-6 space-y-2">

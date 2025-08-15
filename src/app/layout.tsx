@@ -141,10 +141,7 @@ export default function RootLayout({
                     편집한 도서
                   </Link>
                   <Link href="/about" className="text-gray-600 hover:text-gray-900">
-                    소개
-                  </Link>
-                  <Link href="/contact" className="text-gray-600 hover:text-gray-900">
-                    연락처
+                    소개 · 연락처
                   </Link>
                 </nav>
                 
@@ -171,9 +168,6 @@ export default function RootLayout({
                   </Link>
                   <Link href="/disclaimer" className="text-gray-500 hover:text-gray-700 transition-colors">
                     면책조항
-                  </Link>
-                  <Link href="/contact" className="text-gray-500 hover:text-gray-700 transition-colors">
-                    연락처
                   </Link>
                 </div>
                 

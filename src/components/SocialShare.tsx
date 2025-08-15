@@ -8,13 +8,11 @@ interface SocialShareProps {
   excerpt?: string
 }
 
-export function SocialShare({ title, url, excerpt }: SocialShareProps) {
+export function SocialShare({ title, url }: SocialShareProps) {
   const [showTooltip, setShowTooltip] = useState<string | null>(null)
 
-  const shareText = excerpt || title
   const encodedTitle = encodeURIComponent(title)
   const encodedUrl = encodeURIComponent(url)
-  const encodedText = encodeURIComponent(shareText)
 
   const shareLinks = {
     twitter: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,

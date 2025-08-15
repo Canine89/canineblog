@@ -89,6 +89,7 @@ export function OptimizedImage({
       )}
 
       {/* 실제 이미지 */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         ref={imgRef}
         src={imageSrc}

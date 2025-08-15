@@ -1,128 +1,258 @@
-import { siteConfig } from '@/lib/config'
+import type { Metadata } from 'next'
+import Link from 'next/link'
 import Image from 'next/image'
+import { siteConfig } from '@/lib/config'
+
+export const metadata: Metadata = {
+  title: '자기소개 · 연락처',
+  description: '편집자P의 편집실 소개 및 연락처 - 블로그 운영자 소개와 연락하는 방법을 안내합니다.',
+  robots: {
+    index: true,
+    follow: true,
+  },
+}
 
 export default function AboutPage() {
   return (
-    <div className="space-y-8 sm:space-y-12">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-3xl sm:text-4xl font-bold text-gray-900">소개</h1>
-        <p className="text-lg sm:text-xl text-gray-600 max-w-3xl mx-auto">
-          골든래빗에서 앞으로 30년은 일할 기획자+편집자+저자+삽화가+IT애호가 편집자P입니다.
-        </p>
-      </div>
-
-      {/* Author Info */}
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-xl border border-gray-200 p-6 sm:p-8 shadow-lg">
-          {/* Avatar and Basic Info */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-6 mb-8">
-            {/* Avatar */}
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">자기소개 · 연락처</h1>
+      
+      <div className="space-y-8">
+        {/* 운영자 소개 */}
+        <section className="bg-gray-50 p-6 rounded-lg">
+          <div className="flex items-start space-x-4">
             <div className="flex-shrink-0">
-              <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full bg-gray-200 flex items-center justify-center text-2xl sm:text-4xl text-gray-500 overflow-hidden shadow-md">
-                {siteConfig.author.avatar && siteConfig.author.avatar !== "/p.jpg" ? (
+              <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+                {siteConfig.author.avatar ? (
                   <Image 
                     src={siteConfig.author.avatar} 
                     alt={`${siteConfig.author.name} 프로필`}
-                    width={128}
-                    height={128}
+                    width={64}
+                    height={64}
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <span>{siteConfig.author.name.charAt(0)}</span>
+                  <div className="w-full h-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold">
+                    P
+                  </div>
                 )}
               </div>
             </div>
-            
-            {/* Name and Bio */}
-            <div className="text-center md:text-left flex-1">
-              <h2 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
-                {siteConfig.author.name}
-              </h2>
-              <p className="text-gray-600 leading-relaxed text-sm sm:text-base mb-3">
+            <div className="flex-1">
+              <h2 className="text-2xl font-semibold text-gray-900 mb-2">{siteConfig.author.name}</h2>
+              <p className="text-gray-700 mb-4">
                 {siteConfig.author.bio}
               </p>
-              {/* Education */}
-              <div className="bg-blue-50 rounded-lg p-3 mb-3">
-                <div className="flex items-center">
-                  <svg className="w-4 h-4 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z" />
-                  </svg>
-                  <span className="text-sm font-medium text-blue-700">
-                    건국대학교 컴퓨터공학과 소프트웨어 공학 전공
-                  </span>
-                </div>
-              </div>
-              
-              {/* Personal Info */}
-              <div className="flex gap-2 mb-3">
-                <div className="bg-purple-50 rounded-lg px-3 py-2">
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 mr-2 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                    <span className="text-sm font-medium text-purple-700">
-                      AB형
-                    </span>
-                  </div>
-                </div>
-                <div className="bg-orange-50 rounded-lg px-3 py-2">
-                  <div className="flex items-center">
-                    <svg className="w-4 h-4 mr-2 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                    </svg>
-                    <span className="text-sm font-medium text-orange-700">
-                      ENTP
-                    </span>
-                  </div>
-                </div>
+              <div className="flex items-center space-x-4 text-sm text-gray-600">
+                <span>📧 {siteConfig.author.email}</span>
+                <span>🏢 골든래빗 출판사</span>
               </div>
             </div>
           </div>
+        </section>
 
-          {/* Contact and Social Info */}
-          <div className="grid gap-6 sm:grid-cols-2">
-            {/* Contact */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                </svg>
-                연락처
-              </h3>
-              <p className="text-gray-600 text-sm sm:text-base">
-                <a href={`mailto:${siteConfig.author.email}`} className="hover:text-blue-600 transition-colors">
+        <div className="grid md:grid-cols-2 gap-8">
+          {/* 이메일 연락 */}
+          <section className="bg-white border border-gray-200 p-6 rounded-lg">
+            <div className="flex items-center mb-4">
+              <span className="text-2xl mr-3">📧</span>
+              <h3 className="text-lg font-semibold text-gray-900">이메일 문의</h3>
+            </div>
+            <p className="text-gray-600 mb-4">
+              블로그, 도서 편집, 기술 문의 등 모든 연락사항은 이메일로 문의해 주세요.
+            </p>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
+                <span className="font-medium text-gray-900">이메일</span>
+                <a 
+                  href={`mailto:${siteConfig.author.email}`}
+                  className="text-blue-600 hover:text-blue-800 underline"
+                >
                   {siteConfig.author.email}
                 </a>
-              </p>
-            </div>
-
-            {/* Social Links */}
-            <div className="bg-gray-50 rounded-lg p-4">
-              <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-3 flex items-center">
-                <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                </svg>
-                소셜 미디어
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {Object.entries(siteConfig.author.social).map(([platform, url]) => (
-                  <a
-                    key={platform}
-                    href={url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-sm font-medium hover:bg-blue-200 transition-colors"
-                  >
-                    {platform}
-                  </a>
-                ))}
+              </div>
+              <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
+                <span className="font-medium text-gray-900">응답 시간</span>
+                <span className="text-gray-600">1-3 영업일 내</span>
               </div>
             </div>
-          </div>
+          </section>
+
+          {/* 소셜 미디어 */}
+          <section className="bg-white border border-gray-200 p-6 rounded-lg">
+            <div className="flex items-center mb-4">
+              <span className="text-2xl mr-3">🌐</span>
+              <h3 className="text-lg font-semibold text-gray-900">소셜 미디어</h3>
+            </div>
+            <p className="text-gray-600 mb-4">
+              일상적인 개발 이야기와 최신 소식을 소셜 미디어에서 만나보세요.
+            </p>
+            <div className="space-y-3">
+              {Object.entries(siteConfig.author.social).map(([platform, url]) => (
+                <a 
+                  key={platform}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-between bg-gray-50 p-3 rounded hover:bg-gray-100 transition-colors"
+                >
+                  <div className="flex items-center">
+                    <span className="mr-3">{platform === 'github' ? '🐙' : '🧵'}</span>
+                    <span className="font-medium text-gray-900">{platform === 'github' ? 'GitHub' : 'Threads'}</span>
+                  </div>
+                  <span className="text-blue-600">
+                    {platform === 'github' ? '@canine89' : '@limedaddy_8924'} →
+                  </span>
+                </a>
+              ))}
+            </div>
+          </section>
         </div>
+
+        {/* 문의 유형별 안내 */}
+        <section>
+          <h3 className="text-xl font-semibold text-gray-900 mb-6">문의 유형별 안내</h3>
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg">
+              <div className="flex items-center mb-3">
+                <span className="text-xl mr-2">📚</span>
+                <h4 className="font-semibold text-blue-900">도서 관련</h4>
+              </div>
+              <p className="text-sm text-blue-800 mb-3">
+                출간 도서 문의, 편집 의뢰, 저자 상담
+              </p>
+              <ul className="text-xs text-blue-700 space-y-1">
+                <li>• 도서 출간 과정 문의</li>
+                <li>• 편집 서비스 문의</li>
+                <li>• 기술 검토 요청</li>
+                <li>• 집필 상담</li>
+              </ul>
+            </div>
+
+            <div className="bg-green-50 border border-green-200 p-4 rounded-lg">
+              <div className="flex items-center mb-3">
+                <span className="text-xl mr-2">💻</span>
+                <h4 className="font-semibold text-green-900">기술 문의</h4>
+              </div>
+              <p className="text-sm text-green-800 mb-3">
+                개발 관련 질문, 자동화 도구 문의
+              </p>
+              <ul className="text-xs text-green-700 space-y-1">
+                <li>• 파이썬/자바스크립트 질문</li>
+                <li>• 자동화 도구 사용법</li>
+                <li>• 코드 리뷰 요청</li>
+                <li>• 프로젝트 아이디어</li>
+              </ul>
+            </div>
+
+            <div className="bg-purple-50 border border-purple-200 p-4 rounded-lg">
+              <div className="flex items-center mb-3">
+                <span className="text-xl mr-2">🗣️</span>
+                <h4 className="font-semibold text-purple-900">기타 문의</h4>
+              </div>
+              <p className="text-sm text-purple-800 mb-3">
+                블로그 관련, 협업 제안, 일반 문의
+              </p>
+              <ul className="text-xs text-purple-700 space-y-1">
+                <li>• 블로그 콘텐츠 제안</li>
+                <li>• 협업/파트너십 제안</li>
+                <li>• 강연/세미나 요청</li>
+                <li>• 미디어 인터뷰</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* 자주 묻는 질문 */}
+        <section>
+          <h3 className="text-xl font-semibold text-gray-900 mb-6">자주 묻는 질문</h3>
+          <div className="space-y-4">
+            <details className="bg-white border border-gray-200 rounded-lg">
+              <summary className="p-4 cursor-pointer hover:bg-gray-50 font-medium text-gray-900">
+                📖 어떤 분야의 도서를 주로 편집하시나요?
+              </summary>
+              <div className="p-4 pt-0 text-gray-700">
+                <p>
+                  주로 IT 기술서적, 특히 파이썬, 자바스크립트, 웹 개발, 자동화 도구 관련 도서를 편집합니다. 
+                  골든래빗 출판사에서 초보자도 이해하기 쉬운 실용적인 기술서를 만드는 것을 목표로 하고 있습니다.
+                </p>
+              </div>
+            </details>
+
+            <details className="bg-white border border-gray-200 rounded-lg">
+              <summary className="p-4 cursor-pointer hover:bg-gray-50 font-medium text-gray-900">
+                ⏰ 이메일 문의에 대한 응답은 얼마나 걸리나요?
+              </summary>
+              <div className="p-4 pt-0 text-gray-700">
+                <p>
+                  일반적으로 1-3 영업일 내에 답변드립니다. 
+                  출간 일정이 바쁘거나 휴가 기간에는 응답이 지연될 수 있으니 양해 부탁드립니다.
+                </p>
+              </div>
+            </details>
+
+            <details className="bg-white border border-gray-200 rounded-lg">
+              <summary className="p-4 cursor-pointer hover:bg-gray-50 font-medium text-gray-900">
+                🤝 외부 프로젝트 참여나 협업이 가능한가요?
+              </summary>
+              <div className="p-4 pt-0 text-gray-700">
+                <p>
+                  IT 도서 편집, 기술 검토, 콘텐츠 제작 등의 협업은 가능합니다. 
+                  단, 본업과의 일정 조율이 필요하므로 구체적인 내용과 일정을 이메일로 문의해 주세요.
+                </p>
+              </div>
+            </details>
+
+            <details className="bg-white border border-gray-200 rounded-lg">
+              <summary className="p-4 cursor-pointer hover:bg-gray-50 font-medium text-gray-900">
+                📝 블로그 포스트에 대한 질문이나 정정 요청을 하려면?
+              </summary>
+              <div className="p-4 pt-0 text-gray-700">
+                <p>
+                  블로그 내용에 대한 질문이나 정정이 필요한 부분이 있다면 이메일로 연락해 주세요. 
+                  해당 포스트 제목과 구체적인 내용을 명시해 주시면 빠르게 확인하고 답변드리겠습니다.
+                </p>
+              </div>
+            </details>
+          </div>
+        </section>
+
+        {/* 블로그 관련 정보 */}
+        <section className="bg-gray-50 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">블로그 정보</h3>
+          <div className="grid md:grid-cols-2 gap-6 text-sm">
+            <div>
+              <h4 className="font-medium text-gray-900 mb-2">기술 스택</h4>
+              <ul className="text-gray-600 space-y-1">
+                <li>• Next.js 15.4.4</li>
+                <li>• TypeScript</li>
+                <li>• Tailwind CSS</li>
+                <li>• Vercel 배포</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-medium text-gray-900 mb-2">정책 준수</h4>
+              <ul className="text-gray-600 space-y-1">
+                <li>• <Link href="/privacy" className="text-blue-600 hover:text-blue-800 underline">개인정보 처리방침</Link></li>
+                <li>• <Link href="/terms" className="text-blue-600 hover:text-blue-800 underline">이용약관</Link></li>
+                <li>• <Link href="/disclaimer" className="text-blue-600 hover:text-blue-800 underline">면책조항</Link></li>
+                <li>• Google AdSense 정책 준수</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* 연락처 푸터 */}
+        <section className="text-center pt-8 border-t border-gray-200">
+          <p className="text-gray-600 mb-4">
+            편집자P의 편집실에 관심과 사랑을 보내주셔서 감사합니다!
+          </p>
+          <div className="flex justify-center space-x-6 text-sm text-gray-500">
+            <span>🏢 골든래빗 출판사</span>
+            <span>📧 {siteConfig.author.email}</span>
+            <span>🌐 https://canineblog.vercel.app</span>
+          </div>
+        </section>
       </div>
     </div>
   )

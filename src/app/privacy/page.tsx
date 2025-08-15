@@ -18,7 +18,7 @@ export default function PrivacyPage() {
         <section>
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. 개인정보 수집 및 이용 목적</h2>
           <p className="mb-4">
-            편집자P의 편집실('https://canineblog.vercel.app', 이하 '본 사이트')은 다음의 목적을 위하여 개인정보를 처리합니다:
+            편집자P의 편집실(&apos;https://canineblog.vercel.app&apos;, 이하 &apos;본 사이트&apos;)은 다음의 목적을 위하여 개인정보를 처리합니다:
           </p>
           <ul className="list-disc pl-6 space-y-2">
             <li>웹사이트 서비스 제공 및 운영</li>

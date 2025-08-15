@@ -171,7 +171,7 @@ export function validateEmail(email: string): boolean {
 /**
  * 안전한 JSON 파싱
  */
-export function safeJsonParse<T = any>(json: string): T | null {
+export function safeJsonParse<T = unknown>(json: string): T | null {
   try {
     return JSON.parse(json)
   } catch {
@@ -236,7 +236,7 @@ export const rateLimiter = new MemoryRateLimiter()
 /**
  * 보안 감사 로그
  */
-export function securityLog(event: string, details: Record<string, any> = {}): void {
+export function securityLog(event: string, details: Record<string, unknown> = {}): void {
   if (process.env.NODE_ENV === 'development') {
     console.warn('🔒 보안 이벤트:', event, details)
   }

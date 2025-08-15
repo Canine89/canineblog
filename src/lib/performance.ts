@@ -3,12 +3,12 @@
  */
 
 // 메모이제이션을 위한 캐시
-const memoCache = new Map<string, any>();
+const memoCache = new Map<string, unknown>();
 
 /**
  * 함수 결과를 메모이제이션하는 래퍼
  */
-export function memoize<T extends (...args: any[]) => any>(
+export function memoize<T extends (...args: unknown[]) => unknown>(
   fn: T,
   getKey?: (...args: Parameters<T>) => string
 ): T {
@@ -47,7 +47,7 @@ export function chunk<T>(array: T[], size: number): T[][] {
 /**
  * 디바운스 함수 - 검색이나 필터링에 유용
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
@@ -62,7 +62,7 @@ export function debounce<T extends (...args: any[]) => any>(
 /**
  * 스로틀 함수 - 스크롤 이벤트 등에 유용
  */
-export function throttle<T extends (...args: any[]) => any>(
+export function throttle<T extends (...args: unknown[]) => unknown>(
   func: T,
   limit: number
 ): (...args: Parameters<T>) => void {

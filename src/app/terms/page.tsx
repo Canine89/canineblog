@@ -18,8 +18,8 @@ export default function TermsPage() {
         <section>
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">제1조 (목적)</h2>
           <p>
-            이 약관은 편집자P('https://canineblog.vercel.app', 이하 '본 사이트')가 제공하는 
-            인터넷 관련 서비스(이하 '서비스')를 이용함에 있어 본 사이트와 이용자의 권리, 
+            이 약관은 편집자P(&apos;https://canineblog.vercel.app&apos;, 이하 &apos;본 사이트&apos;)가 제공하는 
+            인터넷 관련 서비스(이하 &apos;서비스&apos;)를 이용함에 있어 본 사이트와 이용자의 권리, 
             의무 및 책임사항을 규정함을 목적으로 합니다.
           </p>
         </section>
@@ -29,15 +29,15 @@ export default function TermsPage() {
           <p className="mb-4">이 약관에서 사용하는 용어의 정의는 다음과 같습니다:</p>
           <ul className="list-disc pl-6 space-y-2">
             <li>
-              <strong>'웹사이트'</strong>란 본 사이트가 블로그 콘텐츠 및 관련 서비스를 이용자에게 
+              <strong>&apos;웹사이트&apos;</strong>란 본 사이트가 블로그 콘텐츠 및 관련 서비스를 이용자에게 
               제공하기 위하여 컴퓨터 등 정보통신설비를 이용하여 설정한 가상의 영업장을 말합니다.
             </li>
             <li>
-              <strong>'이용자'</strong>란 본 사이트에 접속하여 이 약관에 따라 본 사이트가 
+              <strong>&apos;이용자&apos;</strong>란 본 사이트에 접속하여 이 약관에 따라 본 사이트가 
               제공하는 서비스를 받는 자를 말합니다.
             </li>
             <li>
-              <strong>'콘텐츠'</strong>란 본 사이트에서 제공하는 글, 이미지, 동영상 등 
+              <strong>&apos;콘텐츠&apos;</strong>란 본 사이트에서 제공하는 글, 이미지, 동영상 등 
               모든 정보와 자료를 말합니다.
             </li>
           </ul>

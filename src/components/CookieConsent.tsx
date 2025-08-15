@@ -228,7 +228,7 @@ declare global {
     gtag: (
       command: 'consent' | 'config' | 'event',
       action: string,
-      parameters?: Record<string, any>
+      parameters?: Record<string, unknown>
     ) => void
   }
 }
