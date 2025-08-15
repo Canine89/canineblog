@@ -2,8 +2,8 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 
 export const metadata: Metadata = {
-  title: '연락처',
-  description: '편집자P의 편집실 연락처 - 블로그 운영자와 연락하는 방법을 안내합니다.',
+  title: '자기소개 · 연락처',
+  description: '편집자P의 편집실 소개 및 연락처 - 블로그 운영자 소개와 연락하는 방법을 안내합니다.',
   robots: {
     index: true,
     follow: true,
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">연락처</h1>
+      <h1 className="text-3xl font-bold text-gray-900 mb-8">자기소개 · 연락처</h1>
       
       <div className="space-y-8">
         {/* 운영자 소개 */}
