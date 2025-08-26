@@ -27,5 +27,11 @@ export const siteConfig = {
     url: "https://canineblog.vercel.app/", // Vercel 배포 후 실제 도메인으로 변경
     language: "ko",
     theme: "light", // light, dark, auto
+  },
+
+  // Google 서비스 설정
+  google: {
+    adsenseId: "ca-pub-1531500505272848",
+    analyticsId: "G-XXXXXXXXXX", // Google Analytics 4 측정 ID로 교체 필요
   }
 } 

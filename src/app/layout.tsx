@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import { siteConfig } from '@/lib/config'
@@ -8,6 +8,7 @@ import { MobileNav } from '@/components/MobileNav'
 import { getCategoriesFromFolders } from '@/lib/markdown'
 import { CategoryDropdown } from '@/components/CategoryDropdown'
 import { CookieConsent } from '@/components/CookieConsent'
+import { OrganizationStructuredData } from '@/components/StructuredData'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,6 +17,12 @@ declare global {
   interface Window {
     adsbygoogle: unknown[]
   }
+}
+
+// Viewport configuration (Next.js 15 requirement)
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export const metadata: Metadata = {
@@ -28,7 +35,6 @@ export const metadata: Metadata = {
   creator: siteConfig.author.name,
   publisher: siteConfig.author.name,
   keywords: ['편집자P', 'IT 도서', '개발', '파이썬', '자바스크립트', '자동화', '골든래빗', '책 리뷰', '개발 팁', '생산성'],
-  viewport: 'width=device-width, initial-scale=1',
   robots: {
     index: true,
     follow: true,
@@ -94,7 +100,27 @@ export default function RootLayout({
   return (
     <html lang={siteConfig.site.language}>
       <head>
-        {/* Google site-tag (gtag.js) - Google Analytics */}
+        {/* Google Analytics */}
+        <Script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.google?.analyticsId || 'G-XXXXXXXXXX'}`}
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('consent', 'default', {
+              ad_storage: 'denied',
+              analytics_storage: 'denied'
+            });
+            gtag('config', '${siteConfig.google?.analyticsId || 'G-XXXXXXXXXX'}');
+          `}
+        </Script>
+        
+        {/* Structured Data */}
+        <OrganizationStructuredData />
       </head>
       <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
         

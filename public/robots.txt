@@ -21,7 +21,7 @@ User-agent: Googlebot-Image
 Allow: /
 
 # Sitemap
-Sitemap: https://blog-googlead.vercel.app/sitemap.xml
+Sitemap: https://canineblog.vercel.app/sitemap.xml
 
 # Crawl-delay (not for Google)
 User-agent: *
