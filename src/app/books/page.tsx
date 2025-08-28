@@ -5,6 +5,12 @@ export default function BooksPage() {
   const books = {
     goldenrabbit: [
       {
+        title: "요즘 바이브 코딩 클로드 코드 완벽 가이드",
+        role: "기획/집필",
+        url: "https://www.yes24.com/product/goods/151850127",
+        image: "https://image.yes24.com/goods/151850127/XL"
+      },
+      {
         title: "이게 되네? 클로드 MCP 미친 활용법 27제",
         role: "기획/집필",
         url: "https://www.yes24.com/product/goods/147957269",
