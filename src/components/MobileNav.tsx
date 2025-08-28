@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 
 interface Category {
@@ -17,6 +17,8 @@ interface MobileNavProps {
 
 export function MobileNav({ categories = [] }: MobileNavProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   const toggleMenu = () => {
     setIsOpen(!isOpen)
@@ -26,13 +28,51 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
     setIsOpen(false)
   }
 
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (isOpen && 
+          menuRef.current && 
+          !menuRef.current.contains(event.target as Node) &&
+          buttonRef.current &&
+          !buttonRef.current.contains(event.target as Node)) {
+        closeMenu()
+      }
+    }
+
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape' && isOpen) {
+        closeMenu()
+        buttonRef.current?.focus()
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener('mousedown', handleClickOutside)
+      document.addEventListener('keydown', handleEscape)
+      // Prevent body scroll when menu is open
+      document.body.style.overflow = 'hidden'
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('keydown', handleEscape)
+      document.body.style.overflow = 'unset'
+    }
+  }, [isOpen])
+
   return (
     <div className="relative">
       {/* Hamburger Button */}
       <button
+        ref={buttonRef}
         onClick={toggleMenu}
-        className="p-2 text-gray-600 hover:text-gray-900 focus:outline-none"
-        aria-label="메뉴 열기"
+        className={`p-2 rounded-md transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 ${
+          isOpen ? 'text-white z-50' : 'text-gray-600 hover:text-gray-900'
+        }`}
+        aria-label={isOpen ? '메뉴 닫기' : '메뉴 열기'}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
       >
         <svg
           className="w-6 h-6"
@@ -61,18 +101,17 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
 
       {/* Mobile Menu */}
       {isOpen && (
-        <div className="absolute right-0 top-full mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50" 
-             style={{
-               backgroundColor: '#ffffff !important',
-               color: '#4B5563 !important',
-               border: '1px solid #E5E7EB',
-               boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)'
-             }}>
+        <div 
+          ref={menuRef}
+          className="absolute right-0 top-full mt-2 w-56 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50 transform transition-all duration-200 ease-out opacity-100 scale-100"
+          role="menu"
+          aria-labelledby="mobile-menu-button"
+        >
           <Link
             href="/"
             onClick={closeMenu}
-            className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-            style={{ color: '#4B5563 !important', textDecoration: 'none' }}
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-100"
+            role="menuitem"
           >
             홈
           </Link>
@@ -80,22 +119,21 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
           {categories.length > 0 && (
             <>
               <div className="px-4 py-2">
-                <div className="text-xs font-medium text-gray-500 mb-2" style={{ color: '#6B7280 !important' }}>카테고리</div>
+                <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">카테고리</div>
                 {categories.map((category) => (
                   <Link
                     key={category.path}
                     href={category.path}
                     onClick={closeMenu}
-                    className="block px-2 py-1 text-sm text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded transition-colors"
-                    style={{ color: '#4B5563 !important', textDecoration: 'none' }}
+                    className="block px-2 py-1 text-sm text-gray-700 hover:text-gray-900 hover:bg-gray-50 rounded transition-colors duration-150 focus:outline-none focus:bg-gray-100"
+                    role="menuitem"
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center space-x-2">
                         <span className="text-base">{category.icon}</span>
                         <span>{category.name}</span>
                       </div>
-                      <span className="text-xs bg-gray-100 px-1.5 py-0.5 rounded text-gray-500" 
-                            style={{ backgroundColor: '#F3F4F6 !important', color: '#6B7280 !important' }}>
+                      <span className="text-xs bg-gray-100 text-gray-500 px-1.5 py-0.5 rounded font-medium">
                         {category.count}
                       </span>
                     </div>
@@ -110,24 +148,24 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
           <Link
             href="/tags"
             onClick={closeMenu}
-            className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-            style={{ color: '#4B5563 !important', textDecoration: 'none' }}
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-100"
+            role="menuitem"
           >
             태그
           </Link>
           <Link
             href="/books"
             onClick={closeMenu}
-            className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-            style={{ color: '#4B5563 !important', textDecoration: 'none' }}
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-100"
+            role="menuitem"
           >
             편집한 도서
           </Link>
           <Link
             href="/about"
             onClick={closeMenu}
-            className="block px-4 py-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-            style={{ color: '#4B5563 !important', textDecoration: 'none' }}
+            className="block px-4 py-2 text-gray-700 hover:text-gray-900 hover:bg-gray-50 transition-colors duration-150 focus:outline-none focus:bg-gray-100"
+            role="menuitem"
           >
             소개 · 연락처
           </Link>
@@ -137,8 +175,9 @@ export function MobileNav({ categories = [] }: MobileNavProps) {
       {/* Backdrop */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-25 z-40"
+          className="fixed inset-x-0 bottom-0 top-16 bg-black bg-opacity-20 z-30 transition-opacity duration-200 ease-out"
           onClick={closeMenu}
+          aria-hidden="true"
         />
       )}
     </div>
