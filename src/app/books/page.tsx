@@ -6,19 +6,19 @@ export default function BooksPage() {
     goldenrabbit: [
       {
         title: "요즘 바이브 코딩 클로드 코드 완벽 가이드",
-        role: "기획/집필",
+        role: "기획/편집",
         url: "https://www.yes24.com/product/goods/151850127",
         image: "https://image.yes24.com/goods/151850127/XL"
       },
       {
         title: "이게 되네? 클로드 MCP 미친 활용법 27제",
-        role: "기획/집필",
+        role: "기획/편집",
         url: "https://www.yes24.com/product/goods/147957269",
         image: "https://image.yes24.com/goods/147957269/XL"
       },
       {
         title: "이게 되네? 챗GPT 미친 크롤링 24제",
-        role: "기획/집필",
+        role: "기획/편집",
         url: "https://www.yes24.com/product/goods/144868498",
         image: "https://image.yes24.com/goods/144868498/XL"
       },
