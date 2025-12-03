@@ -5,6 +5,12 @@ export default function BooksPage() {
   const books = {
     goldenrabbit: [
       {
+        title: "요즘 바이브 코딩 깃허브 코파일럿 31가지 프로그램 만들기",
+        role: "기획/집필",
+        url: "https://www.yes24.com/product/goods/167428992",
+        image: "https://image.yes24.com/goods/167428992/XL"
+      },
+      {
         title: "요즘 바이브 코딩 커서 AI 30가지 프로그램 만들기",
         role: "기획/집필",
         url: "https://www.yes24.com/product/goods/153029475",
