@@ -237,6 +237,13 @@ export function getCategoriesFromFolders(): Array<{name: string, path: string, d
       description: '책 리뷰 및 추천',
       icon: '📚',
       count: folderCounts['book'] || 0
+    },
+    {
+      name: '스터디',
+      path: '/category/study',
+      description: '기술 스터디 노트',
+      icon: '📝',
+      count: folderCounts['study'] || 0
     }
   ]
   

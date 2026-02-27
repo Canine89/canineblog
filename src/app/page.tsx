@@ -12,7 +12,8 @@ export default function HomePage() {
       'dev': 'dev',
       'book': 'book',
       'eng-dev': 'eng-dev',
-      'think': 'think'
+      'think': 'think',
+      'study': 'study'
     }
     return categoryMap[category] || category
   }
@@ -22,7 +23,8 @@ export default function HomePage() {
       'dev': 'bg-blue-100 text-blue-800',
       'book': 'bg-green-100 text-green-800',
       'eng-dev': 'bg-purple-100 text-purple-800',
-      'think': 'bg-orange-100 text-orange-800'
+      'think': 'bg-orange-100 text-orange-800',
+      'study': 'bg-teal-100 text-teal-800'
     }
     return colorMap[category] || 'bg-gray-100 text-gray-800'
   }
