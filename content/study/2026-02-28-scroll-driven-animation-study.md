@@ -1,8 +1,8 @@
 ---
 title: "스크롤 기반 애니메이션 스터디 — Scroll-driven vs Scroll-triggered"
 date: "2026-02-28"
-excerpt: "스크롤 연동 애니메이션과 스크롤 트리거 애니메이션의 차이, Intersection Observer API, Staggered Animation, Easing 함수, 그리고 성능 최적화까지 정리한 프론트엔드 애니메이션 스터디 노트."
-tags: ["scroll-animation", "intersection-observer", "frontend", "css", "javascript", "react", "performance"]
+excerpt: "스크롤 연동 애니메이션과 스크롤 트리거 애니메이션의 차이, Intersection Observer API, Staggered Animation, Easing 함수, 3D Transform Reveal, 성능 최적화, 그리고 웹 인터랙션 디자인 용어 20선까지 정리한 프론트엔드 애니메이션 스터디 노트."
+tags: ["scroll-animation", "intersection-observer", "frontend", "css", "javascript", "react", "performance", "3d-transform", "web-interaction"]
 category: "study"
 ---
 
@@ -234,7 +234,81 @@ React 생태계에서 가장 인기 있는 애니메이션 라이브러리. 선�
 
 ---
 
-## 6. 성능 최적화 팁
+## 6. 3D Transform Reveal (3D 회전 등장)
+
+스크롤 시 이미지가 3D로 회전하면서 등장하는 효과다. Apple 제품 페이지에서 자주 볼 수 있다. `perspective`로 3D 공간감을 만들고, `rotateX/Y/Z`로 회전시키는 것이 핵심이다.
+
+### 필수 CSS 속성
+
+```css
+/* 부모: 3D 공간 생성 */
+.parent {
+  perspective: 1000px;      /* 값이 작을수록 원근감 강함 */
+}
+
+/* 자식: 3D 변환 적용 */
+.child {
+  transform: rotateY(180deg);       /* Y축 회전 (좌우 뒤집기) */
+  transform-style: preserve-3d;     /* 자식도 3D 공간 유지 */
+  backface-visibility: hidden;      /* 뒷면 숨기기 */
+}
+```
+
+### 회전 축 비교
+
+| 속성 | 축 | 느낌 |
+|------|---|------|
+| `rotateY(180deg)` | Y축 (좌우) | 카드 플립. 가장 보편적 |
+| `rotateX(180deg)` | X축 (상하) | 문이 열리는 듯한 느낌 |
+| `rotate3d(1,1,0,180deg)` | 대각선 | 역동적이고 드라마틱 |
+
+### Scroll-driven 방식 (연속 회전)
+
+스크롤 진행률에 따라 회전 각도가 실시간으로 변한다.
+
+```jsx
+function useScrollProgress(ref) {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handler = () => {
+      const rect = ref.current.getBoundingClientRect();
+      const raw = 1 - rect.top / window.innerHeight;
+      setProgress(Math.max(0, Math.min(1, raw)));
+    };
+    window.addEventListener('scroll', handler, { passive: true });
+    return () => window.removeEventListener('scroll', handler);
+  }, []);
+
+  return progress;
+}
+
+// 사용: 스크롤에 따라 180도 → 0도로 회전
+const rotateY = Math.max(0, 180 - progress * 360);
+```
+
+### Scroll-triggered 방식 (한 번 회전)
+
+뷰포트 진입 시 한 번 회전하며 등장한다.
+
+```jsx
+<div style={{
+  perspective: '1000px',
+}}>
+  <img style={{
+    transform: isInView
+      ? 'translateY(0) rotateY(0) scale(1)'
+      : 'translateY(60px) rotateY(180deg) scale(0.8)',
+    opacity: isInView ? 1 : 0,
+    transition: 'all 0.9s cubic-bezier(0.34, 1.56, 0.64, 1)',
+    backfaceVisibility: 'hidden',
+  }} />
+</div>
+```
+
+---
+
+## 7. 성능 최적화 팁
 
 1. **transform과 opacity만 애니메이션한다** — `width`, `height`, `top`, `left` 등은 레이아웃 재계산(reflow)을 유발한다. `transform`과 `opacity`는 GPU 가속이 가능해 60fps를 유지할 수 있다.
 
@@ -248,7 +322,7 @@ React 생태계에서 가장 인기 있는 애니메이션 라이브러리. 선�
 
 ---
 
-## 7. 구현 체크리스트
+## 8. 구현 체크리스트
 
 - [ ] Intersection Observer로 뷰포트 진입 감지
 - [ ] 초기 상태 설정 (opacity: 0, translateY, scale 등)
@@ -257,3 +331,32 @@ React 생태계에서 가장 인기 있는 애니메이션 라이브러리. 선�
 - [ ] transform/opacity만 사용하여 GPU 가속 확보
 - [ ] 한 번 트리거 후 observer 해제 (once 패턴)
 - [ ] 모바일에서 애니메이션 과부하 여부 테스트
+
+---
+
+## 9. 웹 인터랙션 디자인 용어 20선
+
+스크롤/인터랙션 기반 웹 애니메이션에서 자주 쓰이는 핵심 용어 모음이다. 각 키워드로 검색하면 관련 레퍼런스와 튜토리얼을 쉽게 찾을 수 있다.
+
+| # | 용어 | 설명 |
+|---|------|------|
+| 1 | **Scroll Reveal** | 스크롤 시 요소가 나타나는 효과의 통칭 |
+| 2 | **Scroll-driven Animation** | 스크롤 진행률에 연속적으로 반응하는 애니메이션 |
+| 3 | **Parallax Scrolling** | 배경과 전경이 다른 속도로 움직여 깊이감을 만드는 기법 |
+| 4 | **Staggered Animation** | 여러 요소가 시간차를 두고 순차적으로 등장하는 패턴 |
+| 5 | **3D Transform / Perspective** | perspective + rotate로 3D 공간감 있는 전환 효과 |
+| 6 | **Scrollytelling** | 스크롤로 스토리를 전달하는 인터랙티브 내러티브 |
+| 7 | **Sticky Scroll (Scroll Pinning)** | 특정 요소가 화면에 고정된 채 콘텐츠만 전환. Apple 제품 페이지에서 자주 사용 |
+| 8 | **Hero Animation** | 페이지 최상단에서 재생되는 대형 모션. 첫인상을 결정 |
+| 9 | **Micro-interaction** | 버튼 호버, 토글, 좋아요 등 작은 단위의 피드백 애니메이션 |
+| 10 | **Lottie Animation** | After Effects 애니메이션을 JSON으로 추출해 웹에서 재생하는 포맷 |
+| 11 | **FLIP Technique** | First → Last → Invert → Play. 레이아웃 변화를 부드럽게 애니메이션하는 성능 최적화 기법 |
+| 12 | **Morph / Shape Morphing** | 한 형태가 다른 형태로 자연스럽게 변형되는 효과 |
+| 13 | **Kinetic Typography** | 텍스트 자체가 움직이거나 변형되는 모션 타이포그래피 |
+| 14 | **Cursor Interaction** | 마우스 커서 위치에 반응하는 요소들. 커스텀 커서, 마그네틱 버튼 등 |
+| 15 | **Page Transition** | 페이지 간 이동 시 부드러운 전환 효과. View Transitions API가 대표적 |
+| 16 | **Infinite Marquee** | 텍스트나 이미지가 무한 루프로 흐르는 띠 형태의 애니메이션 |
+| 17 | **Masking / Clip-path Animation** | clip-path나 mask로 요소를 점진적으로 드러내는 효과 |
+| 18 | **Spring Physics** | 물리 기반 탄성 애니메이션. 오버슈팅, 바운스 등 자연스러운 움직임 |
+| 19 | **Scroll Snap** | 스크롤이 특정 지점에 딱딱 멈추도록 하는 CSS 기반 인터랙션 |
+| 20 | **Ambient Animation** | 배경에서 미세하게 움직이는 그라디언트, 파티클, 노이즈 등 분위기 연출용 모션 |
