@@ -13,9 +13,18 @@ interface Category {
 
 interface CategoryDropdownProps {
   categories: Category[]
+  isHome?: boolean
 }
 
-export function CategoryDropdown({ categories }: CategoryDropdownProps) {
+const CAT_COLORS: Record<string, string> = {
+  dev: '#D97757',
+  study: '#6B8F71',
+  book: '#C2956B',
+  think: '#8B5E6B',
+  'eng-dev': '#5E7FA3',
+}
+
+export function CategoryDropdown({ categories, isHome = false }: CategoryDropdownProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -36,11 +45,13 @@ export function CategoryDropdown({ categories }: CategoryDropdownProps) {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="text-gray-600 hover:text-gray-900 transition-colors flex items-center space-x-1"
+        className={`text-sm font-medium transition-colors flex items-center gap-1 ${
+          isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 hover:text-pantone-ink'
+        }`}
       >
         <span>카테고리</span>
         <svg 
-          className={`w-4 h-4 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -50,29 +61,49 @@ export function CategoryDropdown({ categories }: CategoryDropdownProps) {
       </button>
       
       {isOpen && (
-        <div className="absolute right-0 mt-1 w-56 bg-white rounded-lg shadow-lg border border-gray-200 z-50 animate-in fade-in slide-in-from-top-1 duration-200">
-          <div className="py-2">
-            {categories.map((category) => (
-              <Link
-                key={category.path}
-                href={category.path}
-                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-3">
-                    <span className="text-lg">{category.icon}</span>
-                    <div>
-                      <div className="font-medium">{category.name}</div>
-                      <div className="text-xs text-gray-500 mt-1">{category.description}</div>
-                    </div>
+        <div className="absolute right-0 mt-3 w-64 bg-white border border-pantone-border shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-200">
+          {/* Mini swatch strip */}
+          <div className="flex h-2">
+            {categories.map((category) => {
+              const slug = category.path.split('/').pop() || ''
+              return (
+                <div
+                  key={slug}
+                  className="flex-1"
+                  style={{ backgroundColor: CAT_COLORS[slug] || '#94A3B8' }}
+                />
+              )
+            })}
+          </div>
+          <div className="px-4 pt-3 pb-1">
+            <p className="pantone-label">PANTONE</p>
+            <p className="text-[10px] text-gray-400 mt-0.5">Category Collection</p>
+          </div>
+          <div className="py-1">
+            {categories.map((category) => {
+              const slug = category.path.split('/').pop() || ''
+              const color = CAT_COLORS[slug] || '#94A3B8'
+              return (
+                <Link
+                  key={category.path}
+                  href={category.path}
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-pantone-snow transition-colors"
+                  onClick={() => setIsOpen(false)}
+                >
+                  <div
+                    className="w-5 h-5 flex-shrink-0"
+                    style={{ backgroundColor: color }}
+                  />
+                  <div className="flex-1 min-w-0">
+                    <div className="text-sm font-medium text-pantone-ink">{category.name}</div>
+                    <div className="text-[10px] text-gray-400">{category.description}</div>
                   </div>
-                  <span className="text-xs bg-gray-100 px-2 py-1 rounded-full text-gray-600">
+                  <span className="text-[10px] text-gray-400 font-medium">
                     {category.count}
                   </span>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              )
+            })}
           </div>
         </div>
       )}

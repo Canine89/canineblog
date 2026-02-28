@@ -14,15 +14,28 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-8">자기소개 · 연락처</h1>
-      
-      <div className="space-y-8">
-        {/* 운영자 소개 */}
-        <section className="bg-gray-50 p-6 rounded-lg">
-          <div className="flex items-start space-x-4">
+    <div className="space-y-10">
+      {/* Pantone-style header */}
+      <section className="border border-pantone-border overflow-hidden">
+        <div className="bg-pantone-ink h-24 sm:h-32 flex items-center justify-center">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wider uppercase">
+            About
+          </h1>
+        </div>
+        <div className="bg-white px-6 py-4 space-y-1">
+          <p className="pantone-label">PANTONE</p>
+          <p className="text-sm font-medium text-gray-500">19-4305 TCX · Ink Black</p>
+          <p className="text-sm text-gray-500">{siteConfig.author.name}를 소개합니다.</p>
+        </div>
+      </section>
+
+      {/* Profile */}
+      <section className="pantone-section">
+        <div className="section-swatch h-3 bg-pantone-blue" />
+        <div className="section-body">
+          <div className="flex items-start gap-5">
             <div className="flex-shrink-0">
-              <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-200 flex items-center justify-center">
+              <div className="w-16 h-16 overflow-hidden bg-pantone-blue flex items-center justify-center">
                 {siteConfig.author.avatar ? (
                   <Image 
                     src={siteConfig.author.avatar} 
@@ -32,121 +45,113 @@ export default function AboutPage() {
                     className="w-full h-full object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-blue-600 flex items-center justify-center text-white text-2xl font-bold">
-                    P
-                  </div>
+                  <span className="text-white text-2xl font-bold">P</span>
                 )}
               </div>
             </div>
-            <div className="flex-1">
-              <h2 className="text-2xl font-semibold text-gray-900 mb-2">{siteConfig.author.name}</h2>
-              <p className="text-gray-700 mb-4">
-                {siteConfig.author.bio}
-              </p>
-              <div className="flex items-center space-x-4 text-sm text-gray-600">
-                <span>📧 {siteConfig.author.email}</span>
-                <span>🏢 골든래빗 출판사</span>
+            <div className="flex-1 space-y-2">
+              <h2 className="text-xl font-extrabold text-pantone-ink">{siteConfig.author.name}</h2>
+              <p className="text-sm text-gray-600 leading-relaxed">{siteConfig.author.bio}</p>
+              <div className="flex items-center gap-4 text-xs text-gray-400">
+                <span>{siteConfig.author.email}</span>
+                <span>골든래빗 출판사</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {/* Email */}
+        <section className="pantone-section">
+          <div className="section-swatch h-14 bg-pantone-blue flex items-center justify-center">
+            <span className="text-sm font-bold text-white tracking-widest uppercase">Email</span>
+          </div>
+          <div className="section-body">
+            <p className="pantone-label">PANTONE</p>
+            <p className="text-xs text-gray-500 mb-3">Contact · Email</p>
+            <div className="space-y-2">
+              <div className="flex items-center justify-between bg-pantone-snow p-3">
+                <span className="text-xs font-medium text-pantone-ink">이메일</span>
+                <a href={`mailto:${siteConfig.author.email}`} className="text-xs text-pantone-blue hover:underline">
+                  {siteConfig.author.email}
+                </a>
+              </div>
+              <div className="flex items-center justify-between bg-pantone-snow p-3">
+                <span className="text-xs font-medium text-pantone-ink">응답 시간</span>
+                <span className="text-xs text-gray-500">1-3 영업일 내</span>
               </div>
             </div>
           </div>
         </section>
 
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* 이메일 연락 */}
-          <section className="bg-white border border-gray-200 p-6 rounded-lg">
-            <div className="flex items-center mb-4">
-              <span className="text-2xl mr-3">📧</span>
-              <h3 className="text-lg font-semibold text-gray-900">이메일 문의</h3>
-            </div>
-            <p className="text-gray-600 mb-4">
-              블로그, 도서 편집, 기술 문의 등 모든 연락사항은 이메일로 문의해 주세요.
-            </p>
+        {/* Social */}
+        <section className="pantone-section">
+          <div className="section-swatch h-14 bg-pantone-slate flex items-center justify-center">
+            <span className="text-sm font-bold text-white tracking-widest uppercase">Social</span>
+          </div>
+          <div className="section-body">
+            <p className="pantone-label">PANTONE</p>
+            <p className="text-xs text-gray-500 mb-3">Contact · Social Media</p>
             <div className="space-y-2">
-              <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
-                <span className="font-medium text-gray-900">이메일</span>
-                <a 
-                  href={`mailto:${siteConfig.author.email}`}
-                  className="text-blue-600 hover:text-blue-800 underline"
-                >
-                  {siteConfig.author.email}
-                </a>
-              </div>
-              <div className="flex items-center justify-between bg-gray-50 p-3 rounded">
-                <span className="font-medium text-gray-900">응답 시간</span>
-                <span className="text-gray-600">1-3 영업일 내</span>
-              </div>
-            </div>
-          </section>
-
-          {/* 소셜 미디어 */}
-          <section className="bg-white border border-gray-200 p-6 rounded-lg">
-            <div className="flex items-center mb-4">
-              <span className="text-2xl mr-3">🌐</span>
-              <h3 className="text-lg font-semibold text-gray-900">소셜 미디어</h3>
-            </div>
-            <p className="text-gray-600 mb-4">
-              일상적인 개발 이야기와 최신 소식을 소셜 미디어에서 만나보세요.
-            </p>
-            <div className="space-y-3">
               {Object.entries(siteConfig.author.social).map(([platform, url]) => (
                 <a 
                   key={platform}
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-gray-50 p-3 rounded hover:bg-gray-100 transition-colors"
+                  className="flex items-center justify-between bg-pantone-snow p-3 hover:bg-pantone-mist transition-colors"
                 >
-                  <div className="flex items-center">
-                    <span className="mr-3">{platform === 'github' ? '🐙' : '🧵'}</span>
-                    <span className="font-medium text-gray-900">{platform === 'github' ? 'GitHub' : 'Threads'}</span>
-                  </div>
-                  <span className="text-blue-600">
+                  <span className="text-xs font-medium text-pantone-ink uppercase">{platform}</span>
+                  <span className="text-xs text-pantone-blue">
                     {platform === 'github' ? '@canine89' : '@limedaddy_8924'} →
                   </span>
                 </a>
               ))}
             </div>
-          </section>
-        </div>
-
-
-        {/* 블로그 관련 정보 */}
-        <section className="bg-gray-50 p-6 rounded-lg">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">블로그 정보</h3>
-          <div className="grid md:grid-cols-2 gap-6 text-sm">
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">기술 스택</h4>
-              <ul className="text-gray-600 space-y-1">
-                <li>• Next.js 15.4.4</li>
-                <li>• TypeScript</li>
-                <li>• Tailwind CSS</li>
-                <li>• Vercel 배포</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-medium text-gray-900 mb-2">정책 준수</h4>
-              <ul className="text-gray-600 space-y-1">
-                <li>• <Link href="/privacy" className="text-blue-600 hover:text-blue-800 underline">개인정보 처리방침</Link></li>
-                <li>• <Link href="/terms" className="text-blue-600 hover:text-blue-800 underline">이용약관</Link></li>
-                <li>• <Link href="/disclaimer" className="text-blue-600 hover:text-blue-800 underline">면책조항</Link></li>
-                <li>• Google AdSense 정책 준수</li>
-              </ul>
-            </div>
-          </div>
-        </section>
-
-        {/* 연락처 푸터 */}
-        <section className="text-center pt-8 border-t border-gray-200">
-          <p className="text-gray-600 mb-4">
-            편집자P의 편집실에 관심과 사랑을 보내주셔서 감사합니다!
-          </p>
-          <div className="flex justify-center space-x-6 text-sm text-gray-500">
-            <span>🏢 골든래빗 출판사</span>
-            <span>📧 {siteConfig.author.email}</span>
-            <span>🌐 https://canineblog.vercel.app</span>
           </div>
         </section>
       </div>
+
+      {/* Blog info */}
+      <section className="pantone-section">
+        <div className="section-swatch h-3 bg-pantone-blue" />
+        <div className="section-body">
+          <p className="pantone-label">PANTONE</p>
+          <h3 className="text-sm font-bold text-pantone-ink">블로그 정보</h3>
+          <div className="grid md:grid-cols-2 gap-6 mt-2 text-xs">
+            <div>
+              <h4 className="font-semibold text-pantone-ink mb-2 uppercase tracking-wider">Tech Stack</h4>
+              <ul className="text-gray-500 space-y-1">
+                <li>Next.js 15.4.4</li>
+                <li>TypeScript</li>
+                <li>Tailwind CSS</li>
+                <li>Vercel 배포</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-pantone-ink mb-2 uppercase tracking-wider">Compliance</h4>
+              <ul className="text-gray-500 space-y-1">
+                <li><Link href="/privacy" className="text-pantone-blue hover:underline">개인정보 처리방침</Link></li>
+                <li><Link href="/terms" className="text-pantone-blue hover:underline">이용약관</Link></li>
+                <li><Link href="/disclaimer" className="text-pantone-blue hover:underline">면책조항</Link></li>
+                <li>Google AdSense 정책 준수</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <section className="text-center pt-6 border-t border-pantone-border">
+        <p className="text-sm text-gray-500 mb-3">
+          편집자P의 편집실에 관심을 보내주셔서 감사합니다.
+        </p>
+        <div className="flex justify-center gap-6 text-[10px] text-gray-400 uppercase tracking-widest">
+          <span>골든래빗 출판사</span>
+          <span>{siteConfig.author.email}</span>
+        </div>
+      </section>
     </div>
   )
 }

@@ -7,6 +7,23 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        pantone: {
+          blue: '#D97757',
+          ink: '#1A1A2E',
+          slate: '#3D3D56',
+          snow: '#FAF8F6',
+          mist: '#F5F0EB',
+          border: '#E8DED4',
+        },
+        cat: {
+          dev: '#D97757',
+          study: '#6B8F71',
+          book: '#C2956B',
+          think: '#8B5E6B',
+          'eng-dev': '#5E7FA3',
+        },
+      },
       keyframes: {
         'fade-in': {
           '0%': { opacity: '0' },

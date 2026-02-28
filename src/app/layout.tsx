@@ -4,11 +4,9 @@ import './globals.css'
 import { siteConfig } from '@/lib/config'
 import Script from 'next/script'
 import Link from 'next/link'
-import { MobileNav } from '@/components/MobileNav'
 import { getCategoriesFromFolders } from '@/lib/markdown'
-import { CategoryDropdown } from '@/components/CategoryDropdown'
-import { CookieConsent } from '@/components/CookieConsent'
 import { OrganizationStructuredData } from '@/components/StructuredData'
+import { Header } from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -119,10 +117,10 @@ export default function RootLayout({
           `}
         </Script>
         
-        {/* Structured Data */}
-        <OrganizationStructuredData />
       </head>
-      <body className={`${inter.className} bg-white text-gray-900 antialiased`} suppressHydrationWarning>
+      <body className={`${inter.className} bg-white text-pantone-ink antialiased`} suppressHydrationWarning>
+        {/* Structured Data — body에 배치하여 AdSense 스크립트와의 hydration 충돌 방지 */}
+        <OrganizationStructuredData />
         
         {/* 
           Google AdSense 자동광고 - 2025 정책 준수 구현
@@ -140,77 +138,40 @@ export default function RootLayout({
           crossOrigin="anonymous"
           strategy="beforeInteractive"
         />
-        <div className="min-h-screen">
-          <header className="sticky top-0 z-50 border-b border-gray-200 bg-white/80 backdrop-blur-sm">
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-              <div className="flex h-16 items-center justify-between">
-                {/* Logo and Title */}
-                <div className="flex items-center space-x-2 sm:space-x-3">
-                  <Link href="/" className="text-lg sm:text-xl font-bold text-gray-900">
-                    📝 {siteConfig.title}
-                  </Link>
-                  <span className="hidden sm:inline text-sm text-gray-500">
-                    by {siteConfig.author.name}
-                  </span>
-                </div>
-                
-                {/* Desktop Navigation */}
-                <nav className="hidden md:flex items-center space-x-8">
-                  <Link href="/" className="text-gray-600 hover:text-gray-900">
-                    홈
-                  </Link>
-                  <CategoryDropdown categories={categories} />
-                  <Link href="/tags" className="text-gray-600 hover:text-gray-900">
-                    태그
-                  </Link>
-                  <Link href="/books" className="text-gray-600 hover:text-gray-900">
-                    편집한 도서
-                  </Link>
-                  <Link href="/about" className="text-gray-600 hover:text-gray-900">
-                    소개 · 연락처
-                  </Link>
-                </nav>
-                
-                {/* Mobile Navigation */}
-                <div className="flex items-center space-x-4 md:hidden">
-                  <MobileNav categories={categories} />
-                </div>
-              </div>
-            </div>
-          </header>
-          <main className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex flex-col">
+          <Header categories={categories} />
+
+          <main className="flex-1 mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
             {children}
           </main>
-          <footer className="border-t border-gray-200 bg-gray-50">
-            <div className="mx-auto max-w-4xl px-4 py-8 sm:px-6 lg:px-8">
-              <div className="flex flex-col items-center space-y-4">
-                {/* 법적 페이지 링크 */}
-                <div className="flex flex-wrap justify-center gap-4 text-sm">
-                  <Link href="/privacy" className="text-gray-500 hover:text-gray-700 transition-colors">
+
+          <footer className="border-t border-pantone-border bg-pantone-snow">
+            <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+              <div className="flex flex-col items-center gap-5">
+                <div className="flex flex-wrap justify-center gap-6 text-xs tracking-widest uppercase text-gray-400">
+                  <Link href="/privacy" className="hover:text-pantone-ink transition-colors">
                     개인정보 처리방침
                   </Link>
-                  <Link href="/terms" className="text-gray-500 hover:text-gray-700 transition-colors">
+                  <Link href="/terms" className="hover:text-pantone-ink transition-colors">
                     이용약관
                   </Link>
-                  <Link href="/disclaimer" className="text-gray-500 hover:text-gray-700 transition-colors">
+                  <Link href="/disclaimer" className="hover:text-pantone-ink transition-colors">
                     면책조항
                   </Link>
                 </div>
                 
-                <div className="flex items-center space-x-4">
-                  <span className="text-sm text-gray-600">
-                    © 2025 {siteConfig.author.name}. Next.js로 제작되었습니다.
-                  </span>
-                </div>
+                <p className="text-xs text-gray-400">
+                  © 2025 {siteConfig.author.name}. Next.js로 제작되었습니다.
+                </p>
                 
-                <div className="flex space-x-4">
+                <div className="flex gap-4">
                   {Object.entries(siteConfig.author.social).map(([platform, url]) => (
                     <a
                       key={platform}
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-gray-600 transition-colors"
+                      className="text-xs text-gray-400 hover:text-pantone-blue transition-colors uppercase tracking-wider"
                     >
                       {platform}
                     </a>
@@ -218,11 +179,10 @@ export default function RootLayout({
                 </div>
               </div>
             </div>
+            <div className="h-1.5 bg-pantone-blue" />
           </footer>
         </div>
         
-        {/* 쿠키 동의 배너 */}
-        <CookieConsent />
       </body>
     </html>
   )

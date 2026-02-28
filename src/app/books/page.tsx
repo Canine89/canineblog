@@ -268,142 +268,119 @@ export default function BooksPage() {
     ]
   }
 
+  const PUBLISHER_COLORS: Record<string, { color: string; code: string }> = {
+    goldenrabbit: { color: '#D97757', code: '16-1441 TCX' },
+    easyspub:     { color: '#6B8F71', code: '16-5917 TCX' },
+  }
+
   return (
-    <div className="space-y-8">
-      {/* Header */}
-      <div className="text-center space-y-4">
-        <h1 className="text-4xl font-bold text-gray-900">📚 편집한 도서</h1>
-        <p className="text-xl text-gray-600">
-          {siteConfig.author.name}가 기획하고 편집한 도서들입니다
-        </p>
-      </div>
+    <div className="space-y-10">
+      {/* Pantone-style header */}
+      <section className="border border-pantone-border overflow-hidden">
+        <div className="bg-pantone-blue h-24 sm:h-32 flex items-center justify-center">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wider uppercase">
+            Books
+          </h1>
+        </div>
+        <div className="bg-white px-6 py-4 space-y-1">
+          <p className="pantone-label">PANTONE</p>
+          <p className="text-sm font-medium text-gray-500">16-1441 TCX · Warm Coral</p>
+          <p className="text-sm text-gray-500">
+            {siteConfig.author.name}가 기획하고 편집한 도서들입니다
+          </p>
+        </div>
+      </section>
 
-      {/* Golden Rabbit Books */}
-      <div className="space-y-6">
-        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            🏢 골든래빗 (~현재)
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {books.goldenrabbit.map((book, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                {/* Book Cover */}
-                <div className="mb-3">
-                  <div className="w-full h-48 bg-gray-200 rounded overflow-hidden">
-                    <Image 
-                      src={book.image}
-                      alt={book.title}
-                      width={200}
-                      height={240}
-                      className="w-full h-full object-cover"
-                    />
+      {/* Book sections */}
+      {([
+        { key: 'goldenrabbit', label: '골든래빗', period: '~현재', list: books.goldenrabbit },
+        { key: 'easyspub', label: '이지스퍼블리싱', period: '2017~2023', list: books.easyspub },
+      ] as const).map((publisher) => {
+        const pub = PUBLISHER_COLORS[publisher.key]
+        return (
+          <section key={publisher.key} className="space-y-5">
+            <div className="pantone-section">
+              <div className="section-swatch h-14 flex items-center justify-center" style={{ backgroundColor: pub.color }}>
+                <span className="text-sm font-bold text-white tracking-widest uppercase">
+                  {publisher.label} ({publisher.period})
+                </span>
+              </div>
+              <div className="section-body !py-2">
+                <p className="pantone-label">PANTONE</p>
+                <p className="pantone-code">{pub.code} · {publisher.list.length}권</p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              {publisher.list.map((book, index) => (
+                <div key={index} className="pantone-chip">
+                  <div className="chip-swatch">
+                    <div className="w-full aspect-[3/4] bg-gray-100 overflow-hidden">
+                      <Image 
+                        src={book.image}
+                        alt={book.title}
+                        width={200}
+                        height={267}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
-                </div>
-                
-                {/* Book Info */}
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-1 rounded">
-                      {index + 1}
-                    </span>
-                    <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded">
+                  <div className="chip-info !gap-1.5">
+                    <p className="pantone-label">PANTONE</p>
+                    <span
+                      className="text-[10px] font-medium px-2 py-0.5 self-start"
+                      style={{ backgroundColor: pub.color + '15', color: pub.color }}
+                    >
                       {book.role}
                     </span>
-                  </div>
-                  <h3 className="text-gray-900 font-medium text-sm leading-tight line-clamp-3">
-                    {book.title}
-                  </h3>
-                  <a
-                    href={book.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block w-full text-center text-blue-600 hover:text-blue-800 text-sm font-medium py-2 px-3 bg-blue-50 rounded hover:bg-blue-100 transition-colors"
-                  >
-                    살펴보기 →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* EasySPub Books */}
-        <div className="bg-white rounded-lg border border-gray-200 p-6 shadow-sm">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">
-            📖 이지스퍼블리싱 (2017~2023)
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {books.easyspub.map((book, index) => (
-              <div key={index} className="bg-gray-50 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
-                {/* Book Cover */}
-                <div className="mb-3">
-                  <div className="w-full h-48 bg-gray-200 rounded overflow-hidden">
-                    <Image 
-                      src={book.image}
-                      alt={book.title}
-                      width={200}
-                      height={240}
-                      className="w-full h-full object-cover"
-                    />
+                    <h3 className="text-xs font-semibold text-pantone-ink leading-tight line-clamp-2">
+                      {book.title}
+                    </h3>
+                    <a
+                      href={book.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] text-pantone-blue hover:underline mt-auto"
+                    >
+                      살펴보기 →
+                    </a>
                   </div>
                 </div>
-                
-                {/* Book Info */}
-                <div className="space-y-2">
-                  <div className="flex items-center space-x-2">
-                    <span className="text-xs font-bold text-gray-500 bg-gray-200 px-2 py-1 rounded">
-                      {index + 1}
-                    </span>
-                    <span className="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded">
-                      {book.role}
-                    </span>
-                    {book.note && (
-                      <span className="text-xs text-gray-500 bg-gray-200 px-2 py-1 rounded">
-                        {book.note}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="text-gray-900 font-medium text-sm leading-tight line-clamp-3">
-                    {book.title}
-                  </h3>
-                  <a
-                    href={book.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-block w-full text-center text-blue-600 hover:text-blue-800 text-sm font-medium py-2 px-3 bg-blue-50 rounded hover:bg-blue-100 transition-colors"
-                  >
-                    살펴보기 →
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+              ))}
+            </div>
+          </section>
+        )
+      })}
 
       {/* Stats */}
-      <div className="rounded-lg border border-gray-200 bg-gray-50 p-6">
-        <div className="grid grid-cols-3 gap-4 text-center">
-          <div>
-            <div className="text-2xl font-bold text-gray-900">
-              {books.goldenrabbit.length + books.easyspub.length}
+      <section className="pantone-section">
+        <div className="flex h-2">
+          <div className="flex-1 bg-pantone-blue" />
+          <div className="flex-1 bg-cat-study" />
+        </div>
+        <div className="section-body">
+          <div className="grid grid-cols-3 gap-4 text-center">
+            <div>
+              <div className="text-2xl font-extrabold text-pantone-ink">
+                {books.goldenrabbit.length + books.easyspub.length}
+              </div>
+              <div className="text-[10px] text-gray-400 uppercase tracking-wider">Total</div>
             </div>
-            <div className="text-sm text-gray-600">총 도서 수</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-gray-900">
-              {books.goldenrabbit.length}
+            <div>
+              <div className="text-2xl font-extrabold text-pantone-blue">
+                {books.goldenrabbit.length}
+              </div>
+              <div className="text-[10px] text-gray-400 uppercase tracking-wider">골든래빗</div>
             </div>
-            <div className="text-sm text-gray-600">골든래빗</div>
-          </div>
-          <div>
-            <div className="text-2xl font-bold text-gray-900">
-              {books.easyspub.length}
+            <div>
+              <div className="text-2xl font-extrabold text-cat-study">
+                {books.easyspub.length}
+              </div>
+              <div className="text-[10px] text-gray-400 uppercase tracking-wider">이지스퍼블리싱</div>
             </div>
-            <div className="text-sm text-gray-600">이지스퍼블리싱</div>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   )
-} 
+}

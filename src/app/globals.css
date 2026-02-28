@@ -7,10 +7,55 @@
 
   body {
     font-feature-settings: 'rlig' 1, 'calt' 1;
+    letter-spacing: -0.01em;
   }
 }
 
 @layer components {
+  /* Pantone chip card */
+  .pantone-chip {
+    @apply flex flex-col overflow-hidden border border-gray-200 bg-white;
+    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-style: preserve-3d;
+    perspective: 800px;
+  }
+
+  .pantone-chip:hover {
+    transform: rotateY(-12deg) rotateX(6deg) translateY(-12px) scale(1.04);
+    box-shadow: 14px 20px 40px rgba(15, 23, 42, 0.2),
+                4px 6px 12px rgba(15, 23, 42, 0.1);
+  }
+
+  .pantone-chip .chip-swatch {
+    @apply w-full;
+  }
+
+  .pantone-chip .chip-info {
+    @apply p-4 flex flex-col gap-1;
+  }
+
+  .pantone-label {
+    @apply text-[8px] font-semibold text-gray-400 tracking-[0.15em] uppercase;
+  }
+
+  .pantone-code {
+    @apply text-[11px] font-medium text-gray-500;
+  }
+
+  /* Pantone section card */
+  .pantone-section {
+    @apply flex flex-col border border-gray-200 overflow-hidden;
+  }
+
+  .pantone-section .section-swatch {
+    @apply w-full flex items-center justify-center;
+  }
+
+  .pantone-section .section-body {
+    @apply p-6 bg-white flex flex-col gap-3;
+  }
+
   .prose {
     @apply text-gray-900;
   }
@@ -53,7 +98,7 @@
   }
 
   .prose blockquote {
-    @apply border-l-2 border-gray-300 pl-4 italic text-gray-600;
+    @apply border-l-4 border-[#D97757] pl-4 italic text-gray-600 bg-slate-50 py-2;
   }
 
   .prose code {
@@ -61,7 +106,7 @@
   }
 
   .prose pre {
-    @apply bg-gray-50 text-gray-800 p-4 rounded-md overflow-x-auto border border-gray-200;
+    @apply bg-[#1A1A2E] text-gray-100 p-4 rounded-none overflow-x-auto border-l-4 border-[#D97757];
   }
 
   .prose pre code {
@@ -69,11 +114,29 @@
   }
 
   .prose a {
-    @apply text-gray-800 hover:text-gray-600 underline underline-offset-2;
+    @apply text-[#D97757] hover:text-[#B8603F] underline underline-offset-2;
   }
 
   .prose strong {
-    @apply font-semibold text-gray-900;
+    @apply font-bold text-gray-900 relative;
+    background-image:
+      linear-gradient(
+        102deg,
+        rgba(200, 235, 50, 0) 0%,
+        rgba(200, 235, 50, 0.35) 3%,
+        rgba(220, 240, 80, 0.5) 8%,
+        rgba(190, 230, 60, 0.45) 30%,
+        rgba(210, 238, 70, 0.55) 50%,
+        rgba(195, 232, 55, 0.42) 75%,
+        rgba(215, 240, 75, 0.5) 92%,
+        rgba(200, 235, 50, 0.3) 97%,
+        rgba(200, 235, 50, 0) 100%
+      );
+    padding: 0.08em 0.25em;
+    margin: 0 -0.15em;
+    border-radius: 0.8em 0.3em 0.9em 0.2em;
+    box-decoration-break: clone;
+    -webkit-box-decoration-break: clone;
   }
 
   .prose em {
@@ -89,7 +152,7 @@
   }
 
   .prose th {
-    @apply border border-gray-200 bg-gray-50 px-4 py-2 text-left font-medium text-gray-900;
+    @apply border border-gray-200 bg-[#D97757] px-4 py-2 text-left font-medium text-white;
   }
 
   .prose td {
@@ -97,10 +160,9 @@
   }
 
   .prose img {
-    @apply rounded-lg shadow-sm;
+    @apply rounded-none shadow-sm;
   }
 
-  /* 마크다운 목록 개선 */
   .prose ul ul,
   .prose ol ol,
   .prose ul ol,
@@ -109,19 +171,17 @@
   }
 
   .prose ul li::marker {
-    @apply text-gray-500;
+    @apply text-[#D97757];
   }
 
   .prose ol li::marker {
-    @apply text-gray-500;
+    @apply text-[#D97757];
   }
 
-  /* 빈 목록 항목 처리 */
   .prose li:empty {
     @apply hidden;
   }
 
-  /* 목록 간격 조정 */
   .prose ul,
   .prose ol {
     @apply my-4;
@@ -146,4 +206,192 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+}
+
+/* Chip Reveal — staggered scroll animation */
+.chip-reveal {
+  opacity: 0;
+  transform: translateY(40px) rotate(2deg) scale(0.96);
+  transition:
+    opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.chip-reveal--visible {
+  opacity: 1;
+  transform: translateY(0) rotate(0deg) scale(1);
+}
+
+/* Hero section entrance */
+@keyframes chip-hero-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.chip-hero-enter {
+  animation: chip-hero-in 0.5s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chip-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .chip-hero-enter {
+    animation: none;
+  }
+}
+
+/* ── TOC — Thin Color Chip Rail ── */
+.toc-rail {
+  position: fixed;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 40;
+  display: none;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  width: 12rem;
+}
+
+@media (min-width: 1400px) {
+  .toc-rail {
+    display: flex;
+  }
+}
+
+.toc-track {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: #EDE5DA;
+  border-radius: 1px;
+}
+
+.toc-track-fill {
+  width: 100%;
+  background: #D97757;
+  border-radius: 1px;
+  transition: height 0.12s linear;
+}
+
+.toc-chips {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  max-height: 65vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+  padding-left: 10px;
+}
+.toc-chips::-webkit-scrollbar { display: none; }
+
+/* 개별 컬러칩 */
+.toc-chip {
+  display: flex;
+  align-items: stretch;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #F0EAE2;
+  transition: all 0.2s ease;
+  opacity: 0.55;
+}
+
+.toc-chip:hover {
+  opacity: 1;
+  border-color: #E0D6CC;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  transform: translateX(-2px);
+}
+
+.toc-chip--active {
+  opacity: 1;
+  border-color: #D4C8BA;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  transform: translateX(-4px);
+}
+
+.toc-chip--past {
+  opacity: 0.75;
+}
+
+.toc-chip-swatch {
+  flex-shrink: 0;
+  width: 6px;
+}
+
+.toc-chip--active .toc-chip-swatch {
+  width: 8px;
+}
+
+.toc-chip-label {
+  flex: 1;
+  min-width: 0;
+  font-size: 0.62rem;
+  line-height: 1.35;
+  color: #8A7E72;
+  padding: 0.3rem 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.2s ease;
+}
+
+.toc-chip:hover .toc-chip-label {
+  color: #1A1A2E;
+}
+
+.toc-chip--active .toc-chip-label {
+  color: #1A1A2E;
+  font-weight: 700;
+}
+
+/* h3 서브칩 */
+.toc-chip--sub {
+  margin-left: 0.75rem;
+}
+
+.toc-chip--sub .toc-chip-swatch {
+  width: 4px;
+}
+
+.toc-chip--sub .toc-chip-label {
+  font-size: 0.56rem;
+  padding: 0.2rem 0.45rem;
+}
+
+/* 카운터 */
+.toc-num {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  padding-left: 10px;
+  font-size: 0.6rem;
+  font-variant-numeric: tabular-nums;
+  color: #C4B5A6;
+  font-family: 'Courier New', 'Menlo', monospace;
+}
+
+.toc-num-now {
+  color: #D97757;
+  font-weight: 700;
+  font-size: 0.7rem;
+}
+
+.toc-num-sep {
+  color: #E0D6CC;
 }

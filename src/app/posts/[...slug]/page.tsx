@@ -6,6 +6,7 @@ import { Metadata } from 'next'
 import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
 import { SocialShare } from '@/components/SocialShare'
+import { ArticleTOC } from '@/components/ArticleTOC'
 
 interface PostPageProps {
   params: Promise<{
@@ -110,51 +111,69 @@ export default async function PostPage({ params }: PostPageProps) {
     "inLanguage": "ko-KR"
   }
 
+  const CATEGORY_PANTONE: Record<string, { color: string; code: string }> = {
+    dev:      { color: '#D97757', code: '16-1441 TCX' },
+    study:    { color: '#6B8F71', code: '16-5917 TCX' },
+    book:     { color: '#C2956B', code: '16-1432 TCX' },
+    think:    { color: '#8B5E6B', code: '17-1608 TCX' },
+    'eng-dev': { color: '#5E7FA3', code: '17-4020 TCX' },
+  }
+  const cat = (post as { category?: string }).category || 'dev'
+  const pantone = CATEGORY_PANTONE[cat] || CATEGORY_PANTONE.dev
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
+      <ArticleTOC />
       <article className="max-w-none">
-        {/* Header */}
-        <header className="mb-8">
-          <div className="mb-4">
+        {/* Pantone-style post header */}
+        <header className="mb-10 border border-pantone-border overflow-hidden">
+          <div
+            className="h-20 sm:h-28 relative"
+            style={{ backgroundColor: pantone.color }}
+          >
+            <div className="absolute bottom-0 right-0 px-4 py-3 text-right">
+              <p className="text-[8px] font-semibold text-white/50 tracking-[0.15em]">PANTONE</p>
+              <p className="text-[12px] font-medium text-white/70">{pantone.code}</p>
+              <p className="text-[10px] text-white/50">{cat}</p>
+            </div>
+          </div>
+          <div className="bg-white px-6 py-6 space-y-4">
             <time 
               dateTime={post.date}
-              className="text-sm text-gray-500"
+              className="text-xs text-gray-400"
             >
               {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
             </time>
-          </div>
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
-            {post.title}
-          </h1>
-          <p className="text-xl text-gray-600 mb-6">
-            {post.excerpt}
-          </p>
-          <div className="flex flex-wrap gap-2 mb-6">
-            {post.tags.map((tag) => (
-              <span
-                key={tag}
-                className="inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-sm font-medium text-blue-800"
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-          
-          {/* Social Share */}
-          <div className="border-t border-gray-200 pt-4">
-            <SocialShare 
-              title={post.title}
-              url={postUrl}
-              excerpt={post.excerpt}
-            />
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-pantone-ink tracking-tight">
+              {post.title}
+            </h1>
+            <p className="text-base text-gray-500 leading-relaxed">
+              {post.excerpt}
+            </p>
+            <div className="flex flex-wrap gap-2 pt-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-3 py-1 text-xs font-medium border border-pantone-border text-gray-500"
+                >
+                  #{tag}
+                </span>
+              ))}
+            </div>
+            
+            <div className="border-t border-pantone-border pt-4">
+              <SocialShare 
+                title={post.title}
+                url={postUrl}
+                excerpt={post.excerpt}
+              />
+            </div>
           </div>
         </header>
-
-        {/* 자동광고가 이 위치에 광고를 배치할 수 있습니다 */}
 
         {/* Content */}
         <div 
@@ -163,7 +182,7 @@ export default async function PostPage({ params }: PostPageProps) {
         />
 
         {/* Social Share - Bottom */}
-        <div className="mt-8 pt-6 border-t border-gray-200">
+        <div className="mt-10 pt-6 border-t border-pantone-border">
           <SocialShare 
             title={post.title}
             url={postUrl}
@@ -172,18 +191,14 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="mt-8 pt-6 border-t border-gray-200">
-          <div className="flex justify-between items-center">
-            <Link
-              href="/"
-              className="inline-flex items-center text-blue-600 hover:text-blue-800"
-            >
-              ← 홈으로 돌아가기
-            </Link>
-          </div>
+        <nav className="mt-8 pt-6 border-t border-pantone-border">
+          <Link
+            href="/"
+            className="inline-flex items-center text-pantone-blue hover:text-[#B8603F] text-sm font-medium tracking-wider uppercase"
+          >
+            ← 홈으로 돌아가기
+          </Link>
         </nav>
-
-        {/* 자동광고가 하단에 광고를 배치할 수 있습니다 */}
       </article>
     </>
   )
