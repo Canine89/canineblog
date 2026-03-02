@@ -16,16 +16,16 @@ export default function AboutPage() {
   return (
     <div className="space-y-10">
       {/* Pantone-style header */}
-      <section className="border border-pantone-border overflow-hidden">
-        <div className="bg-pantone-ink h-24 sm:h-32 flex items-center justify-center">
+      <section className="border border-pantone-border dark:border-[#3D3228] overflow-hidden">
+        <div className="bg-pantone-ink dark:bg-[#252019] h-24 sm:h-32 flex items-center justify-center">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wider uppercase">
             About
           </h1>
         </div>
-        <div className="bg-white px-6 py-4 space-y-1">
+        <div className="bg-white dark:bg-[#2E2820] px-6 py-4 space-y-1">
           <p className="pantone-label">PANTONE</p>
-          <p className="text-sm font-medium text-gray-500">19-4305 TCX · Ink Black</p>
-          <p className="text-sm text-gray-500">{siteConfig.author.name}를 소개합니다.</p>
+          <p className="text-sm font-medium text-gray-500 dark:text-[#9A8E82]">19-4305 TCX · Ink Black</p>
+          <p className="text-sm text-gray-500 dark:text-[#9A8E82]">{siteConfig.author.name}를 소개합니다.</p>
         </div>
       </section>
 
@@ -50,9 +50,9 @@ export default function AboutPage() {
               </div>
             </div>
             <div className="flex-1 space-y-2">
-              <h2 className="text-xl font-extrabold text-pantone-ink">{siteConfig.author.name}</h2>
-              <p className="text-sm text-gray-600 leading-relaxed">{siteConfig.author.bio}</p>
-              <div className="flex items-center gap-4 text-xs text-gray-400">
+              <h2 className="text-xl font-extrabold text-pantone-ink dark:text-[#E8E0D6]">{siteConfig.author.name}</h2>
+              <p className="text-sm text-gray-600 dark:text-[#9A8E82] leading-relaxed">{siteConfig.author.bio}</p>
+              <div className="flex items-center gap-4 text-xs text-gray-400 dark:text-[#9A8E82]">
                 <span>{siteConfig.author.email}</span>
                 <span>골든래빗 출판사</span>
               </div>
@@ -69,17 +69,17 @@ export default function AboutPage() {
           </div>
           <div className="section-body">
             <p className="pantone-label">PANTONE</p>
-            <p className="text-xs text-gray-500 mb-3">Contact · Email</p>
+            <p className="text-xs text-gray-500 dark:text-[#9A8E82] mb-3">Contact · Email</p>
             <div className="space-y-2">
-              <div className="flex items-center justify-between bg-pantone-snow p-3">
-                <span className="text-xs font-medium text-pantone-ink">이메일</span>
+              <div className="flex items-center justify-between bg-pantone-snow dark:bg-[#252019] p-3">
+                <span className="text-xs font-medium text-pantone-ink dark:text-[#E8E0D6]">이메일</span>
                 <a href={`mailto:${siteConfig.author.email}`} className="text-xs text-pantone-blue hover:underline">
                   {siteConfig.author.email}
                 </a>
               </div>
-              <div className="flex items-center justify-between bg-pantone-snow p-3">
-                <span className="text-xs font-medium text-pantone-ink">응답 시간</span>
-                <span className="text-xs text-gray-500">1-3 영업일 내</span>
+              <div className="flex items-center justify-between bg-pantone-snow dark:bg-[#252019] p-3">
+                <span className="text-xs font-medium text-pantone-ink dark:text-[#E8E0D6]">응답 시간</span>
+                <span className="text-xs text-gray-500 dark:text-[#9A8E82]">1-3 영업일 내</span>
               </div>
             </div>
           </div>
@@ -92,7 +92,7 @@ export default function AboutPage() {
           </div>
           <div className="section-body">
             <p className="pantone-label">PANTONE</p>
-            <p className="text-xs text-gray-500 mb-3">Contact · Social Media</p>
+            <p className="text-xs text-gray-500 dark:text-[#9A8E82] mb-3">Contact · Social Media</p>
             <div className="space-y-2">
               {Object.entries(siteConfig.author.social).map(([platform, url]) => (
                 <a 
@@ -100,9 +100,9 @@ export default function AboutPage() {
                   href={url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-between bg-pantone-snow p-3 hover:bg-pantone-mist transition-colors"
+                  className="flex items-center justify-between bg-pantone-snow dark:bg-[#252019] p-3 hover:bg-pantone-mist dark:hover:bg-[#3D3228] transition-colors"
                 >
-                  <span className="text-xs font-medium text-pantone-ink uppercase">{platform}</span>
+                  <span className="text-xs font-medium text-pantone-ink dark:text-[#E8E0D6] uppercase">{platform}</span>
                   <span className="text-xs text-pantone-blue">
                     {platform === 'github' ? '@canine89' : '@limedaddy_8924'} →
                   </span>
@@ -118,11 +118,11 @@ export default function AboutPage() {
         <div className="section-swatch h-3 bg-pantone-blue" />
         <div className="section-body">
           <p className="pantone-label">PANTONE</p>
-          <h3 className="text-sm font-bold text-pantone-ink">블로그 정보</h3>
+          <h3 className="text-sm font-bold text-pantone-ink dark:text-[#E8E0D6]">블로그 정보</h3>
           <div className="grid md:grid-cols-2 gap-6 mt-2 text-xs">
             <div>
-              <h4 className="font-semibold text-pantone-ink mb-2 uppercase tracking-wider">Tech Stack</h4>
-              <ul className="text-gray-500 space-y-1">
+              <h4 className="font-semibold text-pantone-ink dark:text-[#E8E0D6] mb-2 uppercase tracking-wider">Tech Stack</h4>
+              <ul className="text-gray-500 dark:text-[#9A8E82] space-y-1">
                 <li>Next.js 15.4.4</li>
                 <li>TypeScript</li>
                 <li>Tailwind CSS</li>
@@ -130,8 +130,8 @@ export default function AboutPage() {
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-pantone-ink mb-2 uppercase tracking-wider">Compliance</h4>
-              <ul className="text-gray-500 space-y-1">
+              <h4 className="font-semibold text-pantone-ink dark:text-[#E8E0D6] mb-2 uppercase tracking-wider">Compliance</h4>
+              <ul className="text-gray-500 dark:text-[#9A8E82] space-y-1">
                 <li><Link href="/privacy" className="text-pantone-blue hover:underline">개인정보 처리방침</Link></li>
                 <li><Link href="/terms" className="text-pantone-blue hover:underline">이용약관</Link></li>
                 <li><Link href="/disclaimer" className="text-pantone-blue hover:underline">면책조항</Link></li>
@@ -143,11 +143,11 @@ export default function AboutPage() {
       </section>
 
       {/* Footer */}
-      <section className="text-center pt-6 border-t border-pantone-border">
-        <p className="text-sm text-gray-500 mb-3">
+      <section className="text-center pt-6 border-t border-pantone-border dark:border-[#3D3228]">
+        <p className="text-sm text-gray-500 dark:text-[#9A8E82] mb-3">
           편집자P의 편집실에 관심을 보내주셔서 감사합니다.
         </p>
-        <div className="flex justify-center gap-6 text-[10px] text-gray-400 uppercase tracking-widest">
+        <div className="flex justify-center gap-6 text-[10px] text-gray-400 dark:text-[#9A8E82] uppercase tracking-widest">
           <span>골든래빗 출판사</span>
           <span>{siteConfig.author.email}</span>
         </div>

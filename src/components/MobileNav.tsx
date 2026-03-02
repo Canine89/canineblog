@@ -17,11 +17,11 @@ interface MobileNavProps {
 }
 
 const CAT_COLORS: Record<string, string> = {
-  dev: '#D97757',
-  study: '#6B8F71',
-  book: '#C2956B',
-  think: '#8B5E6B',
-  'eng-dev': '#5E7FA3',
+  dev: '#E8734A',
+  study: '#74A892',
+  book: '#C4956A',
+  think: '#A3677E',
+  'eng-dev': '#4B7BA6',
 }
 
 export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
@@ -69,7 +69,7 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
         ref={buttonRef}
         onClick={toggleMenu}
         className={`p-2 transition-colors duration-150 focus:outline-none ${
-          isOpen ? 'text-white z-50' : isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 hover:text-pantone-ink'
+          isOpen ? 'text-white z-50' : isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
         }`}
         aria-label={isOpen ? '메뉴 닫기' : '메뉴 열기'}
         aria-expanded={isOpen}
@@ -87,7 +87,7 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
       {isOpen && (
         <div 
           ref={menuRef}
-          className="absolute right-0 top-full mt-2 w-64 bg-white border border-pantone-border shadow-xl z-50"
+          className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-[#2E2820] border border-pantone-border dark:border-[#3D3228] shadow-xl z-50"
           role="menu"
         >
           {/* Color strip */}
@@ -95,17 +95,17 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
           
           <div className="px-4 pt-3 pb-1">
             <p className="pantone-label">PANTONE</p>
-            <p className="text-[10px] text-gray-400">Navigation</p>
+            <p className="text-[10px] text-gray-400 dark:text-[#9A8E82]">Navigation</p>
           </div>
 
-          <Link href="/" onClick={closeMenu} className="block px-4 py-2.5 text-sm font-medium text-pantone-ink hover:bg-pantone-snow transition-colors" role="menuitem">
+          <Link href="/" onClick={closeMenu} className="block px-4 py-2.5 text-sm font-medium text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
             홈
           </Link>
 
           {categories.length > 0 && (
-            <div className="border-t border-pantone-border">
+            <div className="border-t border-pantone-border dark:border-[#3D3228]">
               <div className="px-4 pt-3 pb-1">
-                <p className="text-[9px] font-semibold text-gray-400 uppercase tracking-[0.15em]">카테고리</p>
+                <p className="text-[9px] font-semibold text-gray-400 dark:text-[#9A8E82] uppercase tracking-[0.15em]">카테고리</p>
               </div>
               {categories.map((category) => {
                 const slug = category.path.split('/').pop() || ''
@@ -115,26 +115,26 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
                     key={category.path}
                     href={category.path}
                     onClick={closeMenu}
-                    className="flex items-center gap-3 px-4 py-2 hover:bg-pantone-snow transition-colors"
+                    className="flex items-center gap-3 px-4 py-2 hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors"
                     role="menuitem"
                   >
                     <div className="w-4 h-4 flex-shrink-0" style={{ backgroundColor: color }} />
-                    <span className="text-sm text-pantone-ink">{category.name}</span>
-                    <span className="ml-auto text-[10px] text-gray-400">{category.count}</span>
+                    <span className="text-sm text-pantone-ink dark:text-[#E8E0D6]">{category.name}</span>
+                    <span className="ml-auto text-[10px] text-gray-400 dark:text-[#9A8E82]">{category.count}</span>
                   </Link>
                 )
               })}
             </div>
           )}
           
-          <div className="border-t border-pantone-border">
-            <Link href="/tags" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink hover:bg-pantone-snow transition-colors" role="menuitem">
+          <div className="border-t border-pantone-border dark:border-[#3D3228]">
+            <Link href="/tags" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
               태그
             </Link>
-            <Link href="/books" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink hover:bg-pantone-snow transition-colors" role="menuitem">
+            <Link href="/books" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
               편집한 도서
             </Link>
-            <Link href="/about" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink hover:bg-pantone-snow transition-colors" role="menuitem">
+            <Link href="/about" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
               소개
             </Link>
           </div>

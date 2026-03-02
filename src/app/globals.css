@@ -12,23 +12,71 @@
 }
 
 @layer components {
-  /* Pantone chip card */
+  /* Pantone chip card — Stripe-style glow */
   .pantone-chip {
-    @apply flex flex-col overflow-hidden border border-gray-200 bg-white;
-    transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    transform-style: preserve-3d;
-    perspective: 800px;
+    @apply flex flex-col overflow-hidden;
+    position: relative;
+    background: #fff;
+    border: 1px solid #E8DFD5;
+    border-radius: 2px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.3s ease,
+                background-color 0.3s ease;
+  }
+
+  :is(.dark) .pantone-chip {
+    background: #2E2820;
+    border-color: #3D3228;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+
+  .pantone-chip::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: inherit;
+    background: radial-gradient(
+      500px circle at var(--glow-x, 50%) var(--glow-y, -20%),
+      rgba(232,115,74,0.25),
+      transparent 40%
+    );
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    z-index: 0;
+    pointer-events: none;
   }
 
   .pantone-chip:hover {
-    transform: rotateY(-12deg) rotateX(6deg) translateY(-12px) scale(1.04);
-    box-shadow: 14px 20px 40px rgba(15, 23, 42, 0.2),
-                4px 6px 12px rgba(15, 23, 42, 0.1);
+    transform: translateY(-2px);
+    border-color: rgba(232,115,74,0.3);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06),
+                0 8px 24px rgba(0,0,0,0.04);
+  }
+
+  :is(.dark) .pantone-chip:hover {
+    border-color: rgba(232,115,74,0.4);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.3),
+                0 8px 32px rgba(0,0,0,0.2);
+  }
+
+  .pantone-chip:hover::before {
+    opacity: 1;
+  }
+
+  .pantone-chip > * {
+    position: relative;
+    z-index: 1;
   }
 
   .pantone-chip .chip-swatch {
-    @apply w-full;
+    @apply w-full overflow-hidden;
+    transition: filter 0.3s ease;
+  }
+
+  :is(.dark) .pantone-chip .chip-swatch {
+    filter: brightness(0.72) saturate(0.85);
   }
 
   .pantone-chip .chip-info {
@@ -43,6 +91,9 @@
     @apply text-[11px] font-medium text-gray-500;
   }
 
+  :is(.dark) .pantone-label { color: #9A8E82; }
+  :is(.dark) .pantone-code { color: #9A8E82; }
+
   /* Pantone section card */
   .pantone-section {
     @apply flex flex-col border border-gray-200 overflow-hidden;
@@ -55,6 +106,9 @@
   .pantone-section .section-body {
     @apply p-6 bg-white flex flex-col gap-3;
   }
+
+  :is(.dark) .pantone-section { border-color: #3D3228; }
+  :is(.dark) .pantone-section .section-body { background: #2E2820; }
 
   .prose {
     @apply text-gray-900;
@@ -88,6 +142,16 @@
     @apply mb-4 list-decimal list-inside space-y-1 text-gray-700;
   }
 
+  :is(.dark) .prose,
+  :is(.dark) .prose h1,
+  :is(.dark) .prose h2,
+  :is(.dark) .prose h3,
+  :is(.dark) .prose h4 { color: #E8E0D6; }
+
+  :is(.dark) .prose p,
+  :is(.dark) .prose ul,
+  :is(.dark) .prose ol { color: #C4BAB0; }
+
   .prose li {
     @apply mb-1;
   }
@@ -98,23 +162,29 @@
   }
 
   .prose blockquote {
-    @apply border-l-4 border-[#D97757] pl-4 italic text-gray-600 bg-slate-50 py-2;
+    @apply border-l-4 border-[#E8734A] pl-4 italic text-gray-600 bg-slate-50 py-2;
   }
+
+  :is(.dark) .prose blockquote { color: #B0A698; background: #252019; }
 
   .prose code {
     @apply bg-gray-100 px-1.5 py-0.5 rounded text-sm font-mono text-gray-800;
   }
 
+  :is(.dark) .prose code { background: #252019; color: #D4CAC0; }
+
   .prose pre {
-    @apply bg-[#1A1A2E] text-gray-100 p-4 rounded-none overflow-x-auto border-l-4 border-[#D97757];
+    @apply bg-[#2C1810] text-gray-100 p-4 rounded-none overflow-x-auto border-l-4 border-[#E8734A];
   }
+
+  :is(.dark) .prose pre { background: #0F0C09; }
 
   .prose pre code {
     @apply bg-transparent p-0 text-inherit;
   }
 
   .prose a {
-    @apply text-[#D97757] hover:text-[#B8603F] underline underline-offset-2;
+    @apply text-[#E8734A] hover:text-[#C55A30] underline underline-offset-2;
   }
 
   .prose strong {
@@ -139,6 +209,23 @@
     -webkit-box-decoration-break: clone;
   }
 
+  :is(.dark) .prose strong {
+    color: #E8E0D6;
+    background-image:
+      linear-gradient(
+        102deg,
+        rgba(232, 115, 74, 0) 0%,
+        rgba(232, 115, 74, 0.2) 3%,
+        rgba(232, 115, 74, 0.3) 8%,
+        rgba(232, 115, 74, 0.25) 30%,
+        rgba(232, 115, 74, 0.35) 50%,
+        rgba(232, 115, 74, 0.25) 75%,
+        rgba(232, 115, 74, 0.3) 92%,
+        rgba(232, 115, 74, 0.15) 97%,
+        rgba(232, 115, 74, 0) 100%
+      );
+  }
+
   .prose em {
     @apply italic;
   }
@@ -147,17 +234,24 @@
     @apply border-gray-200 my-8;
   }
 
+  :is(.dark) .prose hr { border-color: #3D3228; }
+
   .prose table {
     @apply w-full border-collapse border border-gray-200;
   }
 
   .prose th {
-    @apply border border-gray-200 bg-[#D97757] px-4 py-2 text-left font-medium text-white;
+    @apply border border-gray-200 bg-[#E8734A] px-4 py-2 text-left font-medium text-white;
   }
 
   .prose td {
     @apply border border-gray-200 px-4 py-2 text-gray-700;
   }
+
+  :is(.dark) .prose table,
+  :is(.dark) .prose th,
+  :is(.dark) .prose td { border-color: #3D3228; }
+  :is(.dark) .prose td { color: #C4BAB0; }
 
   .prose img {
     @apply rounded-none shadow-sm;
@@ -171,11 +265,11 @@
   }
 
   .prose ul li::marker {
-    @apply text-[#D97757];
+    @apply text-[#E8734A];
   }
 
   .prose ol li::marker {
-    @apply text-[#D97757];
+    @apply text-[#E8734A];
   }
 
   .prose li:empty {
@@ -206,6 +300,28 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+}
+
+/* Dark mode — Pantone swatch tone-down */
+:is(.dark) .chip-hero-enter > div:first-child,
+:is(.dark) .pantone-section .section-swatch,
+:is(.dark) .pantone-swatch-bar,
+:is(.dark) .toc-chip-swatch {
+  filter: brightness(0.7) saturate(0.8);
+}
+
+/* Hero info strip — dark mode */
+:is(.dark) .hero-info-strip {
+  background: #2E2820;
+  border-color: #3D3228;
+}
+
+:is(.dark) .hero-info-strip p {
+  color: #E8E0D6;
+}
+
+:is(.dark) .hero-info-strip p:last-child {
+  color: #9A8E82;
 }
 
 /* Chip Reveal — staggered scroll animation */
@@ -278,9 +394,13 @@
   border-radius: 1px;
 }
 
+:is(.dark) .toc-track {
+  background: #3D3228;
+}
+
 .toc-track-fill {
   width: 100%;
-  background: #D97757;
+  background: #E8734A;
   border-radius: 1px;
   transition: height 0.12s linear;
 }
@@ -309,6 +429,11 @@
   border: 1px solid #F0EAE2;
   transition: all 0.2s ease;
   opacity: 0.55;
+}
+
+:is(.dark) .toc-chip {
+  background: #2E2820;
+  border-color: #3D3228;
 }
 
 .toc-chip:hover {
@@ -351,13 +476,25 @@
   transition: color 0.2s ease;
 }
 
+:is(.dark) .toc-chip-label {
+  color: #9A8E82;
+}
+
 .toc-chip:hover .toc-chip-label {
-  color: #1A1A2E;
+  color: #2C1810;
+}
+
+:is(.dark) .toc-chip:hover .toc-chip-label {
+  color: #E8E0D6;
 }
 
 .toc-chip--active .toc-chip-label {
-  color: #1A1A2E;
+  color: #2C1810;
   font-weight: 700;
+}
+
+:is(.dark) .toc-chip--active .toc-chip-label {
+  color: #E8E0D6;
 }
 
 /* h3 서브칩 */
@@ -386,12 +523,20 @@
   font-family: 'Courier New', 'Menlo', monospace;
 }
 
+:is(.dark) .toc-num {
+  color: #6A5E52;
+}
+
 .toc-num-now {
-  color: #D97757;
+  color: #E8734A;
   font-weight: 700;
   font-size: 0.7rem;
 }
 
 .toc-num-sep {
   color: #E0D6CC;
+}
+
+:is(.dark) .toc-num-sep {
+  color: #3D3228;
 }

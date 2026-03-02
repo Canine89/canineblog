@@ -112,11 +112,11 @@ export default async function PostPage({ params }: PostPageProps) {
   }
 
   const CATEGORY_PANTONE: Record<string, { color: string; code: string }> = {
-    dev:      { color: '#D97757', code: '16-1441 TCX' },
-    study:    { color: '#6B8F71', code: '16-5917 TCX' },
-    book:     { color: '#C2956B', code: '16-1432 TCX' },
-    think:    { color: '#8B5E6B', code: '17-1608 TCX' },
-    'eng-dev': { color: '#5E7FA3', code: '17-4020 TCX' },
+    dev:      { color: '#E8734A', code: '16-1362 TCX' },
+    study:    { color: '#74A892', code: '16-5815 TCX' },
+    book:     { color: '#C4956A', code: '16-1432 TCX' },
+    think:    { color: '#A3677E', code: '17-1718 TCX' },
+    'eng-dev': { color: '#4B7BA6', code: '17-4027 TCX' },
   }
   const cat = (post as { category?: string }).category || 'dev'
   const pantone = CATEGORY_PANTONE[cat] || CATEGORY_PANTONE.dev
@@ -130,9 +130,9 @@ export default async function PostPage({ params }: PostPageProps) {
       <ArticleTOC />
       <article className="max-w-none">
         {/* Pantone-style post header */}
-        <header className="mb-10 border border-pantone-border overflow-hidden">
+        <header className="mb-10 border border-pantone-border dark:border-[#3D3228] overflow-hidden">
           <div
-            className="h-20 sm:h-28 relative"
+            className="h-20 sm:h-28 relative pantone-swatch-bar"
             style={{ backgroundColor: pantone.color }}
           >
             <div className="absolute bottom-0 right-0 px-4 py-3 text-right">
@@ -141,31 +141,31 @@ export default async function PostPage({ params }: PostPageProps) {
               <p className="text-[10px] text-white/50">{cat}</p>
             </div>
           </div>
-          <div className="bg-white px-6 py-6 space-y-4">
+          <div className="bg-white dark:bg-[#2E2820] px-6 py-6 space-y-4">
             <time 
               dateTime={post.date}
-              className="text-xs text-gray-400"
+              className="text-xs text-gray-400 dark:text-[#9A8E82]"
             >
               {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
             </time>
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-pantone-ink tracking-tight">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-pantone-ink dark:text-[#E8E0D6] tracking-tight">
               {post.title}
             </h1>
-            <p className="text-base text-gray-500 leading-relaxed">
+            <p className="text-base text-gray-500 dark:text-[#9A8E82] leading-relaxed">
               {post.excerpt}
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
               {post.tags.map((tag) => (
                 <span
                   key={tag}
-                  className="inline-flex items-center px-3 py-1 text-xs font-medium border border-pantone-border text-gray-500"
+                  className="inline-flex items-center px-3 py-1 text-xs font-medium border border-pantone-border dark:border-[#3D3228] text-gray-500 dark:text-[#9A8E82]"
                 >
                   #{tag}
                 </span>
               ))}
             </div>
             
-            <div className="border-t border-pantone-border pt-4">
+            <div className="border-t border-pantone-border dark:border-[#3D3228] pt-4">
               <SocialShare 
                 title={post.title}
                 url={postUrl}
@@ -182,7 +182,7 @@ export default async function PostPage({ params }: PostPageProps) {
         />
 
         {/* Social Share - Bottom */}
-        <div className="mt-10 pt-6 border-t border-pantone-border">
+        <div className="mt-10 pt-6 border-t border-pantone-border dark:border-[#3D3228]">
           <SocialShare 
             title={post.title}
             url={postUrl}
@@ -191,10 +191,10 @@ export default async function PostPage({ params }: PostPageProps) {
         </div>
 
         {/* Navigation */}
-        <nav className="mt-8 pt-6 border-t border-pantone-border">
+        <nav className="mt-8 pt-6 border-t border-pantone-border dark:border-[#3D3228]">
           <Link
             href="/"
-            className="inline-flex items-center text-pantone-blue hover:text-[#B8603F] text-sm font-medium tracking-wider uppercase"
+            className="inline-flex items-center text-pantone-blue hover:text-[#C55A30] text-sm font-medium tracking-wider uppercase"
           >
             ← 홈으로 돌아가기
           </Link>

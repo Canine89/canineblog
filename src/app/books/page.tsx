@@ -269,23 +269,23 @@ export default function BooksPage() {
   }
 
   const PUBLISHER_COLORS: Record<string, { color: string; code: string }> = {
-    goldenrabbit: { color: '#D97757', code: '16-1441 TCX' },
-    easyspub:     { color: '#6B8F71', code: '16-5917 TCX' },
+    goldenrabbit: { color: '#E8734A', code: '16-1362 TCX' },
+    easyspub:     { color: '#74A892', code: '16-5815 TCX' },
   }
 
   return (
     <div className="space-y-10">
       {/* Pantone-style header */}
-      <section className="border border-pantone-border overflow-hidden">
-        <div className="bg-pantone-blue h-24 sm:h-32 flex items-center justify-center">
+      <section className="border border-pantone-border dark:border-[#3D3228] overflow-hidden">
+        <div className="bg-pantone-blue h-24 sm:h-32 flex items-center justify-center pantone-swatch-bar">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wider uppercase">
             Books
           </h1>
         </div>
-        <div className="bg-white px-6 py-4 space-y-1">
+        <div className="bg-white dark:bg-[#2E2820] px-6 py-4 space-y-1">
           <p className="pantone-label">PANTONE</p>
-          <p className="text-sm font-medium text-gray-500">16-1441 TCX · Warm Coral</p>
-          <p className="text-sm text-gray-500">
+          <p className="text-sm font-medium text-gray-500 dark:text-[#9A8E82]">16-1362 TCX · Persimmon</p>
+          <p className="text-sm text-gray-500 dark:text-[#9A8E82]">
             {siteConfig.author.name}가 기획하고 편집한 도서들입니다
           </p>
         </div>
@@ -333,7 +333,7 @@ export default function BooksPage() {
                     >
                       {book.role}
                     </span>
-                    <h3 className="text-xs font-semibold text-pantone-ink leading-tight line-clamp-2">
+                    <h3 className="text-xs font-semibold text-pantone-ink dark:text-[#E8E0D6] leading-tight line-clamp-2">
                       {book.title}
                     </h3>
                     <a
@@ -354,29 +354,29 @@ export default function BooksPage() {
 
       {/* Stats */}
       <section className="pantone-section">
-        <div className="flex h-2">
+        <div className="flex h-2 pantone-swatch-bar">
           <div className="flex-1 bg-pantone-blue" />
           <div className="flex-1 bg-cat-study" />
         </div>
         <div className="section-body">
           <div className="grid grid-cols-3 gap-4 text-center">
             <div>
-              <div className="text-2xl font-extrabold text-pantone-ink">
+              <div className="text-2xl font-extrabold text-pantone-ink dark:text-[#E8E0D6]">
                 {books.goldenrabbit.length + books.easyspub.length}
               </div>
-              <div className="text-[10px] text-gray-400 uppercase tracking-wider">Total</div>
+              <div className="text-[10px] text-gray-400 dark:text-[#9A8E82] uppercase tracking-wider">Total</div>
             </div>
             <div>
               <div className="text-2xl font-extrabold text-pantone-blue">
                 {books.goldenrabbit.length}
               </div>
-              <div className="text-[10px] text-gray-400 uppercase tracking-wider">골든래빗</div>
+              <div className="text-[10px] text-gray-400 dark:text-[#9A8E82] uppercase tracking-wider">골든래빗</div>
             </div>
             <div>
               <div className="text-2xl font-extrabold text-cat-study">
                 {books.easyspub.length}
               </div>
-              <div className="text-[10px] text-gray-400 uppercase tracking-wider">이지스퍼블리싱</div>
+              <div className="text-[10px] text-gray-400 dark:text-[#9A8E82] uppercase tracking-wider">이지스퍼블리싱</div>
             </div>
           </div>
         </div>

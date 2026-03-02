@@ -4,8 +4,8 @@ import { ko } from 'date-fns/locale'
 import { ChipReveal } from '@/components/ChipReveal'
 
 const TAG_COLORS = [
-  '#D97757', '#6B8F71', '#C2956B', '#8B5E6B', '#5E7FA3',
-  '#B8927A', '#7A9E82', '#A47D8B', '#6E8FAD', '#C4A882',
+  '#E8734A', '#74A892', '#C4956A', '#A3677E', '#4B7BA6',
+  '#D4896E', '#8AB89E', '#B4A07A', '#7E92B0', '#C9A484',
 ]
 
 export default function TagsPage() {
@@ -14,16 +14,16 @@ export default function TagsPage() {
   return (
     <div className="space-y-10">
       {/* Pantone-style header */}
-      <section className="border border-pantone-border overflow-hidden">
-        <div className="bg-pantone-slate h-24 sm:h-28 flex items-center justify-center">
+      <section className="border border-pantone-border dark:border-[#3D3228] overflow-hidden">
+        <div className="bg-pantone-slate dark:bg-[#252019] h-24 sm:h-28 flex items-center justify-center">
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wider uppercase">
             Tags
           </h1>
         </div>
-        <div className="bg-white px-6 py-4 space-y-1">
+        <div className="bg-white dark:bg-[#2E2820] px-6 py-4 space-y-1">
           <p className="pantone-label">PANTONE</p>
-          <p className="text-sm font-medium text-gray-500">Tag Collection · {tags.length} tags</p>
-          <p className="text-sm text-gray-500">모든 태그를 확인하고 관련 포스트를 찾아보세요.</p>
+          <p className="text-sm font-medium text-gray-500 dark:text-[#9A8E82]">Tag Collection · {tags.length} tags</p>
+          <p className="text-sm text-gray-500 dark:text-[#9A8E82]">모든 태그를 확인하고 관련 포스트를 찾아보세요.</p>
         </div>
       </section>
 
@@ -42,8 +42,8 @@ export default function TagsPage() {
               </div>
               <div className="chip-info">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-bold text-pantone-ink">#{tag}</h3>
-                  <span className="text-[10px] text-gray-400">{posts.length}개</span>
+                  <h3 className="text-sm font-bold text-pantone-ink dark:text-[#E8E0D6]">#{tag}</h3>
+                  <span className="text-[10px] text-gray-400 dark:text-[#9A8E82]">{posts.length}개</span>
                 </div>
                 
                 <div className="space-y-2 mt-2">
@@ -53,12 +53,12 @@ export default function TagsPage() {
                       href={`/posts/${post.id}`}
                       className="block group"
                     >
-                      <h4 className="text-xs font-medium text-gray-600 group-hover:text-pantone-blue line-clamp-2 transition-colors">
+                      <h4 className="text-xs font-medium text-gray-600 dark:text-[#9A8E82] group-hover:text-pantone-blue line-clamp-2 transition-colors">
                         {post.title}
                       </h4>
                       <time
                         dateTime={post.date}
-                        className="text-[10px] text-gray-400"
+                        className="text-[10px] text-gray-400 dark:text-[#9A8E82]"
                       >
                         {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
                       </time>
@@ -66,7 +66,7 @@ export default function TagsPage() {
                   ))}
                   
                   {posts.length > 3 && (
-                    <p className="text-[10px] text-gray-400">
+                    <p className="text-[10px] text-gray-400 dark:text-[#9A8E82]">
                       +{posts.length - 3}개 더
                     </p>
                   )}

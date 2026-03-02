@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { getCategoriesFromFolders } from '@/lib/markdown'
 import { OrganizationStructuredData } from '@/components/StructuredData'
 import { Header } from '@/components/Header'
+import { ThemeProvider } from '@/components/ThemeProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -96,7 +97,7 @@ export default function RootLayout({
 }) {
   const categories = getCategoriesFromFolders()
   return (
-    <html lang={siteConfig.site.language}>
+    <html lang={siteConfig.site.language} suppressHydrationWarning>
       <head>
         {/* Google Analytics */}
         <Script
@@ -118,20 +119,10 @@ export default function RootLayout({
         </Script>
         
       </head>
-      <body className={`${inter.className} bg-white text-pantone-ink antialiased`} suppressHydrationWarning>
-        {/* Structured Data — body에 배치하여 AdSense 스크립트와의 hydration 충돌 방지 */}
+      <body className={`${inter.className} bg-pantone-snow text-pantone-ink dark:bg-[#1A1410] dark:text-[#E8E0D6] antialiased transition-colors duration-300`} suppressHydrationWarning>
+        <ThemeProvider>
         <OrganizationStructuredData />
         
-        {/* 
-          Google AdSense 자동광고 - 2025 정책 준수 구현
-          
-          ✅ 정책 준수 사항:
-          - 단일 스크립트로 자동광고 활성화 (enable_page_level_ads 불필요)
-          - 페이지당 단 하나의 AdSense 스크립트만 사용
-          - Google AI가 최적 위치에 광고 자동 배치
-          - 코드 수정 금지 원칙 준수
-          - data-nscript 속성 오류 해결 (beforeInteractive 사용)
-        */}
         <Script
           async
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1531500505272848"
@@ -145,22 +136,22 @@ export default function RootLayout({
             {children}
           </main>
 
-          <footer className="border-t border-pantone-border bg-pantone-snow">
+          <footer className="border-t border-pantone-border dark:border-[#3D3228] bg-pantone-snow dark:bg-[#1A1410]">
             <div className="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
               <div className="flex flex-col items-center gap-5">
-                <div className="flex flex-wrap justify-center gap-6 text-xs tracking-widest uppercase text-gray-400">
-                  <Link href="/privacy" className="hover:text-pantone-ink transition-colors">
+                <div className="flex flex-wrap justify-center gap-6 text-xs tracking-widest uppercase text-gray-400 dark:text-[#9A8E82]">
+                  <Link href="/privacy" className="hover:text-pantone-ink dark:hover:text-[#E8E0D6] transition-colors">
                     개인정보 처리방침
                   </Link>
-                  <Link href="/terms" className="hover:text-pantone-ink transition-colors">
+                  <Link href="/terms" className="hover:text-pantone-ink dark:hover:text-[#E8E0D6] transition-colors">
                     이용약관
                   </Link>
-                  <Link href="/disclaimer" className="hover:text-pantone-ink transition-colors">
+                  <Link href="/disclaimer" className="hover:text-pantone-ink dark:hover:text-[#E8E0D6] transition-colors">
                     면책조항
                   </Link>
                 </div>
                 
-                <p className="text-xs text-gray-400">
+                <p className="text-xs text-gray-400 dark:text-[#9A8E82]">
                   © 2025 {siteConfig.author.name}. Next.js로 제작되었습니다.
                 </p>
                 
@@ -171,7 +162,7 @@ export default function RootLayout({
                       href={url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-xs text-gray-400 hover:text-pantone-blue transition-colors uppercase tracking-wider"
+                      className="text-xs text-gray-400 dark:text-[#9A8E82] hover:text-pantone-blue transition-colors uppercase tracking-wider"
                     >
                       {platform}
                     </a>
@@ -182,7 +173,7 @@ export default function RootLayout({
             <div className="h-1.5 bg-pantone-blue" />
           </footer>
         </div>
-        
+        </ThemeProvider>
       </body>
     </html>
   )

@@ -17,11 +17,11 @@ interface CategoryDropdownProps {
 }
 
 const CAT_COLORS: Record<string, string> = {
-  dev: '#D97757',
-  study: '#6B8F71',
-  book: '#C2956B',
-  think: '#8B5E6B',
-  'eng-dev': '#5E7FA3',
+  dev: '#E8734A',
+  study: '#74A892',
+  book: '#C4956A',
+  think: '#A3677E',
+  'eng-dev': '#4B7BA6',
 }
 
 export function CategoryDropdown({ categories, isHome = false }: CategoryDropdownProps) {
@@ -46,7 +46,7 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`text-sm font-medium transition-colors flex items-center gap-1 ${
-          isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 hover:text-pantone-ink'
+          isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
         }`}
       >
         <span>카테고리</span>
@@ -61,7 +61,7 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
       </button>
       
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-64 bg-white border border-pantone-border shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-200">
+        <div className="absolute right-0 mt-3 w-64 bg-white dark:bg-[#2E2820] border border-pantone-border dark:border-[#3D3228] shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-200">
           {/* Mini swatch strip */}
           <div className="flex h-2">
             {categories.map((category) => {
@@ -77,7 +77,7 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
           </div>
           <div className="px-4 pt-3 pb-1">
             <p className="pantone-label">PANTONE</p>
-            <p className="text-[10px] text-gray-400 mt-0.5">Category Collection</p>
+            <p className="text-[10px] text-gray-400 dark:text-[#9A8E82] mt-0.5">Category Collection</p>
           </div>
           <div className="py-1">
             {categories.map((category) => {
@@ -87,7 +87,7 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
                 <Link
                   key={category.path}
                   href={category.path}
-                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-pantone-snow transition-colors"
+                  className="flex items-center gap-3 px-4 py-2.5 hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors"
                   onClick={() => setIsOpen(false)}
                 >
                   <div
@@ -95,10 +95,10 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
                     style={{ backgroundColor: color }}
                   />
                   <div className="flex-1 min-w-0">
-                    <div className="text-sm font-medium text-pantone-ink">{category.name}</div>
-                    <div className="text-[10px] text-gray-400">{category.description}</div>
+                    <div className="text-sm font-medium text-pantone-ink dark:text-[#E8E0D6]">{category.name}</div>
+                    <div className="text-[10px] text-gray-400 dark:text-[#9A8E82]">{category.description}</div>
                   </div>
-                  <span className="text-[10px] text-gray-400 font-medium">
+                  <span className="text-[10px] text-gray-400 dark:text-[#9A8E82] font-medium">
                     {category.count}
                   </span>
                 </Link>

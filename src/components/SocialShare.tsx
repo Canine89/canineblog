@@ -42,13 +42,13 @@ export function SocialShare({ title, url }: SocialShareProps) {
 
   return (
     <div className="flex items-center space-x-3">
-      <span className="text-sm text-gray-600 font-medium">공유:</span>
+      <span className="text-sm text-gray-600 dark:text-[#9A8E82] font-medium">공유:</span>
       
       <div className="flex items-center space-x-2">
         {/* Twitter */}
         <button
           onClick={() => handleShare('twitter')}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-50 hover:text-blue-600 text-gray-600 transition-colors"
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-[#252019] hover:bg-blue-50 dark:hover:bg-blue-950 hover:text-blue-600 text-gray-600 dark:text-[#9A8E82] transition-colors"
           title="Twitter에서 공유"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@ export function SocialShare({ title, url }: SocialShareProps) {
         {/* Facebook */}
         <button
           onClick={() => handleShare('facebook')}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-50 hover:text-blue-600 text-gray-600 transition-colors"
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-[#252019] hover:bg-blue-50 dark:hover:bg-blue-950 hover:text-blue-600 text-gray-600 dark:text-[#9A8E82] transition-colors"
           title="Facebook에서 공유"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -70,7 +70,7 @@ export function SocialShare({ title, url }: SocialShareProps) {
         {/* LinkedIn */}
         <button
           onClick={() => handleShare('linkedin')}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-blue-50 hover:text-blue-600 text-gray-600 transition-colors"
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-[#252019] hover:bg-blue-50 dark:hover:bg-blue-950 hover:text-blue-600 text-gray-600 dark:text-[#9A8E82] transition-colors"
           title="LinkedIn에서 공유"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@ export function SocialShare({ title, url }: SocialShareProps) {
         {/* Threads */}
         <button
           onClick={() => handleShare('threads')}
-          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-purple-50 hover:text-purple-600 text-gray-600 transition-colors"
+          className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-[#252019] hover:bg-purple-50 dark:hover:bg-purple-950 hover:text-purple-600 text-gray-600 dark:text-[#9A8E82] transition-colors"
           title="Threads에서 공유"
         >
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
@@ -93,7 +93,7 @@ export function SocialShare({ title, url }: SocialShareProps) {
         <div className="relative">
           <button
             onClick={() => handleShare('copy')}
-            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-600 transition-colors"
+            className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 dark:bg-[#252019] hover:bg-gray-200 dark:hover:bg-[#3D3228] text-gray-600 dark:text-[#9A8E82] transition-colors"
             title="링크 복사"
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">

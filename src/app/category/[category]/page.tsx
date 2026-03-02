@@ -14,11 +14,11 @@ interface CategoryPageProps {
 }
 
 const CATEGORY_PANTONE: Record<string, { color: string; code: string }> = {
-  dev:      { color: '#D97757', code: '16-1441 TCX' },
-  study:    { color: '#6B8F71', code: '16-5917 TCX' },
-  book:     { color: '#C2956B', code: '16-1432 TCX' },
-  think:    { color: '#8B5E6B', code: '17-1608 TCX' },
-  'eng-dev': { color: '#5E7FA3', code: '17-4020 TCX' },
+  dev:      { color: '#E8734A', code: '16-1362 TCX' },
+  study:    { color: '#74A892', code: '16-5815 TCX' },
+  book:     { color: '#C4956A', code: '16-1432 TCX' },
+  think:    { color: '#A3677E', code: '17-1718 TCX' },
+  'eng-dev': { color: '#4B7BA6', code: '17-4027 TCX' },
 }
 
 export async function generateStaticParams() {
@@ -66,19 +66,19 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   return (
     <div className="space-y-10">
       {/* Pantone-style category header */}
-      <section className="border border-pantone-border overflow-hidden">
+      <section className="border border-pantone-border dark:border-[#3D3228] overflow-hidden">
         <div
-          className="h-24 sm:h-32 flex items-center justify-center"
+          className="h-24 sm:h-32 flex items-center justify-center pantone-swatch-bar"
           style={{ backgroundColor: pantone.color }}
         >
           <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-wider uppercase">
             {currentCategory.name}
           </h1>
         </div>
-        <div className="bg-white px-6 py-4 space-y-1">
+        <div className="bg-white dark:bg-[#2E2820] px-6 py-4 space-y-1">
           <p className="pantone-label">PANTONE</p>
-          <p className="text-sm font-medium text-gray-500">{pantone.code} · {category}</p>
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm font-medium text-gray-500 dark:text-[#9A8E82]">{pantone.code} · {category}</p>
+          <p className="text-sm text-gray-500 dark:text-[#9A8E82] mt-1">
             {currentCategory.description} — 총 {categoryPosts.length}개의 포스트
           </p>
         </div>
@@ -102,18 +102,18 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
                     </div>
                   </div>
                   <div className="chip-info flex-1">
-                    <h3 className="text-[15px] font-bold text-pantone-ink leading-snug line-clamp-2">
+                    <h3 className="text-[15px] font-bold text-pantone-ink dark:text-[#E8E0D6] leading-snug line-clamp-2">
                       {post.title}
                     </h3>
-                    <p className="text-xs text-gray-500 leading-relaxed mt-1 line-clamp-2">
+                    <p className="text-xs text-gray-500 dark:text-[#9A8E82] leading-relaxed mt-1 line-clamp-2">
                       {post.excerpt}
                     </p>
                     <div className="mt-auto pt-3 flex items-center justify-between">
-                      <time className="text-[10px] text-gray-400" dateTime={post.date}>
+                      <time className="text-[10px] text-gray-400 dark:text-[#9A8E82]" dateTime={post.date}>
                         {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
                       </time>
                       {post.tags.length > 0 && (
-                        <span className="text-[10px] text-gray-400">#{post.tags[0]}</span>
+                        <span className="text-[10px] text-gray-400 dark:text-[#9A8E82]">#{post.tags[0]}</span>
                       )}
                     </div>
                   </div>
@@ -123,14 +123,14 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 border border-pantone-border bg-white">
-          <h3 className="text-base font-semibold text-pantone-ink mb-2">
+        <div className="text-center py-16 border border-pantone-border dark:border-[#3D3228] bg-white dark:bg-[#2E2820]">
+          <h3 className="text-base font-semibold text-pantone-ink dark:text-[#E8E0D6] mb-2">
             아직 포스트가 없습니다
           </h3>
-          <p className="text-sm text-gray-500 mb-4">
+          <p className="text-sm text-gray-500 dark:text-[#9A8E82] mb-4">
             이 카테고리에 포스트가 추가되면 여기에 표시됩니다.
           </p>
-          <Link href="/" className="text-sm text-pantone-blue hover:text-[#B8603F] font-medium tracking-wider uppercase">
+          <Link href="/" className="text-sm text-pantone-blue hover:text-[#C55A30] font-medium tracking-wider uppercase">
             홈으로 돌아가기 →
           </Link>
         </div>

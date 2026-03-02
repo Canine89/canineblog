@@ -9,8 +9,8 @@ interface Heading {
 }
 
 const CHIP_COLORS = [
-  '#D97757', '#6B8F71', '#C2956B', '#8B5E6B', '#5E7FA3',
-  '#B8927A', '#7A9E82', '#A47D8B', '#6E8FAD', '#C4A882',
+  '#E8734A', '#74A892', '#C4956A', '#A3677E', '#4B7BA6',
+  '#D4896E', '#8AB89E', '#B4A07A', '#7E92B0', '#C9A484',
 ]
 
 export function ArticleTOC() {
