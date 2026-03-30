@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
+import { withLocale } from '@/lib/locale-path'
+import type { Locale } from '@/i18n/config'
 import { ChipReveal } from './ChipReveal'
 
 interface Post {
@@ -28,7 +31,8 @@ const CATEGORY_PANTONE: Record<string, PantoneInfo> = {
 
 const BATCH = 9
 
-export function PostGrid({ posts }: { posts: Post[] }) {
+export function PostGrid({ posts, locale }: { posts: Post[]; locale: Locale }) {
+  const { t } = useTranslation('common')
   const [count, setCount] = useState(BATCH)
   const loaderRef = useRef<HTMLDivElement>(null)
 
@@ -79,7 +83,10 @@ export function PostGrid({ posts }: { posts: Post[] }) {
           return (
             <ChipReveal key={post.id} index={i % BATCH}>
               <article>
-                <Link href={`/posts/${post.id}`} className="block pantone-chip h-full">
+                <Link
+                  href={withLocale(locale, `/posts/${post.id}`)}
+                  className="pantone-chip block h-full"
+                >
                   <div
                     className="chip-swatch h-32 sm:h-36 relative"
                     style={{ backgroundColor: pantone.color }}
@@ -118,7 +125,7 @@ export function PostGrid({ posts }: { posts: Post[] }) {
       {hasMore && (
         <div ref={loaderRef} className="flex justify-center py-8">
           <span className="text-xs text-gray-400 dark:text-[#9A8E82] tracking-widest uppercase animate-pulse">
-            loading...
+            {t('home.loading')}
           </span>
         </div>
       )}

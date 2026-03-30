@@ -1,0 +1,54 @@
+{
+  "site": {
+    "title": "편집자P의 편집실",
+    "description": "공부하고, 쓰고, 익혀라",
+    "byAuthor": "by {{name}}"
+  },
+  "nav": {
+    "home": "홈",
+    "category": "카테고리",
+    "categoryCollection": "Category Collection",
+    "tags": "태그",
+    "books": "편집한 도서",
+    "about": "소개",
+    "navigation": "Navigation",
+    "categoriesLabel": "카테고리"
+  },
+  "locale": {
+    "switch": "언어",
+    "ko": "한국어",
+    "en": "English"
+  },
+  "footer": {
+    "privacy": "개인정보 처리방침",
+    "terms": "이용약관",
+    "disclaimer": "면책조항",
+    "madeWith": "Next.js로 제작되었습니다.",
+    "copyright": "© {{year}} {{name}}. {{madeWith}}"
+  },
+  "home": {
+    "allPosts": "All Posts",
+    "articles": "articles",
+    "loading": "loading..."
+  },
+  "post": {
+    "backHome": "← 홈으로 돌아가기"
+  },
+  "postsIndex": {
+    "title": "모든 포스트 ({{count}}개)",
+    "subtitle": "지금까지 작성된 모든 포스트를 최신순으로 보여드립니다."
+  },
+  "categoryPage": {
+    "notFoundTitle": "카테고리를 찾을 수 없습니다",
+    "notFoundDesc": "요청하신 카테고리를 찾을 수 없습니다.",
+    "metaTitle": "{{name}} - 편집자P의 편집실"
+  },
+  "meta": {
+    "homeTitle": "홈",
+    "postsTitle": "모든 글"
+  },
+  "a11y": {
+    "openMenu": "메뉴 열기",
+    "closeMenu": "메뉴 닫기"
+  }
+}

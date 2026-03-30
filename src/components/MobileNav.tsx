@@ -2,6 +2,9 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
+import { withLocale } from '@/lib/locale-path'
+import type { Locale } from '@/i18n/config'
 
 interface Category {
   name: string
@@ -14,6 +17,7 @@ interface Category {
 interface MobileNavProps {
   categories?: Category[]
   isHome?: boolean
+  locale: Locale
 }
 
 const CAT_COLORS: Record<string, string> = {
@@ -24,7 +28,12 @@ const CAT_COLORS: Record<string, string> = {
   'eng-dev': '#4B7BA6',
 }
 
-export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
+export function MobileNav({
+  categories = [],
+  isHome = false,
+  locale,
+}: MobileNavProps) {
+  const { t } = useTranslation('common')
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -34,11 +43,13 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isOpen && 
-          menuRef.current && 
-          !menuRef.current.contains(event.target as Node) &&
-          buttonRef.current &&
-          !buttonRef.current.contains(event.target as Node)) {
+      if (
+        isOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
         closeMenu()
       }
     }
@@ -63,19 +74,25 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
     }
   }, [isOpen])
 
+  const homeHref = withLocale(locale, '/')
+
   return (
     <div className="relative">
       <button
         ref={buttonRef}
         onClick={toggleMenu}
-        className={`p-2 transition-colors duration-150 focus:outline-none ${
-          isOpen ? 'text-white z-50' : isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
+        className={`z-50 p-2 transition-colors duration-150 focus:outline-none ${
+          isOpen
+            ? 'text-white'
+            : isHome
+              ? 'text-white/70 hover:text-white'
+              : 'text-gray-500 hover:text-pantone-ink dark:text-[#9A8E82] dark:hover:text-[#E8E0D6]'
         }`}
-        aria-label={isOpen ? '메뉴 닫기' : '메뉴 열기'}
+        aria-label={isOpen ? t('a11y.closeMenu') : t('a11y.openMenu')}
         aria-expanded={isOpen}
         aria-haspopup="true"
       >
-        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           {isOpen ? (
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           ) : (
@@ -85,27 +102,33 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
       </button>
 
       {isOpen && (
-        <div 
+        <div
           ref={menuRef}
-          className="absolute right-0 top-full mt-2 w-64 bg-white dark:bg-[#2E2820] border border-pantone-border dark:border-[#3D3228] shadow-xl z-50"
+          className="absolute right-0 top-full z-50 mt-2 w-64 border border-pantone-border bg-white shadow-xl dark:border-[#3D3228] dark:bg-[#2E2820]"
           role="menu"
         >
-          {/* Color strip */}
           <div className="h-1.5 bg-pantone-blue" />
-          
-          <div className="px-4 pt-3 pb-1">
+
+          <div className="px-4 pb-1 pt-3">
             <p className="pantone-label">PANTONE</p>
-            <p className="text-[10px] text-gray-400 dark:text-[#9A8E82]">Navigation</p>
+            <p className="text-[10px] text-gray-400 dark:text-[#9A8E82]">{t('nav.navigation')}</p>
           </div>
 
-          <Link href="/" onClick={closeMenu} className="block px-4 py-2.5 text-sm font-medium text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
-            홈
+          <Link
+            href={homeHref}
+            onClick={closeMenu}
+            className="block px-4 py-2.5 text-sm font-medium text-pantone-ink transition-colors hover:bg-pantone-snow dark:text-[#E8E0D6] dark:hover:bg-[#252019]"
+            role="menuitem"
+          >
+            {t('nav.home')}
           </Link>
 
           {categories.length > 0 && (
             <div className="border-t border-pantone-border dark:border-[#3D3228]">
-              <div className="px-4 pt-3 pb-1">
-                <p className="text-[9px] font-semibold text-gray-400 dark:text-[#9A8E82] uppercase tracking-[0.15em]">카테고리</p>
+              <div className="px-4 pb-1 pt-3">
+                <p className="text-[9px] font-semibold uppercase tracking-[0.15em] text-gray-400 dark:text-[#9A8E82]">
+                  {t('nav.categoriesLabel')}
+                </p>
               </div>
               {categories.map((category) => {
                 const slug = category.path.split('/').pop() || ''
@@ -113,39 +136,56 @@ export function MobileNav({ categories = [], isHome = false }: MobileNavProps) {
                 return (
                   <Link
                     key={category.path}
-                    href={category.path}
+                    href={withLocale(locale, category.path)}
                     onClick={closeMenu}
-                    className="flex items-center gap-3 px-4 py-2 hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors"
+                    className="flex items-center gap-3 px-4 py-2 transition-colors hover:bg-pantone-snow dark:hover:bg-[#252019]"
                     role="menuitem"
                   >
-                    <div className="w-4 h-4 flex-shrink-0" style={{ backgroundColor: color }} />
+                    <div className="h-4 w-4 flex-shrink-0" style={{ backgroundColor: color }} />
                     <span className="text-sm text-pantone-ink dark:text-[#E8E0D6]">{category.name}</span>
-                    <span className="ml-auto text-[10px] text-gray-400 dark:text-[#9A8E82]">{category.count}</span>
+                    <span className="ml-auto text-[10px] text-gray-400 dark:text-[#9A8E82]">
+                      {category.count}
+                    </span>
                   </Link>
                 )
               })}
             </div>
           )}
-          
+
           <div className="border-t border-pantone-border dark:border-[#3D3228]">
-            <Link href="/tags" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
-              태그
+            <Link
+              href={withLocale(locale, '/tags')}
+              onClick={closeMenu}
+              className="block px-4 py-2.5 text-sm text-pantone-ink transition-colors hover:bg-pantone-snow dark:text-[#E8E0D6] dark:hover:bg-[#252019]"
+              role="menuitem"
+            >
+              {t('nav.tags')}
             </Link>
-            <Link href="/books" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
-              편집한 도서
+            <Link
+              href={withLocale(locale, '/books')}
+              onClick={closeMenu}
+              className="block px-4 py-2.5 text-sm text-pantone-ink transition-colors hover:bg-pantone-snow dark:text-[#E8E0D6] dark:hover:bg-[#252019]"
+              role="menuitem"
+            >
+              {t('nav.books')}
             </Link>
-            <Link href="/about" onClick={closeMenu} className="block px-4 py-2.5 text-sm text-pantone-ink dark:text-[#E8E0D6] hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors" role="menuitem">
-              소개
+            <Link
+              href={withLocale(locale, '/about')}
+              onClick={closeMenu}
+              className="block px-4 py-2.5 text-sm text-pantone-ink transition-colors hover:bg-pantone-snow dark:text-[#E8E0D6] dark:hover:bg-[#252019]"
+              role="menuitem"
+            >
+              {t('nav.about')}
             </Link>
           </div>
-          
+
           <div className="h-1.5 bg-pantone-blue" />
         </div>
       )}
 
       {isOpen && (
         <div
-          className="fixed inset-x-0 bottom-0 top-16 bg-black/20 z-30"
+          className="fixed inset-x-0 bottom-0 top-16 z-30 bg-black/20"
           onClick={closeMenu}
           aria-hidden="true"
         />

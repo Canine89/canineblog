@@ -2,17 +2,35 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
 import { siteConfig } from '@/lib/config'
+import { withLocale } from '@/lib/locale-path'
+import { isLocale, type Locale } from '@/i18n/config'
+import { notFound } from 'next/navigation'
 
-export const metadata: Metadata = {
-  title: '자기소개 · 연락처',
-  description: '편집자P의 편집실 소개 및 연락처 - 블로그 운영자 소개와 연락하는 방법을 안내합니다.',
-  robots: {
-    index: true,
-    follow: true,
-  },
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}): Promise<Metadata> {
+  const { locale } = await params
+  const isEn = locale === 'en'
+  return {
+    title: isEn ? 'About · Contact' : '자기소개 · 연락처',
+    description: isEn
+      ? 'About Editor P and how to reach the blog author.'
+      : '편집자P의 편집실 소개 및 연락처 - 블로그 운영자 소개와 연락하는 방법을 안내합니다.',
+    robots: { index: true, follow: true },
+  }
 }
 
-export default function AboutPage() {
+export default async function AboutPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale: raw } = await params
+  if (!isLocale(raw)) notFound()
+  const locale = raw as Locale
+
   return (
     <div className="space-y-10">
       {/* Pantone-style header */}
@@ -132,9 +150,9 @@ export default function AboutPage() {
             <div>
               <h4 className="font-semibold text-pantone-ink dark:text-[#E8E0D6] mb-2 uppercase tracking-wider">Compliance</h4>
               <ul className="text-gray-500 dark:text-[#9A8E82] space-y-1">
-                <li><Link href="/privacy" className="text-pantone-blue hover:underline">개인정보 처리방침</Link></li>
-                <li><Link href="/terms" className="text-pantone-blue hover:underline">이용약관</Link></li>
-                <li><Link href="/disclaimer" className="text-pantone-blue hover:underline">면책조항</Link></li>
+                <li><Link href={withLocale(locale, '/privacy')} className="text-pantone-blue hover:underline">개인정보 처리방침</Link></li>
+                <li><Link href={withLocale(locale, '/terms')} className="text-pantone-blue hover:underline">이용약관</Link></li>
+                <li><Link href={withLocale(locale, '/disclaimer')} className="text-pantone-blue hover:underline">면책조항</Link></li>
                 <li>Google AdSense 정책 준수</li>
               </ul>
             </div>

@@ -1,0 +1,54 @@
+{
+  "site": {
+    "title": "Editor P's Studio",
+    "description": "Study, write, master.",
+    "byAuthor": "by {{name}}"
+  },
+  "nav": {
+    "home": "Home",
+    "category": "Categories",
+    "categoryCollection": "Category Collection",
+    "tags": "Tags",
+    "books": "Books edited",
+    "about": "About",
+    "navigation": "Navigation",
+    "categoriesLabel": "Categories"
+  },
+  "locale": {
+    "switch": "Language",
+    "ko": "한국어",
+    "en": "English"
+  },
+  "footer": {
+    "privacy": "Privacy",
+    "terms": "Terms",
+    "disclaimer": "Disclaimer",
+    "madeWith": "Built with Next.js.",
+    "copyright": "© {{year}} {{name}}. {{madeWith}}"
+  },
+  "home": {
+    "allPosts": "All Posts",
+    "articles": "articles",
+    "loading": "loading..."
+  },
+  "post": {
+    "backHome": "← Back to home"
+  },
+  "postsIndex": {
+    "title": "All posts ({{count}})",
+    "subtitle": "Every post published here, newest first."
+  },
+  "categoryPage": {
+    "notFoundTitle": "Category not found",
+    "notFoundDesc": "The requested category does not exist.",
+    "metaTitle": "{{name}} · Editor P's Studio"
+  },
+  "meta": {
+    "homeTitle": "Home",
+    "postsTitle": "All posts"
+  },
+  "a11y": {
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  }
+}

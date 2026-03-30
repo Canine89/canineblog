@@ -3,10 +3,14 @@
 import { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslation } from 'react-i18next'
 import { siteConfig } from '@/lib/config'
 import { CategoryDropdown } from '@/components/CategoryDropdown'
 import { MobileNav } from '@/components/MobileNav'
 import { ThemeToggle } from '@/components/ThemeToggle'
+import { LocaleSwitcher } from '@/components/LocaleSwitcher'
+import { withLocale } from '@/lib/locale-path'
+import type { Locale } from '@/i18n/config'
 
 interface Category {
   name: string
@@ -18,9 +22,19 @@ interface Category {
 
 const HERO_HEIGHT = 320
 
-export function Header({ categories }: { categories: Category[] }) {
+export function Header({
+  categories,
+  locale,
+}: {
+  categories: Category[]
+  locale: Locale
+}) {
+  const { t } = useTranslation('common')
   const pathname = usePathname()
-  const isHomePage = pathname === '/'
+  const homePath = withLocale(locale, '/')
+  const isHomePage =
+    pathname === homePath || pathname === `${homePath}/` || pathname === `/${locale}`
+
   const [scrolled, setScrolled] = useState(false)
 
   useEffect(() => {
@@ -40,73 +54,90 @@ export function Header({ categories }: { categories: Category[] }) {
       className={`sticky top-0 z-50 transition-all duration-300 ${
         coral
           ? 'bg-pantone-blue'
-          : 'bg-pantone-snow/95 dark:bg-[#1A1410]/95 backdrop-blur-sm border-b border-pantone-border dark:border-[#3D3228]'
+          : 'border-b border-pantone-border bg-pantone-snow/95 backdrop-blur-sm dark:border-[#3D3228] dark:bg-[#1A1410]/95'
       }`}
     >
       <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-        <div suppressHydrationWarning className={`flex items-center justify-between ${coral ? 'h-14' : 'h-16'}`}>
+        <div
+          suppressHydrationWarning
+          className={`flex items-center justify-between ${coral ? 'h-14' : 'h-16'}`}
+        >
           <div className="flex items-center gap-3">
             <Link
-              href="/"
+              href={homePath}
               suppressHydrationWarning
-              className={`text-lg sm:text-xl font-extrabold tracking-tight transition-colors ${
+              className={`text-lg font-extrabold tracking-tight transition-colors sm:text-xl ${
                 coral
                   ? 'text-white hover:text-white/80'
-                  : 'text-pantone-ink dark:text-[#E8E0D6] hover:text-pantone-blue'
+                  : 'text-pantone-ink hover:text-pantone-blue dark:text-[#E8E0D6]'
               }`}
             >
-              {siteConfig.title}
+              {t('site.title')}
             </Link>
             <span
               suppressHydrationWarning
-              className={`hidden sm:inline text-xs tracking-widest uppercase transition-colors ${
+              className={`hidden text-xs uppercase tracking-widest transition-colors sm:inline ${
                 coral ? 'text-white/40' : 'text-gray-400 dark:text-[#9A8E82]'
               }`}
             >
-              by {siteConfig.author.name}
+              {t('site.byAuthor', { name: siteConfig.author.name })}
             </span>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden items-center gap-6 md:flex">
             <Link
-              href="/"
+              href={homePath}
               className={`text-sm font-medium transition-colors ${
-                coral ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
+                coral
+                  ? 'text-white/70 hover:text-white'
+                  : 'text-gray-500 hover:text-pantone-ink dark:text-[#9A8E82] dark:hover:text-[#E8E0D6]'
               }`}
             >
-              홈
+              {t('nav.home')}
             </Link>
-            <CategoryDropdown categories={categories} isHome={coral} />
+            <CategoryDropdown categories={categories} isHome={coral} locale={locale} />
             <Link
-              href="/tags"
+              href={withLocale(locale, '/tags')}
               className={`text-sm font-medium transition-colors ${
-                coral ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
+                coral
+                  ? 'text-white/70 hover:text-white'
+                  : 'text-gray-500 hover:text-pantone-ink dark:text-[#9A8E82] dark:hover:text-[#E8E0D6]'
               }`}
             >
-              태그
+              {t('nav.tags')}
             </Link>
             <Link
-              href="/books"
+              href={withLocale(locale, '/books')}
               className={`text-sm font-medium transition-colors ${
-                coral ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
+                coral
+                  ? 'text-white/70 hover:text-white'
+                  : 'text-gray-500 hover:text-pantone-ink dark:text-[#9A8E82] dark:hover:text-[#E8E0D6]'
               }`}
             >
-              편집한 도서
+              {t('nav.books')}
             </Link>
             <Link
-              href="/about"
+              href={withLocale(locale, '/about')}
               className={`text-sm font-medium transition-colors ${
-                coral ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
+                coral
+                  ? 'text-white/70 hover:text-white'
+                  : 'text-gray-500 hover:text-pantone-ink dark:text-[#9A8E82] dark:hover:text-[#E8E0D6]'
               }`}
             >
-              소개
+              {t('nav.about')}
             </Link>
-            <ThemeToggle className={coral ? 'text-white/70' : 'text-gray-500 dark:text-[#9A8E82]'} />
+            <LocaleSwitcher locale={locale} variant={coral ? 'coral' : 'default'} />
+            <ThemeToggle
+              className={coral ? 'text-white/70' : 'text-gray-500 dark:text-[#9A8E82]'}
+            />
           </nav>
 
           <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle className={coral ? 'text-white/70' : 'text-gray-500 dark:text-[#9A8E82]'} />
-            <MobileNav categories={categories} isHome={coral} />
+            <LocaleSwitcher locale={locale} variant={coral ? 'coral' : 'default'} />
+            <ThemeToggle
+              className={coral ? 'text-white/70' : 'text-gray-500 dark:text-[#9A8E82]'}
+            />
+            <MobileNav categories={categories} isHome={coral} locale={locale} />
           </div>
         </div>
       </div>

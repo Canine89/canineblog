@@ -1,4 +1,8 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
+import { withLocale } from '@/lib/locale-path'
+import { isLocale, type Locale } from '@/i18n/config'
+import { notFound } from 'next/navigation'
 
 export const metadata: Metadata = {
   title: '이용약관',
@@ -9,7 +13,15 @@ export const metadata: Metadata = {
   },
 }
 
-export default function TermsPage() {
+export default async function TermsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale: raw } = await params
+  if (!isLocale(raw)) notFound()
+  const locale = raw as Locale
+
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold text-gray-900 mb-8">서비스 이용약관</h1>
@@ -149,7 +161,14 @@ export default function TermsPage() {
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">제8조 (개인정보보호)</h2>
           <p>
             본 사이트는 이용자의 개인정보를 보호하기 위해 개인정보처리방침을 수립하여 시행하고 있습니다. 
-            자세한 내용은 <a href="/privacy" className="text-blue-600 hover:text-blue-800 underline">개인정보 처리방침</a>을 참조해 주시기 바랍니다.
+            자세한 내용은{' '}
+            <Link
+              href={withLocale(locale, '/privacy')}
+              className="text-blue-600 underline hover:text-blue-800"
+            >
+              개인정보 처리방침
+            </Link>
+            을 참조해 주시기 바랍니다.
           </p>
         </section>
 

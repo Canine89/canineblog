@@ -2,6 +2,9 @@
 
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
+import { useTranslation } from 'react-i18next'
+import { withLocale } from '@/lib/locale-path'
+import type { Locale } from '@/i18n/config'
 
 interface Category {
   name: string
@@ -14,6 +17,7 @@ interface Category {
 interface CategoryDropdownProps {
   categories: Category[]
   isHome?: boolean
+  locale: Locale
 }
 
 const CAT_COLORS: Record<string, string> = {
@@ -24,7 +28,12 @@ const CAT_COLORS: Record<string, string> = {
   'eng-dev': '#4B7BA6',
 }
 
-export function CategoryDropdown({ categories, isHome = false }: CategoryDropdownProps) {
+export function CategoryDropdown({
+  categories,
+  isHome = false,
+  locale,
+}: CategoryDropdownProps) {
+  const { t } = useTranslation('common')
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
 
@@ -49,7 +58,7 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
           isHome ? 'text-white/70 hover:text-white' : 'text-gray-500 dark:text-[#9A8E82] hover:text-pantone-ink dark:hover:text-[#E8E0D6]'
         }`}
       >
-        <span>카테고리</span>
+        <span>{t('nav.category')}</span>
         <svg 
           className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
           fill="none" 
@@ -77,7 +86,9 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
           </div>
           <div className="px-4 pt-3 pb-1">
             <p className="pantone-label">PANTONE</p>
-            <p className="text-[10px] text-gray-400 dark:text-[#9A8E82] mt-0.5">Category Collection</p>
+            <p className="mt-0.5 text-[10px] text-gray-400 dark:text-[#9A8E82]">
+              {t('nav.categoryCollection')}
+            </p>
           </div>
           <div className="py-1">
             {categories.map((category) => {
@@ -86,7 +97,7 @@ export function CategoryDropdown({ categories, isHome = false }: CategoryDropdow
               return (
                 <Link
                   key={category.path}
-                  href={category.path}
+                  href={withLocale(locale, category.path)}
                   className="flex items-center gap-3 px-4 py-2.5 hover:bg-pantone-snow dark:hover:bg-[#252019] transition-colors"
                   onClick={() => setIsOpen(false)}
                 >

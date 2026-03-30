@@ -1,14 +1,25 @@
+import Link from 'next/link'
 import { getAllTags, getPostsByTag } from '@/lib/markdown'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
 import { ChipReveal } from '@/components/ChipReveal'
+import { withLocale } from '@/lib/locale-path'
+import { isLocale, type Locale } from '@/i18n/config'
+import { notFound } from 'next/navigation'
 
 const TAG_COLORS = [
   '#E8734A', '#74A892', '#C4956A', '#A3677E', '#4B7BA6',
   '#D4896E', '#8AB89E', '#B4A07A', '#7E92B0', '#C9A484',
 ]
 
-export default function TagsPage() {
+export default async function TagsPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>
+}) {
+  const { locale: raw } = await params
+  if (!isLocale(raw)) notFound()
+  const locale = raw as Locale
   const tags = getAllTags()
 
   return (
@@ -48,12 +59,12 @@ export default function TagsPage() {
                 
                 <div className="space-y-2 mt-2">
                   {posts.slice(0, 3).map((post) => (
-                    <a
+                    <Link
                       key={post.id}
-                      href={`/posts/${post.id}`}
-                      className="block group"
+                      href={withLocale(locale, `/posts/${post.id}`)}
+                      className="group block"
                     >
-                      <h4 className="text-xs font-medium text-gray-600 dark:text-[#9A8E82] group-hover:text-pantone-blue line-clamp-2 transition-colors">
+                      <h4 className="line-clamp-2 text-xs font-medium text-gray-600 transition-colors group-hover:text-pantone-blue dark:text-[#9A8E82]">
                         {post.title}
                       </h4>
                       <time
@@ -62,7 +73,7 @@ export default function TagsPage() {
                       >
                         {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
                       </time>
-                    </a>
+                    </Link>
                   ))}
                   
                   {posts.length > 3 && (
