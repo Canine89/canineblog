@@ -41,6 +41,10 @@ export function middleware(request: NextRequest) {
   return NextResponse.redirect(url)
 }
 
+// 루트 `/` 는 단일 패턴만 쓰면 Edge에서 빠지는 사례가 있어 `'/` 를 명시한다.
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|_next/webpack-hmr).*)'],
+  matcher: [
+    '/((?!_next/static|_next/image|_next/webpack-hmr).*)',
+    '/',
+  ],
 }
