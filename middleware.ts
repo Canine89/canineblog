@@ -12,7 +12,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/api') ||
     pathname.startsWith('/favicon') ||
     pathname === '/manifest.json' ||
-    pathname === '/robots.txt'
+    pathname === '/robots.txt' ||
+    pathname === '/ads.txt'
   ) {
     return NextResponse.next()
   }
