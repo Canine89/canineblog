@@ -7,7 +7,6 @@ import { siteConfig } from '@/lib/config'
 import Link from 'next/link'
 import { SocialShare } from '@/components/SocialShare'
 import { ArticleTOC } from '@/components/ArticleTOC'
-import { PostContentPretext } from '@/components/PostContentPretext'
 
 interface PostPageProps {
   params: Promise<{
@@ -176,7 +175,10 @@ export default async function PostPage({ params }: PostPageProps) {
           </div>
         </header>
 
-        <PostContentPretext contentHtml={post.contentHtml} />
+        <div
+          className="prose max-w-none"
+          dangerouslySetInnerHTML={{ __html: post.contentHtml }}
+        />
 
         {/* Social Share - Bottom */}
         <div className="mt-10 pt-6 border-t border-pantone-border dark:border-[#3D3228]">

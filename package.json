@@ -12,7 +12,6 @@
     "images": "npm run process-images"
   },
   "dependencies": {
-    "@chenglou/pretext": "^0.0.3",
     "@tailwindcss/typography": "^0.5.16",
     "date-fns": "^4.1.0",
     "gray-matter": "^4.0.3",
