@@ -17,7 +17,7 @@ import {
 } from '@chenglou/pretext'
 
 const DESKTOP_MQ = '(min-width: 1024px)'
-const CURSOR_IMAGE_SIZE = 96
+const CURSOR_IMAGE_SIZE = 16
 const MIN_LINE_WIDTH = 48
 
 type ContentBlock =
