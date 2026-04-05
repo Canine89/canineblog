@@ -1,9 +1,10 @@
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { getAllPosts } from '@/lib/markdown'
 import { getServerT } from '@/i18n/server'
 import { withLocale } from '@/lib/locale-path'
 import { isLocale, type Locale } from '@/i18n/config'
 import { notFound } from 'next/navigation'
+import { postTitleVtName } from '@/lib/view-transition-names'
 
 export default async function AllPostsPage({
   params,
@@ -53,7 +54,7 @@ export default async function AllPostsPage({
           {allPosts.map((post) => (
             <article key={post.id} className="group relative">
               <Link href={withLocale(locale, `/posts/${post.id}`)} className="block">
-                <div className="h-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md">
+                <div className="h-full rounded-lg border border-gray-200 bg-white p-6 shadow-sm transition-shadow duration-200 hover:shadow-md motion-safe:transition-[transform,box-shadow] motion-safe:duration-200 motion-safe:ease-out motion-safe:group-hover:-translate-y-0.5">
                   <div className="mb-4 flex items-start justify-between">
                     <span
                       className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getCategoryColor(post.category || '')}`}
@@ -70,7 +71,10 @@ export default async function AllPostsPage({
                   </div>
 
                   <div className="space-y-3">
-                    <h3 className="line-clamp-2 text-lg font-semibold text-gray-900 transition-colors duration-200 group-hover:text-blue-600">
+                    <h3
+                      className="line-clamp-2 text-lg font-semibold text-gray-900 transition-colors duration-200 group-hover:text-blue-600"
+                      style={{ viewTransitionName: postTitleVtName(post.id) }}
+                    >
                       {post.title}
                     </h3>
                     <p className="line-clamp-3 text-sm text-gray-600">{post.excerpt}</p>

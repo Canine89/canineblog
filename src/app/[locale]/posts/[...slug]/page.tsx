@@ -11,6 +11,7 @@ import { getServerT } from '@/i18n/server'
 import { withLocale } from '@/lib/locale-path'
 import { locales, isLocale, type Locale } from '@/i18n/config'
 import { notFound } from 'next/navigation'
+import { POST_ARTICLE_FADE_VT, postThumbVtName, postTitleVtName } from '@/lib/view-transition-names'
 
 interface PostPageProps {
   params: Promise<{
@@ -154,7 +155,10 @@ export default async function PostPage({ params }: PostPageProps) {
         <header className="border-pantone-border mb-10 overflow-hidden border dark:border-[#3D3228]">
           <div
             className="pantone-swatch-bar relative h-20 sm:h-28"
-            style={{ backgroundColor: pantone.color }}
+            style={{
+              backgroundColor: pantone.color,
+              viewTransitionName: postThumbVtName(id),
+            }}
           >
             <div className="absolute bottom-0 right-0 px-4 py-3 text-right">
               <p className="text-[8px] font-semibold tracking-[0.15em] text-white/50">PANTONE</p>
@@ -166,7 +170,10 @@ export default async function PostPage({ params }: PostPageProps) {
             <time dateTime={post.date} className="text-xs text-gray-400 dark:text-[#9A8E82]">
               {format(new Date(post.date), 'yyyy년 MM월 dd일', { locale: ko })}
             </time>
-            <h1 className="text-pantone-ink dark:text-[#E8E0D6] text-3xl font-extrabold tracking-tight sm:text-4xl">
+            <h1
+              className="text-pantone-ink dark:text-[#E8E0D6] text-3xl font-extrabold tracking-tight sm:text-4xl"
+              style={{ viewTransitionName: postTitleVtName(id) }}
+            >
               {post.title}
             </h1>
             <p className="text-base leading-relaxed text-gray-500 dark:text-[#9A8E82]">
@@ -191,6 +198,7 @@ export default async function PostPage({ params }: PostPageProps) {
 
         <div
           className="prose max-w-none"
+          style={{ viewTransitionName: POST_ARTICLE_FADE_VT }}
           dangerouslySetInnerHTML={{ __html: post.contentHtml }}
         />
 

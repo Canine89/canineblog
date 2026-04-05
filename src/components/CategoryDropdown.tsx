@@ -60,7 +60,7 @@ export function CategoryDropdown({
       >
         <span>{t('nav.category')}</span>
         <svg 
-          className={`w-3.5 h-3.5 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
+          className={`w-3.5 h-3.5 transition-transform duration-200 motion-reduce:transition-none ${isOpen ? 'rotate-180' : ''}`} 
           fill="none" 
           stroke="currentColor" 
           viewBox="0 0 24 24"
@@ -70,7 +70,7 @@ export function CategoryDropdown({
       </button>
       
       {isOpen && (
-        <div className="absolute right-0 mt-3 w-64 bg-white dark:bg-[#2E2820] border border-pantone-border dark:border-[#3D3228] shadow-xl z-50 animate-in fade-in slide-in-from-top-1 duration-200">
+        <div className="absolute right-0 mt-3 z-50 w-64 border border-pantone-border bg-white shadow-xl animate-in fade-in slide-in-from-top-1 duration-200 motion-reduce:animate-none motion-reduce:transform-none dark:border-[#3D3228] dark:bg-[#2E2820]">
           {/* Mini swatch strip */}
           <div className="flex h-2">
             {categories.map((category) => {

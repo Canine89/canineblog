@@ -5,6 +5,7 @@ import { siteConfig } from '@/lib/config'
 import Script from 'next/script'
 import { headers } from 'next/headers'
 import { defaultLocale } from '@/i18n/config'
+import { ViewTransitionsProvider } from '@/components/ViewTransitionsProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -127,7 +128,7 @@ export default async function RootLayout({
         className={`${inter.className} bg-pantone-snow text-pantone-ink dark:bg-[#1A1410] dark:text-[#E8E0D6] antialiased transition-colors duration-300`}
         suppressHydrationWarning
       >
-        {children}
+        <ViewTransitionsProvider>{children}</ViewTransitionsProvider>
       </body>
     </html>
   )

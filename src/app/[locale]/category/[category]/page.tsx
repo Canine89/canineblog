@@ -2,12 +2,13 @@ import React from 'react'
 import { getAllPosts, getCategoriesFromFolders } from '@/lib/markdown'
 import { format } from 'date-fns'
 import { ko } from 'date-fns/locale'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { ChipReveal } from '@/components/ChipReveal'
 import { getServerT } from '@/i18n/server'
 import { withLocale } from '@/lib/locale-path'
+import { postThumbVtName, postTitleVtName } from '@/lib/view-transition-names'
 import { locales, isLocale, type Locale } from '@/i18n/config'
 
 interface CategoryPageProps {
@@ -109,20 +110,27 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
               <article>
                 <Link
                   href={withLocale(locale, `/posts/${post.id}`)}
-                  className="pantone-chip block h-full"
+                  className="pantone-chip group block h-full motion-safe:transition-[transform,box-shadow] motion-safe:duration-200 motion-safe:ease-out"
                 >
                   <div
-                    className="chip-swatch relative h-28"
-                    style={{ backgroundColor: pantone.color }}
+                    className="chip-swatch relative h-28 overflow-hidden"
+                    style={{ viewTransitionName: postThumbVtName(post.id) }}
                   >
-                    <div className="absolute bottom-0 right-0 px-3 py-2 text-right">
+                    <div
+                      className="chip-thumb-zoom absolute inset-0"
+                      style={{ backgroundColor: pantone.color }}
+                    />
+                    <div className="absolute bottom-0 right-0 z-10 px-3 py-2 text-right">
                       <p className="text-[7px] font-semibold tracking-[0.15em] text-white/50">PANTONE</p>
                       <p className="text-[10px] font-medium text-white/70">{pantone.code}</p>
                       <p className="text-[9px] text-white/50">{category}</p>
                     </div>
                   </div>
                   <div className="chip-info flex-1">
-                    <h3 className="text-pantone-ink dark:text-[#E8E0D6] line-clamp-2 text-[15px] font-bold leading-snug">
+                    <h3
+                      className="line-clamp-2 text-[15px] font-bold leading-snug text-pantone-ink dark:text-[#E8E0D6]"
+                      style={{ viewTransitionName: postTitleVtName(post.id) }}
+                    >
                       {post.title}
                     </h3>
                     <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-gray-500 dark:text-[#9A8E82]">

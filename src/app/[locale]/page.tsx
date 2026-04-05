@@ -64,28 +64,30 @@ export default async function HomePage({
         </div>
       </section>
 
-      <section className="space-y-6">
-        <div className="flex items-baseline justify-between">
-          <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400 dark:text-[#9A8E82]">
-            {t('home.allPosts')}
-          </h2>
-          <span className="text-xs tracking-widest text-gray-300 dark:text-[#9A8E82]">
-            {posts.length} {t('home.articles')}
-          </span>
-        </div>
+      <ScrollFade mode="reveal" direction="fade-in-only">
+        <section className="space-y-6">
+          <div className="flex items-baseline justify-between">
+            <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400 dark:text-[#9A8E82]">
+              {t('home.allPosts')}
+            </h2>
+            <span className="text-xs tracking-widest text-gray-300 dark:text-[#9A8E82]">
+              {posts.length} {t('home.articles')}
+            </span>
+          </div>
 
-        <PostGrid
-          locale={locale}
-          posts={posts.map((p) => ({
-            id: p.id,
-            title: p.title,
-            date: p.date,
-            excerpt: p.excerpt,
-            category: p.category,
-            tags: p.tags,
-          }))}
-        />
-      </section>
+          <PostGrid
+            locale={locale}
+            posts={posts.map((p) => ({
+              id: p.id,
+              title: p.title,
+              date: p.date,
+              excerpt: p.excerpt,
+              category: p.category,
+              tags: p.tags,
+            }))}
+          />
+        </section>
+      </ScrollFade>
     </div>
   )
 }

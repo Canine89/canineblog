@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
 
 interface ChipRevealProps {
   children: ReactNode
@@ -8,14 +9,17 @@ interface ChipRevealProps {
   className?: string
 }
 
-const STAGGER_MS = 80
+/** Stagger between cards when the grid enters the viewport (50–80ms) */
+const STAGGER_MS = 60
 const THRESHOLD = 0.15
 
 export function ChipReveal({ children, index = 0, className = '' }: ChipRevealProps) {
   const ref = useRef<HTMLDivElement>(null)
   const [visible, setVisible] = useState(false)
+  const reduceMotion = usePrefersReducedMotion()
 
   useEffect(() => {
+    if (reduceMotion) return
     const el = ref.current
     if (!el) return
 
@@ -31,13 +35,19 @@ export function ChipReveal({ children, index = 0, className = '' }: ChipRevealPr
 
     observer.observe(el)
     return () => observer.disconnect()
-  }, [])
+  }, [reduceMotion])
+
+  const show = reduceMotion || visible
+  const delayMs = reduceMotion ? 0 : index * STAGGER_MS
 
   return (
     <div
       ref={ref}
-      className={`chip-reveal ${visible ? 'chip-reveal--visible' : ''} ${className}`}
-      style={{ transitionDelay: `${index * STAGGER_MS}ms`, animationDelay: `${index * STAGGER_MS}ms` }}
+      className={`chip-reveal ${show ? 'chip-reveal--visible' : ''} ${className}`}
+      style={{
+        transitionDelay: `${delayMs}ms`,
+        animationDelay: `${delayMs}ms`,
+      }}
     >
       {children}
     </div>

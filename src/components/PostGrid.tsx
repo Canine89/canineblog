@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect, useRef, useCallback } from 'react'
-import Link from 'next/link'
+import { Link } from 'next-view-transitions'
 import { useTranslation } from 'react-i18next'
 import { withLocale } from '@/lib/locale-path'
 import type { Locale } from '@/i18n/config'
+import { postThumbVtName, postTitleVtName } from '@/lib/view-transition-names'
 import { ChipReveal } from './ChipReveal'
 
 interface Post {
@@ -22,10 +23,10 @@ interface PantoneInfo {
 }
 
 const CATEGORY_PANTONE: Record<string, PantoneInfo> = {
-  dev:      { color: '#E8734A', code: '16-1362 TCX' },
-  study:    { color: '#74A892', code: '16-5815 TCX' },
-  book:     { color: '#C4956A', code: '16-1432 TCX' },
-  think:    { color: '#A3677E', code: '17-1718 TCX' },
+  dev: { color: '#E8734A', code: '16-1362 TCX' },
+  study: { color: '#74A892', code: '16-5815 TCX' },
+  book: { color: '#C4956A', code: '16-1432 TCX' },
+  think: { color: '#A3677E', code: '17-1718 TCX' },
   'eng-dev': { color: '#4B7BA6', code: '17-4027 TCX' },
 }
 
@@ -81,30 +82,37 @@ export function PostGrid({ posts, locale }: { posts: Post[]; locale: Locale }) {
           const cat = post.category || 'dev'
           const pantone = CATEGORY_PANTONE[cat] || CATEGORY_PANTONE.dev
           return (
-            <ChipReveal key={post.id} index={i % BATCH}>
+            <ChipReveal key={post.id} index={i}>
               <article>
                 <Link
                   href={withLocale(locale, `/posts/${post.id}`)}
-                  className="pantone-chip block h-full"
+                  className="pantone-chip group block h-full motion-safe:transition-[transform,box-shadow] motion-safe:duration-200 motion-safe:ease-out"
                 >
                   <div
-                    className="chip-swatch h-32 sm:h-36 relative"
-                    style={{ backgroundColor: pantone.color }}
+                    className="chip-swatch relative h-32 overflow-hidden sm:h-36"
+                    style={{ viewTransitionName: postThumbVtName(post.id) }}
                   >
-                    <div className="absolute bottom-0 right-0 px-3 py-2 text-right">
-                      <p className="text-[7px] font-semibold text-white/50 tracking-[0.15em]">PANTONE</p>
+                    <div
+                      className="chip-thumb-zoom absolute inset-0"
+                      style={{ backgroundColor: pantone.color }}
+                    />
+                    <div className="absolute bottom-0 right-0 z-10 px-3 py-2 text-right">
+                      <p className="text-[7px] font-semibold tracking-[0.15em] text-white/50">PANTONE</p>
                       <p className="text-[10px] font-medium text-white/70">{pantone.code}</p>
                       <p className="text-[9px] text-white/50">{cat}</p>
                     </div>
                   </div>
                   <div className="chip-info flex-1">
-                    <h3 className="text-[15px] font-bold text-pantone-ink dark:text-[#E8E0D6] leading-snug line-clamp-2">
+                    <h3
+                      className="line-clamp-2 text-[15px] font-bold leading-snug text-pantone-ink dark:text-[#E8E0D6]"
+                      style={{ viewTransitionName: postTitleVtName(post.id) }}
+                    >
                       {post.title}
                     </h3>
-                    <p className="text-xs text-gray-500 dark:text-[#9A8E82] leading-relaxed mt-1 line-clamp-2">
+                    <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-gray-500 dark:text-[#9A8E82]">
                       {post.excerpt}
                     </p>
-                    <div className="mt-auto pt-3 flex items-center justify-between">
+                    <div className="mt-auto flex items-center justify-between pt-3">
                       <time className="text-[10px] text-gray-400 dark:text-[#9A8E82]">
                         {new Date(post.date).toLocaleDateString('ko-KR')}
                       </time>
@@ -124,14 +132,14 @@ export function PostGrid({ posts, locale }: { posts: Post[]; locale: Locale }) {
 
       {hasMore && (
         <div ref={loaderRef} className="flex justify-center py-8">
-          <span className="text-xs text-gray-400 dark:text-[#9A8E82] tracking-widest uppercase animate-pulse">
+          <span className="motion-reduce:animate-none animate-pulse text-xs tracking-widest text-gray-400 uppercase dark:text-[#9A8E82]">
             {t('home.loading')}
           </span>
         </div>
       )}
 
       {!hasMore && posts.length > BATCH && (
-        <p className="text-center text-xs text-gray-300 dark:text-[#9A8E82] tracking-widest pt-4">
+        <p className="pt-4 text-center text-xs tracking-widest text-gray-300 dark:text-[#9A8E82]">
           {posts.length} articles
         </p>
       )}

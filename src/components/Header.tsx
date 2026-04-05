@@ -51,7 +51,7 @@ export function Header({
   return (
     <header
       suppressHydrationWarning
-      className={`sticky top-0 z-50 transition-all duration-300 ${
+      className={`sticky top-0 z-50 transition-all duration-300 motion-reduce:transition-colors ${
         coral
           ? 'bg-pantone-blue'
           : 'border-b border-pantone-border bg-pantone-snow/95 backdrop-blur-sm dark:border-[#3D3228] dark:bg-[#1A1410]/95'

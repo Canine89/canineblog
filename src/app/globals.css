@@ -1,8 +1,14 @@
 @import "tailwindcss";
 
+/* Tailwind: motion variants for consistent prefers-reduced-motion handling */
+@custom-variant motion-reduce (@media (prefers-reduced-motion: reduce));
+@custom-variant motion-safe (@media (prefers-reduced-motion: no-preference));
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
   }
 
   body {
@@ -48,8 +54,14 @@
     pointer-events: none;
   }
 
+  /* Hover lift: motion only (micro-interaction); shadow/border stay for all users */
+  @media (prefers-reduced-motion: no-preference) {
+    .pantone-chip:hover {
+      transform: translateY(-2px);
+    }
+  }
+
   .pantone-chip:hover {
-    transform: translateY(-2px);
     border-color: rgba(232,115,74,0.3);
     box-shadow: 0 4px 12px rgba(0,0,0,0.06),
                 0 8px 24px rgba(0,0,0,0.04);
@@ -73,6 +85,18 @@
   .pantone-chip .chip-swatch {
     @apply w-full overflow-hidden;
     transition: filter 0.3s ease;
+  }
+
+  /* Thumbnail zoom on hover (PostGrid / category cards); disabled in reduced-motion via utilities */
+  @media (prefers-reduced-motion: no-preference) {
+    .pantone-chip:hover .chip-thumb-zoom {
+      transform: scale(1.02);
+    }
+  }
+
+  .chip-thumb-zoom {
+    transform: scale(1);
+    transition: transform 0.2s ease-out;
   }
 
   :is(.dark) .pantone-chip .chip-swatch {
@@ -361,6 +385,62 @@
   }
   .chip-hero-enter {
     animation: none;
+  }
+  .scroll-fade-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  .toc-chip:hover,
+  .toc-chip--active {
+    transform: none;
+  }
+}
+
+/* ScrollFade — reveal mode (Intersection Observer) */
+.scroll-fade-reveal {
+  opacity: 0;
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.45s ease-out;
+}
+
+.scroll-fade-reveal--fade-up:not(.scroll-fade-reveal--visible) {
+  transform: translateY(16px);
+}
+
+.scroll-fade-reveal--fade-in-only:not(.scroll-fade-reveal--visible) {
+  transform: none;
+}
+
+.scroll-fade-reveal--visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* View Transitions API — default root crossfade; named pairs morph */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 280ms;
+    animation-timing-function: ease-out;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 1ms !important;
+  }
+}
+
+/* Article body: fade on enter (pairs with post-article-* name on detail page) */
+@media (prefers-reduced-motion: no-preference) {
+  ::view-transition-old(post-article-fade),
+  ::view-transition-new(post-article-fade) {
+    animation-duration: 240ms;
+    animation-timing-function: ease-out;
   }
 }
 
