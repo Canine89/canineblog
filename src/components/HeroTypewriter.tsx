@@ -76,7 +76,7 @@ export function HeroTypewriter({ lines, subtitle }: HeroTypewriterProps) {
   return (
     <>
       <h1
-        className="hero-title max-w-3xl text-5xl font-medium leading-[1.02] tracking-[-0.055em] text-white sm:text-7xl lg:text-8xl"
+        className="hero-title max-w-3xl text-5xl font-medium tracking-[-0.055em] text-white sm:text-7xl lg:text-8xl"
         aria-label={lines.join(' ')}
       >
         {lines.map((line, index) => (

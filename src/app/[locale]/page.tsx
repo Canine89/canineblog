@@ -56,7 +56,7 @@ export default async function HomePage({
       >
         <ScrollFade className="mx-auto flex w-full max-w-6xl flex-1 items-center px-0" distance={100}>
             <div className="grid w-full gap-8 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
-              <div className="space-y-6">
+              <div className="space-y-5">
                 <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">
                   AI / AGENT Editorial Lab
                 </p>
