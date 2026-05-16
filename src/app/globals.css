@@ -284,6 +284,57 @@
   white-space: nowrap;
 }
 
+.hero-type-line,
+.hero-type-subtitle {
+  --type-chars: 10;
+  --type-delay: 0s;
+  --type-duration: 0.72s;
+  width: 0;
+  max-width: max-content;
+  overflow: hidden;
+  border-right: 0.055em solid rgba(255, 255, 255, 0.78);
+  white-space: nowrap;
+  opacity: 0;
+  animation:
+    hero-type-reveal var(--type-duration) steps(var(--type-chars), end) var(--type-delay) forwards,
+    hero-type-caret 0.72s steps(1, end) var(--type-delay) infinite,
+    hero-type-caret-fade 0.01s linear calc(var(--type-delay) + var(--type-duration) + 0.08s) forwards;
+}
+
+.hero-type-subtitle {
+  --type-duration: 0.96s;
+  display: block;
+  letter-spacing: 0;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
+}
+
+@keyframes hero-type-reveal {
+  0% {
+    width: 0;
+    opacity: 1;
+  }
+  100% {
+    width: var(--type-width, calc(var(--type-chars) * 1ch));
+    opacity: 1;
+  }
+}
+
+@keyframes hero-type-caret {
+  0%,
+  100% {
+    border-color: rgba(255, 255, 255, 0);
+  }
+  50% {
+    border-color: rgba(255, 255, 255, 0.78);
+  }
+}
+
+@keyframes hero-type-caret-fade {
+  to {
+    border-color: transparent;
+  }
+}
+
 .liquid-hero .scroll-fade,
 .liquid-hero h1 {
   text-shadow: 0 2px 24px rgba(0, 0, 0, 0.32);
@@ -500,6 +551,15 @@
   .site-backdrop::before,
   .site-backdrop__flow,
   .liquid-chrome::before {
+    animation: none;
+  }
+
+  .hero-type-line,
+  .hero-type-subtitle {
+    width: auto;
+    max-width: none;
+    border-right: 0;
+    opacity: 1;
     animation: none;
   }
 }
