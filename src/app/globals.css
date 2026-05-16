@@ -277,8 +277,8 @@
 .hero-title {
   display: flex;
   flex-direction: column;
-  gap: clamp(0.08em, 0.7vw, 0.16em);
-  line-height: 0.9;
+  gap: 0;
+  line-height: 0.82;
   word-break: keep-all;
   overflow-wrap: normal;
 }
@@ -295,12 +295,12 @@
 }
 
 .hero-typewriter__line {
-  min-height: 0.9em;
+  min-height: 0.82em;
 }
 
 .hero-typewriter__subtitle {
   min-height: 1.55rem;
-  margin-top: clamp(0.75rem, 1.8vw, 1.25rem);
+  margin-top: clamp(0.65rem, 1.4vw, 1rem);
   text-shadow: 0 2px 16px rgba(0, 0, 0, 0.3);
 }
 
