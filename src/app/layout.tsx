@@ -1,13 +1,10 @@
 import type { Metadata, Viewport } from 'next'
-import { Inter } from 'next/font/google'
 import './globals.css'
 import { siteConfig } from '@/lib/config'
 import Script from 'next/script'
 import { headers } from 'next/headers'
 import { defaultLocale } from '@/i18n/config'
 import { ViewTransitionsProvider } from '@/components/ViewTransitionsProvider'
-
-const inter = Inter({ subsets: ['latin'] })
 
 declare global {
   interface Window {
@@ -80,7 +77,7 @@ export const metadata: Metadata = {
   },
   other: {
     'theme-color': '#000000',
-    'color-scheme': 'light dark',
+    'color-scheme': 'light',
   },
   icons: {
     icon: [
@@ -106,6 +103,10 @@ export default async function RootLayout({
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/fonts-archive/Paperlogy/Paperlogy.css"
+        />
         <Script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.google?.analyticsId || 'G-XXXXXXXXXX'}`}
@@ -125,7 +126,7 @@ export default async function RootLayout({
         </Script>
       </head>
       <body
-        className={`${inter.className} bg-pantone-snow text-pantone-ink dark:bg-[#1A1410] dark:text-[#E8E0D6] antialiased transition-colors duration-300`}
+        className="bg-[#FAF9F5] text-[#141413] antialiased transition-colors duration-300"
         suppressHydrationWarning
       >
         <ViewTransitionsProvider>{children}</ViewTransitionsProvider>

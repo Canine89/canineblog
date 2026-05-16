@@ -50,7 +50,7 @@ export default function Navigation() {
           <div className="flex-shrink-0">
             <Link href="/" className="flex items-center space-x-2 text-lg font-semibold text-gray-900 hover:text-gray-700 transition-colors">
               <span className="text-xl">📝</span>
-              <span>편집자P의 편집실</span>
+              <span>편집자P의 AI/AGENT 편집실</span>
             </Link>
           </div>
 

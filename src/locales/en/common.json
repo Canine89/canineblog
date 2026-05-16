@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "Editor P's Studio",
+    "title": "Editor P's AI/AGENT Studio",
     "description": "Study, write, master.",
     "byAuthor": "by {{name}}"
   },
@@ -41,7 +41,7 @@
   "categoryPage": {
     "notFoundTitle": "Category not found",
     "notFoundDesc": "The requested category does not exist.",
-    "metaTitle": "{{name}} · Editor P's Studio"
+    "metaTitle": "{{name}} · Editor P's AI/AGENT Studio"
   },
   "meta": {
     "homeTitle": "Home",

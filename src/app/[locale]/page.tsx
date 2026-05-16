@@ -2,25 +2,11 @@ import { getAllPosts } from '@/lib/markdown'
 import { siteConfig } from '@/lib/config'
 import { ScrollFade } from '@/components/ScrollFade'
 import { PostGrid } from '@/components/PostGrid'
+import { HeroTypewriter } from '@/components/HeroTypewriter'
 import { getServerT } from '@/i18n/server'
 import { isLocale, type Locale } from '@/i18n/config'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
-import type { CSSProperties } from 'react'
-
-function typeStyle(
-  chars: number,
-  delay: string,
-  width: string,
-  duration = '0.72s'
-): CSSProperties {
-  return {
-    '--type-chars': chars,
-    '--type-delay': delay,
-    '--type-duration': duration,
-    '--type-width': width,
-  } as CSSProperties
-}
 
 export default async function HomePage({
   params,
@@ -74,42 +60,14 @@ export default async function HomePage({
                 <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-white/55">
                   AI / AGENT Editorial Lab
                 </p>
-                <h1
-                  className="hero-title max-w-3xl text-5xl font-medium leading-[1.02] tracking-[-0.055em] text-white sm:text-7xl lg:text-8xl"
-                >
-                  {locale === 'ko' ? (
-                    <>
-                      <span className="hero-type-line" style={typeStyle(5, '0.18s', '5.1em')}>
-                        편집자P의
-                      </span>
-                      <span className="hero-type-line" style={typeStyle(8, '0.92s', '4.9em')}>
-                        AI/AGENT
-                      </span>
-                      <span className="hero-type-line" style={typeStyle(3, '1.84s', '3.05em', '0.52s')}>
-                        편집실
-                      </span>
-                    </>
-                  ) : (
-                    <>
-                      <span className="hero-type-line" style={typeStyle(10, '0.18s', '6.2em', '0.82s')}>
-                        Editor P&apos;s
-                      </span>
-                      <span className="hero-type-line" style={typeStyle(15, '1.08s', '9.4em', '1.05s')}>
-                        AI/AGENT Studio
-                      </span>
-                    </>
-                  )}
-                </h1>
-                <p
-                  className="hero-type-subtitle max-w-xl text-base font-medium leading-7 text-white/72 sm:text-lg"
-                  style={
+                <HeroTypewriter
+                  lines={
                     locale === 'ko'
-                      ? typeStyle(13, '2.34s', '13.5em', '0.9s')
-                      : typeStyle(24, '2.32s', '17.5em', '1.08s')
+                      ? ['편집자P의', 'AI/AGENT', '편집실']
+                      : ["Editor P's", 'AI/AGENT Studio']
                   }
-                >
-                  {t('site.description')}
-                </p>
+                  subtitle={t('site.description')}
+                />
               </div>
 
               <div className="liquid-profile-panel">

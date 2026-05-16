@@ -169,14 +169,6 @@ export function MobileNav({
             >
               {t('nav.books')}
             </Link>
-            <Link
-              href={withLocale(locale, '/about')}
-              onClick={closeMenu}
-              className="block px-4 py-2.5 text-sm text-pantone-ink transition-colors hover:bg-pantone-snow dark:text-[#E8E0D6] dark:hover:bg-[#252019]"
-              role="menuitem"
-            >
-              {t('nav.about')}
-            </Link>
           </div>
 
           <div className="h-1.5 bg-pantone-blue" />

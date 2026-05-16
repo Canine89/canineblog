@@ -1,6 +1,6 @@
 {
   "site": {
-    "title": "편집자P의 편집실",
+    "title": "편집자P의 AI/AGENT 편집실",
     "description": "공부하고, 쓰고, 익혀라",
     "byAuthor": "by {{name}}"
   },
@@ -41,7 +41,7 @@
   "categoryPage": {
     "notFoundTitle": "카테고리를 찾을 수 없습니다",
     "notFoundDesc": "요청하신 카테고리를 찾을 수 없습니다.",
-    "metaTitle": "{{name}} - 편집자P의 편집실"
+    "metaTitle": "{{name}} - 편집자P의 AI/AGENT 편집실"
   },
   "meta": {
     "homeTitle": "홈",
